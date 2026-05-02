@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumina · Sistema Educacional</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Lumina theme -->
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <style>
+    body {
+      background: #050507;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Nav superior ── */
+    .top-nav {
+      background: transparent;
+      padding: 1rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+    .top-nav-links { display: flex; gap: 2rem; }
+    .top-nav-links a {
+      color: var(--text-1);
+      font-weight: 600;
+      font-size: .95rem;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .top-nav-links a:hover { color: var(--purple-light); }
+    .top-nav-logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: .1em;
+      color: white;
+      text-transform: uppercase;
+    }
+
+    /* ── Corpo ── */
+    .login-page {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .login-page::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 65%;
+      background: radial-gradient(ellipse 90% 80% at 65% 55%,
+        rgba(140,60,240,.55) 0%,
+        rgba(100,40,200,.3) 35%,
+        rgba(60,20,140,.15) 60%,
+        transparent 80%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Painel esquerdo ── */
+    .login-panel {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      padding: 2rem 2.5rem 2.5rem 3rem;
+    }
+    .login-card {
+      background: #3b2a7a;
+      border-radius: 24px;
+      padding: 2.4rem 2.5rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 8px 48px rgba(0,0,0,.6), 0 0 48px rgba(107,63,207,.2);
+    }
+    .login-card h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 1.6rem;
+      color: var(--text-1);
+      font-family: var(--font-display);
+    }
+    .login-card .form-label {
+      color: var(--text-1);
+      font-weight: 700;
+      font-size: .9rem;
+    }
+
+    /* Link "Esqueci minha senha" */
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: .82rem;
+      color: var(--text-2);
+      margin-top: .3rem;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .forgot-link:hover { color: var(--purple-light); }
+
+    /* Botão Entrar */
+    .login-card .btn-primary {
+      background: #111 !important;
+      border-color: #111 !important;
+      color: #fff !important;
+      font-size: 1rem !important;
+      padding: .85rem !important;
+      margin-top: 1.25rem;
+      border-radius: var(--radius-pill) !important;
+      font-family: var(--font-display) !important;
+      font-weight: 700 !important;
+    }
+    .login-card .btn-primary:hover {
+      background: #000 !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,.6) !important;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: .85rem;
+      color: var(--text-2);
+    }
+    .register-link a {
+      color: var(--text-1);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    /* Erros */
+    .error-list { margin-top: .5rem; display: none; }
+    .error-list.show { display: block; }
+    .error-list p {
+      color: var(--red);
+      font-size: .82rem;
+      font-weight: 500;
+      margin-bottom: .2rem;
+    }
+    .error-dados {
+      display: none;
+      align-items: center;
+      gap: .6rem;
+      background: #f5f0ff;
+      border-radius: var(--radius-pill);
+      padding: .7rem 1.2rem;
+      margin-top: 1rem;
+      color: var(--red);
+      font-weight: 700;
+      font-size: .9rem;
+    }
+    .error-dados.show { display: flex; }
+
+    /* ── Lado direito — Logo ── */
+    .login-visual {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .lumina-logo-big {
+      width: 320px;
+      filter: drop-shadow(0 0 40px rgba(140,60,240,.5));
+      animation: floatLogo 6s ease-in-out infinite;
+    }
+    .lumina-name {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: .2em;
+      color: var(--text-1);
+      text-transform: uppercase;
+      text-shadow: 0 0 32px rgba(200,180,255,.4);
+    }
+
+    /* Botão Sair fixo */
+    .btn-sair {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #fff;
+      color: #111;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: .7rem 2rem;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,.3);
+      transition: all .2s;
+      z-index: 10;
+    }
+    .btn-sair:hover { background: #f0ecff; transform: translateY(-1px); }
+
+    /* Alternância de modos */
+    .form-mode { display: none; }
+    .form-mode.active { display: block; }
+
+    @media (max-width: 860px) {
+      .login-page { grid-template-columns: 1fr; }
+      .login-visual { display: none; }
+      .login-panel { justify-content: center; padding: 2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav superior -->
+  <nav class="top-nav">
+    <div class="top-nav-links">
+      <a href="#" onclick="setMode('login')">Aluno</a>
+      <a href="#" onclick="setMode('login')">Professor</a>
+    </div>
+
+    <div class="top-nav-logo">LUMINA</div>
+
+    <div class="d-flex gap-3">
+      <a href="#" style="color:white;font-weight:600;text-decoration:none;">Análise</a>
+      <a href="#" style="color:white;font-weight:600;text-decoration:none;">Contate-nos</a>
+    </div>
+  </nav>
+
+  <!-- Corpo -->
+  <div class="login-page">
+
+    <!-- Card esquerdo -->
+    <div class="login-panel">
+      <div class="login-card">
+
+        <!-- ── Modo Login ── -->
+        <div id="mode-login" class="form-mode active">
+          <h2>Login</h2>
+
+          <div class="form-group">
+            <label class="form-label">CPF</label>
+            <input type="text" id="login-cpf" class="form-control" maxlength="11" placeholder="00000000000" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Senha</label>
+            <input type="password" id="login-senha" class="form-control" placeholder="••••••••" />
+            <div class="error-list" id="err-senha-rules">
+              <p>⚠ Deve conter pelo menos 8 caracteres</p>
+              <p>⚠ 1 caractere especial [@!*]</p>
+              <p>⚠ Letra maiúscula e minúscula</p>
+            </div>
+          </div>
+
+          <span class="forgot-link" onclick="setMode('recuperar')">Esqueci minha senha</span>
+
+          <div class="error-dados" id="err-dados">
+            ⚠ Dados inválidos!
+          </div>
+
+          <button class="btn btn-primary w-100" onclick="fazerLogin()">Entrar</button>
+
+          <div class="register-link">
+            Não tem conta? <a href="#" onclick="setMode('cadastro')">Cadastre-se</a>
+          </div>
+        </div>
+
+        <!-- ── Modo Cadastro ── -->
+        <div id="mode-cadastro" class="form-mode">
+          <h2>Cadastro</h2>
+
+          <div class="form-group">
+            <label class="form-label">CPF:</label>
+            <input type="text" id="cad-cpf" class="form-control" maxlength="11" placeholder="00000000000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nome completo:</label>
+            <input type="text" id="cad-nome" class="form-control" placeholder="Seu nome completo" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email:</label>
+            <input type="email" id="cad-email" class="form-control" placeholder="seu@email.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Palavra para recuperação de senha:</label>
+            <input type="text" id="cad-palavra" class="form-control" placeholder="Ex: nomeDoPet2025" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Perfil:</label>
+            <select id="cad-perfil" class="form-select">
+              <option value="Aluno">Aluno</option>
+              <option value="Professor">Professor</option>
+              <option value="Secretaria">Secretaria</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Senha:</label>
+            <input type="password" id="cad-senha" class="form-control" placeholder="Mín. 8 caracteres" />
+            <div style="margin-top:.5rem;font-size:.78rem;color:var(--text-2)">
+              Deve conter pelo menos 8 caracteres<br>
+              1 caractere especial [@!*]<br>
+              Letra maiúscula e minúscula
+            </div>
+          </div>
+
+          <div id="msg-cadastro"></div>
+
+          <button class="btn btn-primary w-100 mt-2" onclick="fazerCadastro()">Criar</button>
+
+          <div class="register-link mt-2">
+            Já tem conta? <a href="#" onclick="setMode('login')">Entrar</a>
+          </div>
+        </div>
+
+        <!-- ── Modo Recuperar ── -->
+        <div id="mode-recuperar" class="form-mode">
+          <h2>Recuperar</h2>
+
+          <div class="form-group">
+            <label class="form-label">CPF:</label>
+            <input type="text" id="rec-cpf" class="form-control" maxlength="11" placeholder="00000000000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Palavra-chave:</label>
+            <input type="text" id="rec-palavra" class="form-control" placeholder="Palavra cadastrada" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nova senha:</label>
+            <input type="password" id="rec-senha" class="form-control" placeholder="Mín. 8 caracteres" />
+          </div>
+
+          <div id="msg-recuperar"></div>
+
+          <button class="btn btn-primary w-100 mt-2" onclick="recuperarSenha()">Redefinir senha</button>
+
+          <div class="register-link mt-2">
+            Lembrou? <a href="#" onclick="setMode('login')">Entrar</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Logo lado direito -->
+    <div class="login-visual">
+      <svg class="lumina-logo-big" viewBox="0 0 300 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.95">
+          <polygon points="60,140 130,60 200,140 130,220" stroke="white" stroke-width="8" fill="none" opacity=".9"/>
+          <polygon points="100,140 170,60 240,140 170,220" stroke="white" stroke-width="8" fill="none" opacity=".9"/>
+          <polygon points="75,140 130,85 185,140 130,195" stroke="white" stroke-width="5" fill="none" opacity=".6"/>
+          <polygon points="115,140 170,85 225,140 170,195" stroke="white" stroke-width="5" fill="none" opacity=".6"/>
+          <polygon points="130,110 170,110 185,140 170,170 130,170 115,140" fill="white" opacity=".15"/>
+        </g>
+      </svg>
+      <div class="lumina-name">LUMINA</div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script>
+    if (Auth.estaLogado()) redirecionarPorPerfil(Auth.getPerfil());
+
+    function redirecionarPorPerfil(perfil) {
+      const rotas = { Aluno: '/aluno.html', Professor: '/professor.html', Secretaria: '/secretaria.html' };
+      window.location.href = rotas[perfil] || '/index.html';
+    }
+
+    function setMode(modo) {
+      document.querySelectorAll('.form-mode').forEach(el => el.classList.remove('active'));
+      document.getElementById(`mode-${modo}`).classList.add('active');
+      ocultarErros();
+    }
+
+    function ocultarErros() {
+      document.getElementById('err-dados').classList.remove('show');
+      document.getElementById('err-senha-rules').classList.remove('show');
+    }
+
+    async function fazerLogin() {
+      ocultarErros();
+      const cpf   = document.getElementById('login-cpf').value.trim();
+      const senha = document.getElementById('login-senha').value;
+
+      const senhaOk = senha.length >= 8
+        && /[A-Z]/.test(senha) && /[a-z]/.test(senha)
+        && /[@!*#$%^&()\-_+=]/.test(senha);
+
+      if (!senhaOk) {
+        document.getElementById('err-senha-rules').classList.add('show');
+        return;
+      }
+
+      const btn = event.target;
+      mostrarLoader(btn);
+      const res = await post('/auth/login', { cpf, senha });
+      esconderLoader(btn);
+
+      if (res?.ok) {
+        Auth.salvar(res.data.dados);
+        setTimeout(() => redirecionarPorPerfil(res.data.dados.perfil), 300);
+      } else {
+        document.getElementById('err-dados').classList.add('show');
+      }
+    }
+
+    async function fazerCadastro() {
+      const msgEl = document.getElementById('msg-cadastro');
+      msgEl.innerHTML = '';
+      const body = {
+        cpf:          document.getElementById('cad-cpf').value.trim(),
+        nome:         document.getElementById('cad-nome').value.trim(),
+        email:        document.getElementById('cad-email').value.trim(),
+        palavraChave: document.getElementById('cad-palavra').value.trim(),
+        perfil:       document.getElementById('cad-perfil').value,
+        senha:        document.getElementById('cad-senha').value,
+      };
+
+      const btn = event.target;
+      mostrarLoader(btn);
+      const res = await post('/auth/cadastrar', body);
+      esconderLoader(btn);
+
+      if (res?.ok) {
+        msgEl.innerHTML = `<div class="alert alert-success mt-2">✓ Conta criada! Faça login.</div>`;
+        setTimeout(() => setMode('login'), 1800);
+      } else {
+        msgEl.innerHTML = `<div class="alert alert-danger mt-2">⚠ ${res?.data?.mensagem || 'Erro ao cadastrar.'}</div>`;
+      }
+    }
+
+    async function recuperarSenha() {
+      const msgEl = document.getElementById('msg-recuperar');
+      const body = {
+        cpf:          document.getElementById('rec-cpf').value.trim(),
+        palavraChave: document.getElementById('rec-palavra').value.trim(),
+        novaSenha:    document.getElementById('rec-senha').value,
+      };
+
+      const btn = event.target;
+      mostrarLoader(btn);
+      const res = await post('/auth/redefinir-senha', body);
+      esconderLoader(btn);
+
+      if (res?.ok) {
+        msgEl.innerHTML = `<div class="alert alert-success mt-2">✓ Senha redefinida!</div>`;
+        setTimeout(() => setMode('login'), 1500);
+      } else {
+        msgEl.innerHTML = `<div class="alert alert-danger mt-2">⚠ ${res?.data?.mensagem || 'Erro.'}</div>`;
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && document.getElementById('mode-login').classList.contains('active'))
+        fazerLogin();
+    });
+  </script>
+</body>
+</html>

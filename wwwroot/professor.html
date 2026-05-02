@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professor — Lumina</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <svg class="logo-svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="14,2 26,14 14,26 2,14" fill="none" stroke="url(#luGradP1)" stroke-width="2"/>
+          <polygon points="14,7 21,14 14,21 7,14" fill="url(#luGradP1)" opacity="0.8"/>
+          <defs>
+            <linearGradient id="luGradP1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#a78bfa"/>
+              <stop offset="100%" stop-color="#6b3fcf"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div>LUMINA <span class="brand-sub">Sistema Educacional</span></div>
+      </a>
+      <div class="d-flex align-items-center gap-3 ms-auto">
+        <span class="badge-perfil">Professor</span>
+        <span id="nav-nome" class="muted"></span>
+        <button class="btn btn-ghost btn-sm" onclick="logout()">Sair</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Menu</div>
+        <button class="sidebar-item active" data-secao="sec-inicio" onclick="navegarPara('sec-inicio')">
+          <span class="icon">🏠</span> Início
+        </button>
+        <button class="sidebar-item" data-secao="sec-materias" onclick="navegarPara('sec-materias'); carregarMaterias()">
+          <span class="icon">📚</span> Matérias
+        </button>
+        <button class="sidebar-item" data-secao="sec-turmas" onclick="navegarPara('sec-turmas'); carregarTurmas()">
+          <span class="icon">🎓</span> Turmas
+        </button>
+        <button class="sidebar-item" data-secao="sec-atividades" onclick="navegarPara('sec-atividades'); carregarAtividades()">
+          <span class="icon">📝</span> Atividades
+        </button>
+        <button class="sidebar-item" data-secao="sec-ranking" onclick="navegarPara('sec-ranking'); carregarRanking()">
+          <span class="icon">🏆</span> Ranking
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+
+      <!-- ── Início ── -->
+      <section id="sec-inicio" class="section active fade-in">
+        <div class="section-header">
+          <h2>Painel do <span class="accent">Professor</span></h2>
+          <p class="muted">Gerencie suas matérias, turmas e atividades</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-icon">📚</span>
+            <div class="stat-value" id="stat-materias">—</div>
+            <div class="stat-label">Matérias</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">🎓</span>
+            <div class="stat-value" id="stat-turmas">—</div>
+            <div class="stat-label">Turmas</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">📝</span>
+            <div class="stat-value" id="stat-atividades">—</div>
+            <div class="stat-label">Atividades criadas</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">🏆 Ranking Geral</div></div>
+          <div id="home-ranking"></div>
+        </div>
+      </section>
+
+      <!-- ── Matérias ── -->
+      <section id="sec-materias" class="section fade-in">
+        <div class="section-header" style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div><h2>📚 Matérias</h2><p class="muted">Gerencie suas matérias e conteúdos</p></div>
+          <button class="btn btn-primary" onclick="abrirModal('modal-nova-materia')">+ Nova Matéria</button>
+        </div>
+        <div id="materias-list"></div>
+      </section>
+
+      <!-- ── Turmas ── -->
+      <section id="sec-turmas" class="section fade-in">
+        <div class="section-header" style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div><h2>🎓 Turmas</h2><p class="muted">Gerencie turmas e matrículas</p></div>
+          <button class="btn btn-primary" onclick="abrirModal('modal-nova-turma')">+ Nova Turma</button>
+        </div>
+        <div id="turmas-list"></div>
+      </section>
+
+      <!-- ── Atividades ── -->
+      <section id="sec-atividades" class="section fade-in">
+        <div class="section-header" style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div><h2>📝 Atividades</h2><p class="muted">Crie e gerencie atividades</p></div>
+          <button class="btn btn-primary" onclick="abrirModal('modal-nova-atividade')">+ Nova Atividade</button>
+        </div>
+        <div id="atividades-list"></div>
+      </section>
+
+      <!-- ── Ranking ── -->
+      <section id="sec-ranking" class="section fade-in">
+        <div class="section-header"><h2>🏆 Ranking Geral</h2><p class="muted">Desempenho dos alunos</p></div>
+        <div class="card">
+          <div id="ranking-list"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal: Nova Matéria -->
+  <div class="modal fade" id="modal-nova-materia" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">📚 Nova Matéria</h5>
+          <button type="button" class="btn-close" onclick="fecharModal('modal-nova-materia')" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Nome da matéria</label>
+            <input type="text" id="mat-nome" class="form-control" placeholder="Ex: Programação em C#" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Descrição</label>
+            <textarea id="mat-desc" class="form-control" placeholder="Breve descrição..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost btn-sm" onclick="fecharModal('modal-nova-materia')">Cancelar</button>
+          <button id="btn-criar-materia" class="btn btn-primary" onclick="criarMateria()">Criar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Novo Conteúdo -->
+  <div class="modal fade" id="modal-novo-conteudo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">📄 Novo Conteúdo</h5>
+          <button type="button" class="btn-close" onclick="fecharModal('modal-novo-conteudo')" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="cont-materia-id" />
+          <div class="form-group">
+            <label class="form-label">Título</label>
+            <input type="text" id="cont-titulo" class="form-control" placeholder="Título do conteúdo" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Texto</label>
+            <textarea id="cont-texto" class="form-control" style="min-height:150px" placeholder="Conteúdo da aula..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost btn-sm" onclick="fecharModal('modal-novo-conteudo')">Cancelar</button>
+          <button id="btn-criar-conteudo" class="btn btn-primary" onclick="criarConteudo()">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Nova Turma -->
+  <div class="modal fade" id="modal-nova-turma" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">🎓 Nova Turma</h5>
+          <button type="button" class="btn-close" onclick="fecharModal('modal-nova-turma')" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Código da turma</label>
+            <input type="text" id="turma-codigo" class="form-control" placeholder="Ex: ADS-2025-N1" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Matéria</label>
+            <select id="turma-materia" class="form-select"><option value="">Selecione...</option></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Horário</label>
+            <input type="text" id="turma-horario" class="form-control" placeholder="Ex: Seg/Qua 19h-21h" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost btn-sm" onclick="fecharModal('modal-nova-turma')">Cancelar</button>
+          <button id="btn-criar-turma" class="btn btn-primary" onclick="criarTurma()">Criar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Matricular Aluno -->
+  <div class="modal fade" id="modal-matricular" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">➕ Matricular Aluno</h5>
+          <button type="button" class="btn-close" onclick="fecharModal('modal-matricular')" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="mat-turma-codigo" />
+          <div class="form-group">
+            <label class="form-label">CPF do Aluno (11 dígitos)</label>
+            <input type="text" id="mat-aluno-cpf" class="form-control" placeholder="00000000000" maxlength="11" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost btn-sm" onclick="fecharModal('modal-matricular')">Cancelar</button>
+          <button id="btn-matricular" class="btn btn-primary" onclick="matricularAluno()">Matricular</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Nova Atividade -->
+  <div class="modal fade" id="modal-nova-atividade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">📝 Nova Atividade</h5>
+          <button type="button" class="btn-close" onclick="fecharModal('modal-nova-atividade')" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Título</label>
+            <input type="text" id="atv-titulo" class="form-control" placeholder="Título da atividade" />
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Matéria</label>
+              <select id="atv-materia" class="form-select"><option value="">Selecione...</option></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Turma (opcional)</label>
+              <input type="text" id="atv-turma" class="form-control" placeholder="Código da turma ou deixe em branco" />
+            </div>
+          </div>
+
+          <div id="perguntas-container"></div>
+          <button class="btn btn-ghost btn-sm mt-2" onclick="adicionarPergunta()">+ Adicionar Pergunta</button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost btn-sm" onclick="fecharModal('modal-nova-atividade')">Cancelar</button>
+          <button id="btn-criar-atividade" class="btn btn-primary" onclick="criarAtividade()">Criar Atividade</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/professor.js"></script>
+</body>
+</html>
