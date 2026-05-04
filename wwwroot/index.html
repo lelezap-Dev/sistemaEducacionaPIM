@@ -164,6 +164,22 @@
     }
     .error-dados.show { display: flex; }
 
+    /* ── Toggle senha ── */
+    .senha-wrapper { position: relative; }
+    .senha-wrapper .form-control { padding-right: 2.8rem; }
+    .btn-olho {
+      position: absolute; right: .75rem; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none;
+      cursor: pointer; padding: .2rem;
+      color: rgba(0,0,0,.35);
+      display: flex; align-items: center;
+      transition: color .15s;
+      line-height: 1;
+    }
+    .btn-olho:hover { color: rgba(0,0,0,.65); }
+    .btn-olho svg { width: 18px; height: 18px; display: block; }
+
     /* ── Lado direito — Logo ── */
     .login-visual {
       position: relative;
@@ -218,6 +234,143 @@
       .login-visual { display: none; }
       .login-panel { justify-content: center; padding: 2rem 1rem; }
     }
+
+    /* ── Overlay / Modal genérico ── */
+    .lm-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.75);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .lm-overlay.open { display: flex; }
+    .lm-modal {
+      background: #1a0f3a;
+      border: 1px solid rgba(167,139,250,.3);
+      border-radius: 20px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      box-shadow: 0 16px 64px rgba(0,0,0,.7), 0 0 40px rgba(107,63,207,.25);
+      animation: fadeUp .3s ease;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .lm-modal-close {
+      position: absolute; top: 1.1rem; right: 1.2rem;
+      background: none; border: none;
+      color: rgba(255,255,255,.5); font-size: 1.4rem; cursor: pointer;
+      line-height: 1; transition: color .2s;
+    }
+    .lm-modal-close:hover { color: #fff; }
+    .lm-modal h3 {
+      font-family: var(--font-display); font-size: 1.5rem;
+      font-weight: 800; color: #fff; margin-bottom: .3rem;
+    }
+    .lm-modal p.sub { color: rgba(255,255,255,.55); font-size: .88rem; margin-bottom: 1.4rem; }
+    .lm-modal .form-label { color: rgba(255,255,255,.85); font-weight: 600; font-size: .88rem; }
+    .lm-modal .form-control,
+    .lm-modal .form-control:focus {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(167,139,250,.35);
+      color: #fff; border-radius: 10px;
+    }
+    .lm-modal .form-control::placeholder { color: rgba(255,255,255,.35); }
+    .lm-modal .form-control:focus {
+      border-color: #a78bfa; box-shadow: 0 0 0 3px rgba(167,139,250,.2);
+    }
+
+    /* ── Estrelas ── */
+    .star-row { display: flex; align-items: center; gap: .6rem; margin: .5rem 0 1rem; }
+    .star {
+      font-size: 2rem; cursor: pointer;
+      color: rgba(255,255,255,.2);
+      transition: color .15s, transform .1s;
+      line-height: 1;
+    }
+    .star.lit  { color: #f0c040; }
+    .star:hover { transform: scale(1.15); }
+    .star-label {
+      font-size: 1rem; font-weight: 700;
+      color: rgba(255,255,255,.7); min-width: 2.5rem;
+    }
+
+    /* ── Contato ── */
+    .contact-card {
+      display: flex; align-items: center; gap: 1rem;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(167,139,250,.2);
+      border-radius: 12px; padding: .9rem 1.2rem;
+      margin-bottom: .75rem; transition: background .2s;
+    }
+    .contact-card:hover { background: rgba(167,139,250,.12); }
+    .contact-icon { font-size: 1.5rem; }
+    .contact-info { flex: 1; }
+    .contact-info .label { font-size: .75rem; color: rgba(255,255,255,.45); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+    .contact-info .value { color: #e2d9f3; font-weight: 600; font-size: .95rem; }
+    .contact-info a { color: #c4b5fd; text-decoration: none; }
+    .contact-info a:hover { color: #fff; text-decoration: underline; }
+
+    .btn-lm-primary {
+      background: linear-gradient(135deg,#7c3aed,#4f46e5);
+      color: #fff; border: none; border-radius: 10px;
+      padding: .75rem 1.5rem; font-weight: 700; font-size: .95rem;
+      cursor: pointer; width: 100%; transition: opacity .2s;
+      font-family: var(--font-display);
+    }
+    .btn-lm-primary:hover { opacity: .85; }
+    .avaliacao-sucesso {
+      text-align: center; padding: 1.5rem 0;
+      color: #a78bfa; font-size: 1.1rem; font-weight: 700;
+    }
+
+    /* ── Avaliação: média e abas ── */
+    .av-media-bar {
+      display: flex; align-items: center; gap: .75rem;
+      background: rgba(167,139,250,.08);
+      border: 1px solid rgba(167,139,250,.2);
+      border-radius: 10px; padding: .7rem 1rem;
+      margin-bottom: 1rem;
+    }
+    .av-media-stars { font-size: 1.3rem; color: #f0c040; letter-spacing: .05em; line-height: 1; }
+    .av-media-valor { font-size: 1.2rem; font-weight: 800; color: #f0c040; }
+    .av-media-qtd   { font-size: .8rem; color: rgba(255,255,255,.4); margin-left: .1rem; }
+    .av-tabs { display: flex; gap: .5rem; margin-bottom: 1.1rem; }
+    .av-tab {
+      flex: 1; padding: .45rem .75rem;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px; color: rgba(255,255,255,.5);
+      font-size: .82rem; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+    }
+    .av-tab.active {
+      background: rgba(167,139,250,.2);
+      border-color: rgba(167,139,250,.5);
+      color: #a78bfa;
+    }
+    .av-review-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 10px; padding: .8rem 1rem;
+      margin-bottom: .5rem;
+    }
+    .av-review-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: .3rem;
+    }
+    .av-review-nome { font-weight: 700; color: #fff; font-size: .88rem; }
+    .av-review-data { font-size: .73rem; color: rgba(255,255,255,.3); }
+    .av-review-stars { font-size: .9rem; color: #f0c040; margin-bottom: .28rem; }
+    .av-review-texto { font-size: .82rem; color: rgba(255,255,255,.6); line-height: 1.5; }
+    .av-lista-scroll { max-height: 320px; overflow-y: auto; padding-right: .25rem; }
+    .av-lista-scroll::-webkit-scrollbar { width: 4px; }
+    .av-lista-scroll::-webkit-scrollbar-thumb { background: rgba(167,139,250,.3); border-radius: 2px; }
   </style>
 </head>
 <body>
@@ -225,15 +378,14 @@
   <!-- Nav superior -->
   <nav class="top-nav">
     <div class="top-nav-links">
-      <a href="#" onclick="setMode('login')">Aluno</a>
-      <a href="#" onclick="setMode('login')">Professor</a>
+      <!-- espaço reservado para manter o layout centralizado -->
     </div>
 
     <div class="top-nav-logo">LUMINA</div>
 
     <div class="d-flex gap-3">
-      <a href="#" style="color:white;font-weight:600;text-decoration:none;">Análise</a>
-      <a href="#" style="color:white;font-weight:600;text-decoration:none;">Contate-nos</a>
+      <a href="#" onclick="abrirAvaliacao();return false;" style="color:white;font-weight:600;text-decoration:none;">Avaliação</a>
+      <a href="#" onclick="abrirContato();return false;"   style="color:white;font-weight:600;text-decoration:none;">Contate-nos</a>
     </div>
   </nav>
 
@@ -250,12 +402,17 @@
 
           <div class="form-group">
             <label class="form-label">CPF</label>
-            <input type="text" id="login-cpf" class="form-control" maxlength="11" placeholder="00000000000" />
+            <input type="text" id="login-cpf" class="form-control" maxlength="11" placeholder="Somente números, ex: 12345678900" />
           </div>
 
           <div class="form-group">
             <label class="form-label">Senha</label>
-            <input type="password" id="login-senha" class="form-control" placeholder="••••••••" />
+            <div class="senha-wrapper">
+              <input type="password" id="login-senha" class="form-control" placeholder="Sua senha de acesso" />
+              <button type="button" class="btn-olho" onclick="toggleSenha('login-senha',this)" title="Mostrar senha" tabindex="-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
             <div class="error-list" id="err-senha-rules">
               <p>⚠ Deve conter pelo menos 8 caracteres</p>
               <p>⚠ 1 caractere especial [@!*]</p>
@@ -282,15 +439,15 @@
 
           <div class="form-group">
             <label class="form-label">CPF:</label>
-            <input type="text" id="cad-cpf" class="form-control" maxlength="11" placeholder="00000000000" />
+            <input type="text" id="cad-cpf" class="form-control" maxlength="11" placeholder="Somente números, ex: 12345678900" />
           </div>
           <div class="form-group">
             <label class="form-label">Nome completo:</label>
-            <input type="text" id="cad-nome" class="form-control" placeholder="Seu nome completo" />
+            <input type="text" id="cad-nome" class="form-control" placeholder="Ex: João da Silva" />
           </div>
           <div class="form-group">
             <label class="form-label">Email:</label>
-            <input type="email" id="cad-email" class="form-control" placeholder="seu@email.com" />
+            <input type="email" id="cad-email" class="form-control" placeholder="Ex: joao.silva@email.com" />
           </div>
           <div class="form-group">
             <label class="form-label">Palavra para recuperação de senha:</label>
@@ -306,7 +463,12 @@
           </div>
           <div class="form-group">
             <label class="form-label">Senha:</label>
-            <input type="password" id="cad-senha" class="form-control" placeholder="Mín. 8 caracteres" />
+            <div class="senha-wrapper">
+              <input type="password" id="cad-senha" class="form-control" placeholder="Ex: Senha@2025 (maiúsc., minúsc., núm., especial)" />
+              <button type="button" class="btn-olho" onclick="toggleSenha('cad-senha',this)" title="Mostrar senha" tabindex="-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
             <div style="margin-top:.5rem;font-size:.78rem;color:var(--text-2)">
               Deve conter pelo menos 8 caracteres<br>
               1 caractere especial [@!*]<br>
@@ -329,15 +491,20 @@
 
           <div class="form-group">
             <label class="form-label">CPF:</label>
-            <input type="text" id="rec-cpf" class="form-control" maxlength="11" placeholder="00000000000" />
+            <input type="text" id="rec-cpf" class="form-control" maxlength="11" placeholder="Somente números, ex: 12345678900" />
           </div>
           <div class="form-group">
             <label class="form-label">Palavra-chave:</label>
-            <input type="text" id="rec-palavra" class="form-control" placeholder="Palavra cadastrada" />
+            <input type="text" id="rec-palavra" class="form-control" placeholder="A palavra-chave que você definiu no cadastro" />
           </div>
           <div class="form-group">
             <label class="form-label">Nova senha:</label>
-            <input type="password" id="rec-senha" class="form-control" placeholder="Mín. 8 caracteres" />
+            <div class="senha-wrapper">
+              <input type="password" id="rec-senha" class="form-control" placeholder="Ex: Senha@2025 (maiúsc., minúsc., núm., especial)" />
+              <button type="button" class="btn-olho" onclick="toggleSenha('rec-senha',this)" title="Mostrar senha" tabindex="-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
           </div>
 
           <div id="msg-recuperar"></div>
@@ -364,6 +531,103 @@
         </g>
       </svg>
       <div class="lumina-name">LUMINA</div>
+    </div>
+  </div>
+
+  <!-- ── Modal: Avaliação ── -->
+  <div class="lm-overlay" id="overlay-avaliacao" onclick="fecharOverlay('overlay-avaliacao',event)">
+    <div class="lm-modal">
+      <button class="lm-modal-close" onclick="fecharOverlay('overlay-avaliacao')">✕</button>
+      <h3>⭐ Avaliação</h3>
+
+      <!-- Barra de média (visível quando existem avaliações) -->
+      <div class="av-media-bar" id="av-media-bar" style="display:none">
+        <span class="av-media-stars" id="av-media-stars"></span>
+        <span class="av-media-valor" id="av-media-valor"></span>
+        <span class="av-media-qtd"   id="av-media-qtd"></span>
+      </div>
+
+      <!-- Abas -->
+      <div class="av-tabs">
+        <button class="av-tab active" id="av-tab-avaliar" onclick="mostrarTabAv('avaliar')">✍️ Avaliar</button>
+        <button class="av-tab"        id="av-tab-ver"     onclick="mostrarTabAv('ver')">🌟 Ver avaliações</button>
+      </div>
+
+      <!-- Aba: formulário -->
+      <div id="tab-content-avaliar">
+        <p class="sub" style="margin-bottom:1rem">Conte como foi sua experiência com o Lumina</p>
+        <div id="form-avaliacao">
+          <div class="mb-3">
+            <label class="form-label">Sua nota</label>
+            <div class="star-row">
+              <span class="star" data-v="1" onclick="selecionarEstrela(1)">★</span>
+              <span class="star" data-v="2" onclick="selecionarEstrela(2)">★</span>
+              <span class="star" data-v="3" onclick="selecionarEstrela(3)">★</span>
+              <span class="star" data-v="4" onclick="selecionarEstrela(4)">★</span>
+              <span class="star" data-v="5" onclick="selecionarEstrela(5)">★</span>
+              <span class="star-label" id="star-label">0 / 5</span>
+            </div>
+          </div>
+          <div class="mb-3 form-group">
+            <label class="form-label">Seu nome</label>
+            <input type="text" id="av-nome" class="form-control" placeholder="Ex: Maria Souza" />
+          </div>
+          <div class="mb-3 form-group">
+            <label class="form-label">Sua avaliação</label>
+            <textarea id="av-texto" class="form-control" rows="4"
+              placeholder="Descreva sua experiência com o sistema..."></textarea>
+          </div>
+          <button class="btn-lm-primary" onclick="enviarAvaliacao()">Enviar avaliação</button>
+        </div>
+        <div class="avaliacao-sucesso" id="av-sucesso" style="display:none">
+          ✅ Obrigado pelo feedback!<br>
+          <span style="font-size:.85rem;font-weight:400;color:rgba(255,255,255,.55)">Sua avaliação foi registrada.</span>
+        </div>
+      </div>
+
+      <!-- Aba: lista de avaliações -->
+      <div id="tab-content-ver" style="display:none">
+        <div class="av-lista-scroll" id="av-lista-reviews"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Modal: Contate-nos ── -->
+  <div class="lm-overlay" id="overlay-contato" onclick="fecharOverlay('overlay-contato',event)">
+    <div class="lm-modal" style="max-width:420px">
+      <button class="lm-modal-close" onclick="fecharOverlay('overlay-contato')">✕</button>
+      <h3>💬 Contate-nos</h3>
+      <p class="sub">Ficou com dúvidas ou quer saber mais sobre o projeto? Fale comigo!</p>
+
+      <div style="text-align:center;margin-bottom:1.5rem">
+        <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#4f46e5);
+             display:inline-flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:.75rem">
+          👨‍💻
+        </div>
+        <div style="font-weight:800;color:#fff;font-size:1.1rem;font-family:var(--font-display)">Leandro Silva</div>
+        <div style="color:rgba(255,255,255,.45);font-size:.82rem">Desenvolvedor · UNIP ADS</div>
+      </div>
+
+      <div class="contact-card">
+        <span class="contact-icon">✉️</span>
+        <div class="contact-info">
+          <div class="label">E-mail</div>
+          <div class="value"><a href="mailto:Leandrojunior1325@hotmail.com">Leandrojunior1325@hotmail.com</a></div>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <span class="contact-icon">📱</span>
+        <div class="contact-info">
+          <div class="label">WhatsApp / Telefone</div>
+          <div class="value"><a href="tel:+5511910303079">(11) 91030-3079</a></div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.2rem;padding:.9rem 1rem;background:rgba(167,139,250,.08);
+           border:1px solid rgba(167,139,250,.2);border-radius:12px;font-size:.82rem;color:rgba(255,255,255,.5);text-align:center">
+        Projeto acadêmico — PIM III · UNIP · 2026
+      </div>
     </div>
   </div>
 
@@ -412,7 +676,10 @@
         Auth.salvar(res.data.dados);
         setTimeout(() => redirecionarPorPerfil(res.data.dados.perfil), 300);
       } else {
-        document.getElementById('err-dados').classList.add('show');
+        const errEl  = document.getElementById('err-dados');
+        const msgSrv = res?.data?.mensagem || '';
+        errEl.innerHTML = `⚠ ${msgSrv || 'Dados inválidos!'}`;
+        errEl.classList.add('show');
       }
     }
 
@@ -434,8 +701,24 @@
       esconderLoader(btn);
 
       if (res?.ok) {
-        msgEl.innerHTML = `<div class="alert alert-success mt-2">✓ Conta criada! Faça login.</div>`;
-        setTimeout(() => setMode('login'), 1800);
+        if (body.perfil === 'Aluno') {
+          // Aluno já entra como Ativo — faz login automático
+          const loginRes = await post('/auth/login', { cpf: body.cpf, senha: body.senha });
+          if (loginRes?.ok) {
+            Auth.salvar(loginRes.data.dados);
+            setTimeout(() => redirecionarPorPerfil(loginRes.data.dados.perfil), 300);
+          } else {
+            msgEl.innerHTML = `<div class="alert alert-success mt-2">✓ Conta criada! Faça login.</div>`;
+            setTimeout(() => setMode('login'), 1800);
+          }
+        } else {
+          // Professor / Secretaria ficam Pendentes até aprovação
+          msgEl.innerHTML = `
+            <div class="alert alert-success mt-2" style="background:#1a1040;border:1px solid #a78bfa;border-radius:12px;padding:1rem;color:#e2d9f3">
+              ⏳ Cadastro enviado!<br>
+              <span style="font-size:.85rem;opacity:.85">Aguarde a aprovação do Administrador para acessar o sistema.</span>
+            </div>`;
+        }
       } else {
         msgEl.innerHTML = `<div class="alert alert-danger mt-2">⚠ ${res?.data?.mensagem || 'Erro ao cadastrar.'}</div>`;
       }
@@ -465,7 +748,148 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Enter' && document.getElementById('mode-login').classList.contains('active'))
         fazerLogin();
+      if (e.key === 'Escape') {
+        fecharOverlay('overlay-avaliacao');
+        fecharOverlay('overlay-contato');
+      }
     });
+
+    // ── Modais de avaliação e contato ────────────────────────
+    function abrirAvaliacao() {
+      atualizarMediaAvaliacao();
+      mostrarTabAv('avaliar');
+      document.getElementById('overlay-avaliacao').classList.add('open');
+    }
+    function abrirContato() {
+      document.getElementById('overlay-contato').classList.add('open');
+    }
+    function fecharOverlay(id, evt) {
+      if (evt && evt.target !== document.getElementById(id)) return;
+      document.getElementById(id).classList.remove('open');
+    }
+
+    // ── Abas do modal de avaliação ─────────────────────────────
+    function mostrarTabAv(tab) {
+      document.getElementById('tab-content-avaliar').style.display = tab === 'avaliar' ? 'block' : 'none';
+      document.getElementById('tab-content-ver').style.display     = tab === 'ver'     ? 'block' : 'none';
+      document.getElementById('av-tab-avaliar').classList.toggle('active', tab === 'avaliar');
+      document.getElementById('av-tab-ver').classList.toggle('active',     tab === 'ver');
+      if (tab === 'ver') renderizarAvaliacoes();
+    }
+
+    function atualizarMediaAvaliacao() {
+      const lista = JSON.parse(localStorage.getItem('lumina_avaliacoes') || '[]');
+      const bar   = document.getElementById('av-media-bar');
+      const tabVer = document.getElementById('av-tab-ver');
+
+      if (!lista.length) {
+        bar.style.display = 'none';
+        tabVer.textContent = '🌟 Ver avaliações';
+        return;
+      }
+
+      const media = lista.reduce((s, a) => s + a.nota, 0) / lista.length;
+      const arred = Math.round(media * 10) / 10;
+      const cheias = Math.round(media);
+
+      document.getElementById('av-media-stars').textContent = '★'.repeat(cheias) + '☆'.repeat(5 - cheias);
+      document.getElementById('av-media-valor').textContent = arred.toFixed(1) + ' / 5';
+      document.getElementById('av-media-qtd').textContent   = `(${lista.length} avaliação${lista.length !== 1 ? 'ões' : ''})`;
+      bar.style.display = 'flex';
+      tabVer.textContent = `🌟 Ver avaliações (${lista.length})`;
+    }
+
+    function renderizarAvaliacoes() {
+      const lista = JSON.parse(localStorage.getItem('lumina_avaliacoes') || '[]');
+      const el    = document.getElementById('av-lista-reviews');
+      if (!lista.length) {
+        el.innerHTML = `<p style="text-align:center;color:rgba(255,255,255,.4);padding:2rem 0">
+          Nenhuma avaliação ainda. Seja o primeiro! ✍️</p>`;
+        return;
+      }
+      el.innerHTML = [...lista].reverse().map(a => `
+        <div class="av-review-card">
+          <div class="av-review-header">
+            <span class="av-review-nome">${a.nome}</span>
+            <span class="av-review-data">${new Date(a.data).toLocaleDateString('pt-BR')}</span>
+          </div>
+          <div class="av-review-stars">${'★'.repeat(a.nota)}${'☆'.repeat(5 - a.nota)}</div>
+          <div class="av-review-texto">${a.texto}</div>
+        </div>
+      `).join('');
+    }
+
+    // ── Sistema de estrelas ────────────────────────────────────
+    let notaSelecionada = 0;
+
+    function selecionarEstrela(v) {
+      notaSelecionada = v;
+      document.querySelectorAll('.star').forEach(s => {
+        s.classList.toggle('lit', parseInt(s.dataset.v) <= v);
+      });
+      document.getElementById('star-label').textContent = `${v} / 5`;
+    }
+
+    document.querySelectorAll('.star').forEach(s => {
+      s.addEventListener('mouseenter', () => {
+        const v = parseInt(s.dataset.v);
+        document.querySelectorAll('.star').forEach(x =>
+          x.classList.toggle('lit', parseInt(x.dataset.v) <= v)
+        );
+      });
+      s.addEventListener('mouseleave', () => {
+        document.querySelectorAll('.star').forEach(x =>
+          x.classList.toggle('lit', parseInt(x.dataset.v) <= notaSelecionada)
+        );
+      });
+    });
+
+    // ── Toggle ver/ocultar senha ──────────────────────────────
+    const _svgOlho = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+    </svg>`;
+    const _svgOlhoFechado = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+      <line x1="1" y1="1" x2="23" y2="23"/>
+    </svg>`;
+
+    function toggleSenha(inputId, btn) {
+      const inp = document.getElementById(inputId);
+      const visible = inp.type === 'text';
+      inp.type = visible ? 'password' : 'text';
+      btn.innerHTML = visible ? _svgOlho : _svgOlhoFechado;
+      btn.title = visible ? 'Mostrar senha' : 'Ocultar senha';
+    }
+
+    function enviarAvaliacao() {
+      const nome  = document.getElementById('av-nome').value.trim();
+      const texto = document.getElementById('av-texto').value.trim();
+      if (!notaSelecionada) { alert('Selecione uma nota de 1 a 5 estrelas.'); return; }
+      if (!nome)  { alert('Informe seu nome.'); return; }
+      if (!texto) { alert('Escreva sua avaliação.'); return; }
+
+      const avaliacoes = JSON.parse(localStorage.getItem('lumina_avaliacoes') || '[]');
+      avaliacoes.push({ nome, nota: notaSelecionada, texto, data: new Date().toISOString() });
+      localStorage.setItem('lumina_avaliacoes', JSON.stringify(avaliacoes));
+
+      atualizarMediaAvaliacao();
+
+      document.getElementById('form-avaliacao').style.display = 'none';
+      document.getElementById('av-sucesso').style.display    = 'block';
+
+      setTimeout(() => {
+        fecharOverlay('overlay-avaliacao');
+        setTimeout(() => {
+          document.getElementById('form-avaliacao').style.display = 'block';
+          document.getElementById('av-sucesso').style.display    = 'none';
+          document.getElementById('av-nome').value  = '';
+          document.getElementById('av-texto').value = '';
+          notaSelecionada = 0;
+          document.querySelectorAll('.star').forEach(s => s.classList.remove('lit'));
+          document.getElementById('star-label').textContent = '0 / 5';
+        }, 400);
+      }, 2500);
+    }
   </script>
 </body>
 </html>

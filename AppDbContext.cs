@@ -39,6 +39,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         mb.Entity<LeituraConteudo>()
           .HasKey(lc => new { lc.AlunoCpf, lc.ConteudoId });
 
+        // ── LeituraConteudo → Conteudo: sem cascade duplo ────────
+        mb.Entity<LeituraConteudo>()
+          .HasOne(lc => lc.Conteudo)
+          .WithMany(c => c.Leituras)
+          .HasForeignKey(lc => lc.ConteudoId)
+          .OnDelete(DeleteBehavior.NoAction);
+
         // ── Resultado: um aluno só faz cada atividade 1 vez ──────
         mb.Entity<Resultado>()
           .HasIndex(r => new { r.AlunoCpf, r.AtividadeId })

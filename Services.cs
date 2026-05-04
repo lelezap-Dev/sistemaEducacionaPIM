@@ -14,14 +14,39 @@ public class UsuarioService(AppDbContext db)
     public async Task<List<UsuarioDto>> ListarAsync() =>
         await db.Usuarios
             .OrderBy(u => u.Nome)
-            .Select(u => new UsuarioDto(u.Cpf, u.Nome, u.Email, u.Perfil, u.DataCadastro))
+            .Select(u => new UsuarioDto(u.Cpf, u.Nome, u.Email, u.Perfil, u.Status, u.DataCadastro))
             .ToListAsync();
 
     public async Task<UsuarioDto?> BuscarAsync(string cpf) =>
         await db.Usuarios
             .Where(u => u.Cpf == cpf)
-            .Select(u => new UsuarioDto(u.Cpf, u.Nome, u.Email, u.Perfil, u.DataCadastro))
+            .Select(u => new UsuarioDto(u.Cpf, u.Nome, u.Email, u.Perfil, u.Status, u.DataCadastro))
             .FirstOrDefaultAsync();
+
+    public async Task<List<UsuarioDto>> ListarPendentesAsync() =>
+        await db.Usuarios
+            .Where(u => u.Status == "Pendente")
+            .OrderBy(u => u.DataCadastro)
+            .Select(u => new UsuarioDto(u.Cpf, u.Nome, u.Email, u.Perfil, u.Status, u.DataCadastro))
+            .ToListAsync();
+
+    public async Task<(bool sucesso, string mensagem)> AprovarAsync(string cpf)
+    {
+        var u = await db.Usuarios.FindAsync(cpf);
+        if (u == null) return (false, "Usuário não encontrado.");
+        u.Status = "Ativo";
+        await db.SaveChangesAsync();
+        return (true, "Usuário aprovado com sucesso!");
+    }
+
+    public async Task<(bool sucesso, string mensagem)> RejeitarAsync(string cpf)
+    {
+        var u = await db.Usuarios.FindAsync(cpf);
+        if (u == null) return (false, "Usuário não encontrado.");
+        u.Status = "Rejeitado";
+        await db.SaveChangesAsync();
+        return (true, "Usuário rejeitado.");
+    }
 
     public async Task<(bool sucesso, string mensagem)> EditarAsync(string cpf, EditarUsuarioRequest req)
     {
@@ -304,6 +329,14 @@ public class TurmaService(AppDbContext db)
         await db.SaveChangesAsync();
         return (true, "Aluno desmatriculado.");
     }
+
+    public async Task<List<AlunoTurmaDto>> ListarAlunosDaTurmaAsync(string turmaCodigo) =>
+        await db.TurmaAlunos
+            .Where(ta => ta.TurmaCodigo == turmaCodigo)
+            .Include(ta => ta.Aluno)
+            .OrderBy(ta => ta.Aluno!.Nome)
+            .Select(ta => new AlunoTurmaDto(ta.Aluno!.Cpf, ta.Aluno.Nome, ta.Aluno.Email))
+            .ToListAsync();
 }
 
 // ================================================================

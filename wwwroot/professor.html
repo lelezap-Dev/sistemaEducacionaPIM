@@ -161,7 +161,7 @@
           <input type="hidden" id="cont-materia-id" />
           <div class="form-group">
             <label class="form-label">Título</label>
-            <input type="text" id="cont-titulo" class="form-control" placeholder="Título do conteúdo" />
+            <input type="text" id="cont-titulo" class="form-control" placeholder="Ex: Introdução a Programação Orientada a Objetos" />
           </div>
           <div class="form-group">
             <label class="form-label">Texto</label>
@@ -240,7 +240,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label class="form-label">Título</label>
-            <input type="text" id="atv-titulo" class="form-control" placeholder="Título da atividade" />
+            <input type="text" id="atv-titulo" class="form-control" placeholder="Ex: Avaliação Bimestral — Algoritmos" />
           </div>
           <div class="grid-2">
             <div class="form-group">
@@ -259,6 +259,88 @@
         <div class="modal-footer">
           <button class="btn btn-ghost btn-sm" onclick="fecharModal('modal-nova-atividade')">Cancelar</button>
           <button id="btn-criar-atividade" class="btn btn-primary" onclick="criarAtividade()">Criar Atividade</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Editar Matéria -->
+  <div class="modal fade" id="modal-editar-materia" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">✏️ Editar Matéria</h5>
+          <button type="button" class="btn-close" onclick="fecharModal('modal-editar-materia')" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="edit-mat-id" />
+          <div class="form-group">
+            <label class="form-label">Nome da matéria</label>
+            <input type="text" id="edit-mat-nome" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Descrição</label>
+            <textarea id="edit-mat-desc" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost btn-sm" onclick="fecharModal('modal-editar-materia')">Cancelar</button>
+          <button id="btn-salvar-materia" class="btn btn-primary" onclick="salvarMateria()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Editar Conteúdo -->
+  <div class="modal fade" id="modal-editar-conteudo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">✏️ Editar Conteúdo</h5>
+          <button type="button" class="btn-close" onclick="fecharModal('modal-editar-conteudo')" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="edit-cont-id" />
+          <input type="hidden" id="edit-cont-materia-id" />
+          <div class="form-group">
+            <label class="form-label">Título</label>
+            <input type="text" id="edit-cont-titulo" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Texto</label>
+            <textarea id="edit-cont-texto" class="form-control" style="min-height:150px"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost btn-sm" onclick="fecharModal('modal-editar-conteudo')">Cancelar</button>
+          <button id="btn-salvar-conteudo" class="btn btn-primary" onclick="salvarConteudo()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Editar Turma -->
+  <div class="modal fade" id="modal-editar-turma" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">✏️ Editar Turma</h5>
+          <button type="button" class="btn-close" onclick="fecharModal('modal-editar-turma')" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="edit-turma-codigo" />
+          <div class="form-group">
+            <label class="form-label">Código</label>
+            <input class="form-control" readonly id="edit-turma-codigo-show" style="opacity:.6" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Horário</label>
+            <input type="text" id="edit-turma-horario" class="form-control" placeholder="Ex: Seg/Qua 19h-21h" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost btn-sm" onclick="fecharModal('modal-editar-turma')">Cancelar</button>
+          <button id="btn-salvar-turma" class="btn btn-primary" onclick="salvarTurma()">Salvar</button>
         </div>
       </div>
     </div>

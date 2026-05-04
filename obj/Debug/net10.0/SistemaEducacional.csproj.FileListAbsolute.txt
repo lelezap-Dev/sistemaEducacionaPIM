@@ -158,9 +158,10 @@ C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0
 C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\bin\Debug\net10.0\SistemaEducacional.staticwebassets.runtime.json
 C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\jyywmp6aqg-{0}-vj5uvswak6-vj5uvswak6.gz
 C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\4qf52o5aus-{0}-331bc35e5u-331bc35e5u.gz
-C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\sadxpt5orb-{0}-momyqhmgxi-momyqhmgxi.gz
 C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\gp44ia761f-{0}-lq79i456vb-lq79i456vb.gz
-C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\kwul5g2z2o-{0}-k8edjnvyzz-k8edjnvyzz.gz
-C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\sphq0hhpn8-{0}-703qpqhrqn-703qpqhrqn.gz
-C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\clomy1rx0f-{0}-0u3excyl5y-0u3excyl5y.gz
-C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\f398ucc8i6-{0}-8hgn51l9zn-8hgn51l9zn.gz
+C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\SistemaEducacional.sourcelink.json
+C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\kwul5g2z2o-{0}-uw12jejsmg-uw12jejsmg.gz
+C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\f398ucc8i6-{0}-e03vs91udu-e03vs91udu.gz
+C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\sadxpt5orb-{0}-992wsrrgy3-992wsrrgy3.gz
+C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\sphq0hhpn8-{0}-4dv3i4amhx-4dv3i4amhx.gz
+C:\Users\Leand\OneDrive\Área de Trabalho\sistemaEducacionaPIM\obj\Debug\net10.0\compressed\clomy1rx0f-{0}-tn9uioxh12-tn9uioxh12.gz

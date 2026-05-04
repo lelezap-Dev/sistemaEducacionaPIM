@@ -63,7 +63,8 @@ public class AuthService(AppDbContext db, IConfiguration config)
             Email        = req.Email.Trim().ToLower(),
             SenhaHash    = BCrypt.Net.BCrypt.HashPassword(req.Senha),
             Perfil       = req.Perfil,
-            PalavraChave = req.PalavraChave.Trim()
+            PalavraChave = req.PalavraChave.Trim(),
+            Status       = req.Perfil == "Aluno" ? "Ativo" : "Pendente"
         };
 
         db.Usuarios.Add(usuario);
@@ -81,6 +82,12 @@ public class AuthService(AppDbContext db, IConfiguration config)
 
         if (usuario == null || !BCrypt.Net.BCrypt.Verify(req.Senha, usuario.SenhaHash))
             return (false, "CPF ou senha inválidos.", null);
+
+        if (usuario.Status == "Pendente")
+            return (false, "Cadastro aguardando aprovação do Administrador.", null);
+
+        if (usuario.Status == "Rejeitado")
+            return (false, "Cadastro rejeitado. Entre em contato com a secretaria.", null);
 
         var token    = GerarToken(usuario);
         var expiracao = DateTime.UtcNow.AddHours(

@@ -149,4 +149,48 @@ app.MapControllers();
 // (necessário para o front-end funcionar com rotas client-side)
 app.MapFallbackToFile("index.html");
 
+// ── Seed: garante coluna Status, admin ativo e hash correto ──────
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    // Adiciona coluna Status caso o banco já exista sem ela
+    db.Database.ExecuteSqlRaw(@"
+        IF NOT EXISTS (
+            SELECT 1 FROM sys.columns
+            WHERE object_id = OBJECT_ID(N'Usuarios') AND name = N'Status'
+        )
+        BEGIN
+            ALTER TABLE Usuarios
+            ADD Status nvarchar(20) NOT NULL DEFAULT 'Ativo';
+        END
+    ");
+
+    var admin = db.Usuarios.FirstOrDefault(u => u.Cpf == "00000000000");
+
+    if (admin == null)
+    {
+        db.Usuarios.Add(new SistemaEducacional.Models.Usuario
+        {
+            Cpf          = "00000000000",
+            Nome         = "Administrador",
+            Email        = "admin@escola.com",
+            SenhaHash    = BCrypt.Net.BCrypt.HashPassword("Admin@123"),
+            Perfil       = "Secretaria",
+            PalavraChave = "sistema",
+            Status       = "Ativo"
+        });
+        db.SaveChanges();
+    }
+    else
+    {
+        if (!BCrypt.Net.BCrypt.Verify("Admin@123", admin.SenhaHash))
+            admin.SenhaHash = BCrypt.Net.BCrypt.HashPassword("Admin@123");
+
+        // Garante que o admin nunca fique pendente
+        admin.Status = "Ativo";
+        db.SaveChanges();
+    }
+}
+
 app.Run();

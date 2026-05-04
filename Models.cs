@@ -37,6 +37,10 @@ public class Usuario
     [StringLength(100)]
     public string PalavraChave { get; set; } = "";
 
+    [Required]
+    [StringLength(20)]
+    public string Status { get; set; } = "Ativo"; // Ativo | Pendente | Rejeitado
+
     public DateTime DataCadastro { get; set; } = DateTime.UtcNow;
 
     // Navegação (EF usa isso para JOINs automáticos)

@@ -43,6 +43,7 @@ public record UsuarioDto(
     string Nome,
     string Email,
     string Perfil,
+    string Status,
     DateTime DataCadastro
 );
 
@@ -101,6 +102,8 @@ public record TurmaDto(
 );
 
 public record MatricularAlunoRequest(string AlunoCpf, string TurmaCodigo);
+
+public record AlunoTurmaDto(string Cpf, string Nome, string Email);
 
 // ── Atividade ─────────────────────────────────────────────────────
 

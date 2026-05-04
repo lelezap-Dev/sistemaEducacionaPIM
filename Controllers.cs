@@ -99,6 +99,24 @@ public class UsuarioController(UsuarioService svc) : BaseController
         var (s, m) = await svc.ExcluirAsync(cpf);
         return s ? Ok(m) : Erro(m);
     }
+
+    [HttpGet("pendentes")]
+    public async Task<IActionResult> ListarPendentes() =>
+        Ok(await svc.ListarPendentesAsync());
+
+    [HttpPost("{cpf}/aprovar")]
+    public async Task<IActionResult> Aprovar(string cpf)
+    {
+        var (s, m) = await svc.AprovarAsync(cpf);
+        return s ? Ok(m) : Erro(m);
+    }
+
+    [HttpPost("{cpf}/rejeitar")]
+    public async Task<IActionResult> Rejeitar(string cpf)
+    {
+        var (s, m) = await svc.RejeitarAsync(cpf);
+        return s ? Ok(m) : Erro(m);
+    }
 }
 
 // ================================================================
@@ -242,6 +260,10 @@ public class TurmaController(TurmaService svc) : BaseController
         var (s, m) = await svc.DesmatricularAsync(alunoCpf, codigo);
         return s ? Ok(m) : Erro(m);
     }
+
+    [HttpGet("{codigo}/alunos")]
+    public async Task<IActionResult> ListarAlunos(string codigo) =>
+        Ok(await svc.ListarAlunosDaTurmaAsync(codigo));
 }
 
 // ================================================================
@@ -260,7 +282,7 @@ public class AtividadeController(AtividadeService svc) : BaseController
     }
 
     [HttpGet("{id:guid}")]
-    [Authorize(Roles = "Aluno")]
+    [Authorize(Roles = "Aluno,Professor")]
     public async Task<IActionResult> Detalhe(Guid id)
     {
         var detalhe = await svc.BuscarDetalheAsync(id);

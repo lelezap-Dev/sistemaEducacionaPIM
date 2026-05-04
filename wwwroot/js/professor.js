@@ -8,6 +8,9 @@
 const user = Auth.getUser();
 let perguntaIdx = 0;
 
+// Cache local para evitar data-attributes com caracteres especiais
+const _cache = { materias: {}, turmas: {}, conteudos: {} };
+
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('nav-nome').textContent = user?.nome || '';
   carregarInicio();
@@ -56,19 +59,117 @@ async function carregarMaterias() {
   if (!res?.ok || !res.data.dados.length) {
     el.innerHTML = `<div class="empty-state"><span class="empty-icon">📚</span><p>Nenhuma matéria criada.</p></div>`; return;
   }
+  res.data.dados.forEach(m => { _cache.materias[m.id] = m; });
   el.innerHTML = res.data.dados.map(m => `
     <div class="card mb-2">
       <div class="card-header">
         <div class="card-title">📚 ${m.nome}</div>
-        <div style="display:flex;gap:.5rem">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button class="btn btn-outline btn-sm" onclick="toggleConteudos('${m.id}', this)">
+            📄 ${m.totalConteudos} conteúdo(s)
+          </button>
           <button class="btn btn-outline btn-sm" onclick="abrirConteudo('${m.id}')">+ Conteúdo</button>
+          <button class="btn btn-outline btn-sm" onclick="abrirEditarMateria('${m.id}')">✏️ Editar</button>
           <button class="btn btn-danger btn-sm" onclick="excluirMateria('${m.id}')">Excluir</button>
         </div>
       </div>
       <p class="muted">${m.descricao || 'Sem descrição.'}</p>
-      <div class="muted mt-1">📄 ${m.totalConteudos} conteúdo(s)</div>
+      <div id="conteudos-${m.id}" style="display:none;margin-top:.75rem;border-top:1px solid var(--border);padding-top:.75rem"></div>
     </div>
   `).join('');
+}
+
+function abrirEditarMateria(id) {
+  const m = _cache.materias[id];
+  if (!m) return;
+  document.getElementById('edit-mat-id').value   = id;
+  document.getElementById('edit-mat-nome').value = m.nome;
+  document.getElementById('edit-mat-desc').value = m.descricao || '';
+  abrirModal('modal-editar-materia');
+}
+
+async function salvarMateria() {
+  const btn  = document.getElementById('btn-salvar-materia');
+  const id   = document.getElementById('edit-mat-id').value;
+  const nome = document.getElementById('edit-mat-nome').value.trim();
+  const desc = document.getElementById('edit-mat-desc').value.trim();
+  if (!nome) { toast('Informe o nome da matéria.', 'error'); return; }
+
+  mostrarLoader(btn);
+  const res = await put(`/materias/${id}`, { nome, descricao: desc });
+  esconderLoader(btn);
+
+  if (res?.ok) {
+    toast('Matéria atualizada!');
+    fecharModal('modal-editar-materia');
+    carregarMaterias();
+  } else { toast(res?.data?.mensagem || 'Erro.', 'error'); }
+}
+
+async function toggleConteudos(materiaId, btn) {
+  const el = document.getElementById(`conteudos-${materiaId}`);
+  if (el.style.display !== 'none') { el.style.display = 'none'; return; }
+
+  const res = await get(`/materias/${materiaId}/conteudos`);
+  if (!res?.ok || !res.data.dados?.length) {
+    el.innerHTML = '<p class="muted" style="margin:0">Nenhum conteúdo cadastrado.</p>';
+  } else {
+    res.data.dados.forEach(c => { _cache.conteudos[c.id] = c; });
+    el.innerHTML = res.data.dados.map(c => `
+      <div style="padding:.75rem;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:.5rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+          <strong style="color:var(--text-1)">📄 ${c.titulo}</strong>
+          <div style="display:flex;gap:.4rem">
+            <button class="btn btn-outline btn-sm" onclick="abrirEditarConteudo('${c.id}','${materiaId}')">✏️ Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="excluirConteudo('${c.id}','${materiaId}')">Excluir</button>
+          </div>
+        </div>
+        <div class="muted" style="font-size:.85rem;white-space:pre-wrap">${c.texto.length > 300 ? c.texto.substring(0, 300) + '...' : c.texto}</div>
+      </div>
+    `).join('');
+  }
+  el.style.display = 'block';
+}
+
+function abrirEditarConteudo(conteudoId, materiaId) {
+  const c = _cache.conteudos[conteudoId];
+  if (!c) return;
+  document.getElementById('edit-cont-id').value         = conteudoId;
+  document.getElementById('edit-cont-materia-id').value = materiaId;
+  document.getElementById('edit-cont-titulo').value     = c.titulo;
+  document.getElementById('edit-cont-texto').value      = c.texto;
+  abrirModal('modal-editar-conteudo');
+}
+
+async function salvarConteudo() {
+  const btn    = document.getElementById('btn-salvar-conteudo');
+  const id     = document.getElementById('edit-cont-id').value;
+  const matId  = document.getElementById('edit-cont-materia-id').value;
+  const titulo = document.getElementById('edit-cont-titulo').value.trim();
+  const texto  = document.getElementById('edit-cont-texto').value.trim();
+  if (!titulo || !texto) { toast('Preencha título e texto.', 'error'); return; }
+
+  mostrarLoader(btn);
+  const res = await put(`/materias/conteudos/${id}`, { titulo, texto });
+  esconderLoader(btn);
+
+  if (res?.ok) {
+    toast('Conteúdo atualizado!');
+    fecharModal('modal-editar-conteudo');
+    document.getElementById(`conteudos-${matId}`).style.display = 'none';
+    carregarMaterias();
+  } else { toast(res?.data?.mensagem || 'Erro.', 'error'); }
+}
+
+async function excluirConteudo(conteudoId, materiaId) {
+  if (!confirm('Excluir este conteúdo?')) return;
+  const res = await del(`/materias/conteudos/${conteudoId}`);
+  if (res?.ok) {
+    toast('Conteúdo excluído.');
+    document.getElementById(`conteudos-${materiaId}`).style.display = 'none';
+    carregarMaterias();
+    carregarInicio();
+  } else { toast(res?.data?.mensagem || 'Erro.', 'error'); }
 }
 
 async function criarMateria() {
@@ -87,13 +188,14 @@ async function criarMateria() {
     document.getElementById('mat-nome').value = '';
     document.getElementById('mat-desc').value = '';
     carregarMaterias();
+    carregarInicio();
   } else { toast(res?.data?.mensagem || 'Erro.', 'error'); }
 }
 
 async function excluirMateria(id) {
   if (!confirm('Excluir esta matéria?')) return;
   const res = await del(`/materias/${id}`);
-  res?.ok ? (toast('Matéria excluída.'), carregarMaterias()) : toast(res?.data?.mensagem, 'error');
+  res?.ok ? (toast('Matéria excluída.'), carregarMaterias(), carregarInicio()) : toast(res?.data?.mensagem, 'error');
 }
 
 function abrirConteudo(materiaId) {
@@ -128,19 +230,81 @@ async function carregarTurmas() {
   if (!res?.ok || !res.data.dados.length) {
     el.innerHTML = `<div class="empty-state"><span class="empty-icon">🎓</span><p>Nenhuma turma criada.</p></div>`; return;
   }
+  res.data.dados.forEach(t => { _cache.turmas[t.codigo] = t; });
   el.innerHTML = res.data.dados.map(t => `
     <div class="card mb-2">
       <div class="card-header">
         <div class="card-title">🎓 ${t.codigo}</div>
-        <div style="display:flex;gap:.5rem">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button class="btn btn-outline btn-sm" onclick="toggleAlunos('${t.codigo}')">👥 ${t.totalAlunos} aluno(s)</button>
           <button class="btn btn-outline btn-sm" onclick="abrirMatricula('${t.codigo}')">+ Aluno</button>
+          <button class="btn btn-outline btn-sm" onclick="abrirEditarTurma('${t.codigo}')">✏️ Editar</button>
           <button class="btn btn-danger btn-sm" onclick="excluirTurma('${t.codigo}')">Excluir</button>
         </div>
       </div>
       <div style="color:var(--text-1);font-weight:600;margin-bottom:.25rem">${t.materiaNome}</div>
       <div class="muted">🕐 ${t.horario || 'Sem horário'} · 👥 ${t.totalAlunos} aluno(s)</div>
+      <div id="alunos-${t.codigo}" style="display:none;margin-top:.75rem;border-top:1px solid var(--border);padding-top:.75rem"></div>
     </div>
   `).join('');
+}
+
+function abrirEditarTurma(codigo) {
+  const t = _cache.turmas[codigo];
+  if (!t) return;
+  document.getElementById('edit-turma-codigo').value      = codigo;
+  document.getElementById('edit-turma-codigo-show').value = codigo;
+  document.getElementById('edit-turma-horario').value     = t.horario || '';
+  abrirModal('modal-editar-turma');
+}
+
+async function salvarTurma() {
+  const btn     = document.getElementById('btn-salvar-turma');
+  const codigo  = document.getElementById('edit-turma-codigo').value;
+  const horario = document.getElementById('edit-turma-horario').value.trim();
+  if (!horario) { toast('Informe o horário.', 'error'); return; }
+
+  mostrarLoader(btn);
+  const res = await put(`/turmas/${codigo}`, { horario });
+  esconderLoader(btn);
+
+  if (res?.ok) {
+    toast('Turma atualizada!');
+    fecharModal('modal-editar-turma');
+    carregarTurmas();
+  } else { toast(res?.data?.mensagem || 'Erro.', 'error'); }
+}
+
+async function toggleAlunos(turmaCodigo) {
+  const el = document.getElementById(`alunos-${turmaCodigo}`);
+  if (el.style.display !== 'none') { el.style.display = 'none'; return; }
+
+  const res = await get(`/turmas/${turmaCodigo}/alunos`);
+  if (!res?.ok || !res.data.dados?.length) {
+    el.innerHTML = '<p class="muted" style="margin:0">Nenhum aluno matriculado.</p>';
+  } else {
+    el.innerHTML = `
+      <div class="muted" style="font-size:.8rem;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em">Alunos matriculados</div>
+      ${res.data.dados.map(a => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem .75rem;
+             background:var(--bg-3);border-radius:var(--radius);margin-bottom:.3rem">
+          <div>
+            <span style="font-weight:600;color:var(--text-1)">${a.nome}</span>
+            <span class="muted" style="font-size:.82rem"> · ${cpfMask(a.cpf)}</span>
+          </div>
+          <button class="btn btn-danger btn-sm" onclick="desmatricularAluno('${a.cpf}','${turmaCodigo}')">Remover</button>
+        </div>
+      `).join('')}
+    `;
+  }
+  el.style.display = 'block';
+}
+
+async function desmatricularAluno(alunoCpf, turmaCodigo) {
+  if (!confirm('Remover este aluno da turma?')) return;
+  const res = await del(`/turmas/${turmaCodigo}/alunos/${alunoCpf}`);
+  if (res?.ok) { toast('Aluno removido.'); carregarTurmas(); }
+  else toast(res?.data?.mensagem || 'Erro.', 'error');
 }
 
 async function criarTurma() {
@@ -158,13 +322,14 @@ async function criarTurma() {
     toast('Turma criada!');
     fecharModal('modal-nova-turma');
     carregarTurmas();
+    carregarInicio();
   } else { toast(res?.data?.mensagem || 'Erro.', 'error'); }
 }
 
 async function excluirTurma(codigo) {
   if (!confirm('Excluir esta turma?')) return;
   const res = await del(`/turmas/${codigo}`);
-  res?.ok ? (toast('Turma excluída.'), carregarTurmas()) : toast(res?.data?.mensagem, 'error');
+  res?.ok ? (toast('Turma excluída.'), carregarTurmas(), carregarInicio()) : toast(res?.data?.mensagem, 'error');
 }
 
 function abrirMatricula(turmaCodigo) {
@@ -218,14 +383,46 @@ async function carregarAtividades() {
     el.innerHTML = `<div class="empty-state"><span class="empty-icon">📝</span><p>Nenhuma atividade criada.</p></div>`; return;
   }
   el.innerHTML = res.data.dados.map(a => `
-    <div class="card mb-2" style="display:flex;align-items:center;justify-content:space-between;gap:1rem">
-      <div>
-        <div style="font-weight:600;color:var(--text-1)">${a.titulo}</div>
-        <div class="muted">📚 ${a.materiaNome} · ${a.totalPerguntas} pergunta(s)</div>
+    <div class="card mb-2">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:600;color:var(--text-1)">${a.titulo}</div>
+          <div class="muted">📚 ${a.materiaNome} · ${a.totalPerguntas} pergunta(s)</div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button class="btn btn-outline btn-sm" onclick="togglePerguntas('${a.id}')">👁 Ver perguntas</button>
+          <button class="btn btn-danger btn-sm" onclick="excluirAtividade('${a.id}')">Excluir</button>
+        </div>
       </div>
-      <button class="btn btn-danger btn-sm" onclick="excluirAtividade('${a.id}')">Excluir</button>
+      <div id="pergs-${a.id}" style="display:none;margin-top:.75rem;border-top:1px solid var(--border);padding-top:.75rem"></div>
     </div>
   `).join('');
+}
+
+async function togglePerguntas(atividadeId) {
+  const el = document.getElementById(`pergs-${atividadeId}`);
+  if (el.style.display !== 'none') { el.style.display = 'none'; return; }
+
+  const res = await get(`/atividades/${atividadeId}`);
+  const perguntas = res?.data?.dados?.perguntas;
+  if (!res?.ok || !perguntas?.length) {
+    el.innerHTML = '<p class="muted" style="margin:0">Sem perguntas cadastradas.</p>';
+  } else {
+    el.innerHTML = perguntas.map((p, i) => `
+      <div style="margin-bottom:.6rem;padding:.75rem;background:var(--bg-3);border-radius:var(--radius)">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:.4rem">${i + 1}. ${p.textoPergunta}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.35rem">
+          ${p.alternativas.map((alt, j) => `
+            <span style="padding:.2rem .55rem;background:var(--bg-2);border:1px solid var(--border);
+                 border-radius:4px;font-size:.8rem;color:var(--text-2)">
+              ${String.fromCharCode(65 + j)}) ${alt}
+            </span>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+  el.style.display = 'block';
 }
 
 // ── Perguntas dinâmicas no modal de nova atividade ────────────
@@ -294,13 +491,14 @@ async function criarAtividade() {
     document.getElementById('perguntas-container').innerHTML = '';
     perguntaIdx = 0;
     carregarAtividades();
+    carregarInicio();
   } else { toast(res?.data?.mensagem || 'Erro.', 'error'); }
 }
 
 async function excluirAtividade(id) {
   if (!confirm('Excluir esta atividade?')) return;
   const res = await del(`/atividades/${id}`);
-  res?.ok ? (toast('Atividade excluída.'), carregarAtividades()) : toast(res?.data?.mensagem, 'error');
+  res?.ok ? (toast('Atividade excluída.'), carregarAtividades(), carregarInicio()) : toast(res?.data?.mensagem, 'error');
 }
 
 // ── Ranking ───────────────────────────────────────────────────
