@@ -51,6 +51,9 @@
         <button class="sidebar-item" data-secao="sec-ranking" onclick="navegarPara('sec-ranking'); carregarRanking()">
           <span class="icon">🏆</span> Ranking
         </button>
+        <button class="sidebar-item" data-secao="sec-analise" onclick="navegarPara('sec-analise'); carregarAnalise()">
+          <span class="icon">🧠</span> Análise
+        </button>
       </div>
     </aside>
 
@@ -110,6 +113,17 @@
           <button class="btn btn-primary" onclick="abrirModal('modal-nova-atividade')">+ Nova Atividade</button>
         </div>
         <div id="atividades-list"></div>
+      </section>
+
+      <!-- ── Análise ── -->
+      <section id="sec-analise" class="section fade-in">
+        <div class="section-header">
+          <h2>🧠 Análise de <span class="accent">Desempenho</span></h2>
+          <p class="muted">Classificação automática dos alunos por faixa de desempenho</p>
+        </div>
+        <div id="analise-content">
+          <div class="empty-state"><span class="empty-icon">🧠</span><p>Carregando análise...</p></div>
+        </div>
       </section>
 
       <!-- ── Ranking ── -->
@@ -346,8 +360,34 @@
     </div>
   </div>
 
+  <!-- Modal: Editar Atividade -->
+  <div class="modal fade" id="modal-editar-atividade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">✏️ Editar Atividade</h5>
+          <button type="button" class="btn-close" onclick="fecharModal('modal-editar-atividade')" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="edit-atv-id" />
+          <div class="form-group">
+            <label class="form-label">Título</label>
+            <input type="text" id="edit-atv-titulo" class="form-control" placeholder="Título da atividade" />
+          </div>
+          <div id="edit-perguntas-container"></div>
+          <button class="btn btn-ghost btn-sm mt-2" onclick="adicionarPerguntaEditar()">+ Adicionar Pergunta</button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost btn-sm" onclick="fecharModal('modal-editar-atividade')">Cancelar</button>
+          <button id="btn-salvar-atividade" class="btn btn-primary" onclick="salvarAtividade()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/js/api.js"></script>
   <script src="/js/professor.js"></script>
+  <script src="/js/acessibilidade.js"></script>
 </body>
 </html>

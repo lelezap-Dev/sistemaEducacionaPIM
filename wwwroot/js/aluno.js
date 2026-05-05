@@ -107,11 +107,11 @@ async function carregarTurmas() {
         <div class="card-title">🎓 ${t.codigo}</div>
         <span class="badge badge-blue">${t.totalAlunos} alunos</span>
       </div>
-      <div style="margin-bottom:.5rem">
-        <strong style="color:var(--text-1)">${t.materiaNome}</strong>
+      <div style="padding:.55rem 1.5rem 1rem">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:.3rem;font-size:.9rem">${t.materiaNome}</div>
+        <div class="muted" style="font-size:.84rem">👨‍🏫 ${t.professorNome}</div>
+        <div class="muted" style="font-size:.84rem">🕐 ${t.horario || 'Horário não definido'}</div>
       </div>
-      <div class="muted">👨‍🏫 ${t.professorNome}</div>
-      <div class="muted">🕐 ${t.horario || 'Horário não definido'}</div>
     </div>
   `).join('');
 }
@@ -140,8 +140,10 @@ async function carregarMaterias() {
           <span style="color:var(--text-3)">▼</span>
         </div>
       </div>
-      <div class="muted mb-2">${m.descricao || ''}</div>
-      <div id="cont-${m.id}" class="hidden"></div>
+      <div style="padding:.3rem 1.5rem .65rem">
+        <p class="muted" style="margin:0;font-size:.84rem;line-height:1.5">${m.descricao || ''}</p>
+      </div>
+      <div id="cont-${m.id}" class="hidden" style="padding:.75rem 1.5rem;border-top:1px solid var(--border)"></div>
     `;
     el.appendChild(divCard);
   }
@@ -207,7 +209,7 @@ async function carregarAtividades() {
   }
 
   el.innerHTML = res.data.dados.map(a => `
-    <div class="card mb-2" style="display:flex;align-items:center;justify-content:space-between;gap:1rem">
+    <div class="card mb-2" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.5rem">
       <div>
         <div style="font-weight:600;color:var(--text-1);margin-bottom:.2rem">${a.titulo}</div>
         <div class="muted">📚 ${a.materiaNome} · ${a.totalPerguntas} pergunta(s)</div>

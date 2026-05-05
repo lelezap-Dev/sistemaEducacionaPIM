@@ -640,6 +640,33 @@ textarea.form-control {
 .hidden { display: none !important; }
 .w-full { width: 100% !important; }
 
+/* ── Acessibilidade ─────────────────────────────────────────── */
+
+/* Alto contraste */
+body.a11y-high-contrast {
+  --bg-0:      #000;
+  --bg-1:      #000;
+  --bg-2:      #0a0a0a;
+  --bg-3:      #111;
+  --bg-card:   #0d0d0d;
+  --text-1:    #ffffff;
+  --text-2:    #eeeeee;
+  --text-3:    #cccccc;
+  --border:    rgba(255,255,255,.35);
+  --border-hi: rgba(255,255,255,.6);
+  --purple-glow: rgba(180,150,255,.3);
+}
+body.a11y-high-contrast .navbar         { background: #000 !important; }
+body.a11y-high-contrast .card           { background: #0d0d0d !important; border-color: rgba(255,255,255,.25) !important; }
+body.a11y-high-contrast .sidebar        { background: #0a0a0a !important; }
+body.a11y-high-contrast .form-control,
+body.a11y-high-contrast .form-select    { background: #111 !important; border-color: rgba(255,255,255,.35) !important; }
+body.a11y-high-contrast .modal-content  { background: #0d0d0d !important; border-color: rgba(255,255,255,.4) !important; }
+
+/* Tamanho de texto */
+body.a11y-text-large  { font-size: 108%; }
+body.a11y-text-larger { font-size: 120%; }
+
 /* ── Responsivo ── */
 @media (max-width: 992px) {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }

@@ -7,9 +7,10 @@
 
 const user = Auth.getUser();
 let perguntaIdx = 0;
+let editPerguntaIdx = 0;
 
 // Cache local para evitar data-attributes com caracteres especiais
-const _cache = { materias: {}, turmas: {}, conteudos: {} };
+const _cache = { materias: {}, turmas: {}, conteudos: {}, atividades: {} };
 
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('nav-nome').textContent = user?.nome || '';
@@ -73,8 +74,10 @@ async function carregarMaterias() {
           <button class="btn btn-danger btn-sm" onclick="excluirMateria('${m.id}')">Excluir</button>
         </div>
       </div>
-      <p class="muted">${m.descricao || 'Sem descrição.'}</p>
-      <div id="conteudos-${m.id}" style="display:none;margin-top:.75rem;border-top:1px solid var(--border);padding-top:.75rem"></div>
+      <div style="padding:.55rem 1.5rem">
+        <p class="muted" style="margin:0;font-size:.84rem;line-height:1.5">${m.descricao || 'Sem descrição.'}</p>
+      </div>
+      <div id="conteudos-${m.id}" style="display:none;padding:.75rem 1.5rem;border-top:1px solid var(--border)"></div>
     </div>
   `).join('');
 }
@@ -242,9 +245,11 @@ async function carregarTurmas() {
           <button class="btn btn-danger btn-sm" onclick="excluirTurma('${t.codigo}')">Excluir</button>
         </div>
       </div>
-      <div style="color:var(--text-1);font-weight:600;margin-bottom:.25rem">${t.materiaNome}</div>
-      <div class="muted">🕐 ${t.horario || 'Sem horário'} · 👥 ${t.totalAlunos} aluno(s)</div>
-      <div id="alunos-${t.codigo}" style="display:none;margin-top:.75rem;border-top:1px solid var(--border);padding-top:.75rem"></div>
+      <div style="padding:.55rem 1.5rem">
+        <div style="color:var(--text-1);font-weight:600;margin-bottom:.2rem;font-size:.9rem">${t.materiaNome}</div>
+        <div class="muted" style="font-size:.84rem">🕐 ${t.horario || 'Sem horário'} · 👥 ${t.totalAlunos} aluno(s)</div>
+      </div>
+      <div id="alunos-${t.codigo}" style="display:none;padding:.75rem 1.5rem;border-top:1px solid var(--border)"></div>
     </div>
   `).join('');
 }
@@ -382,21 +387,113 @@ async function carregarAtividades() {
   if (!res?.ok || !res.data.dados.length) {
     el.innerHTML = `<div class="empty-state"><span class="empty-icon">📝</span><p>Nenhuma atividade criada.</p></div>`; return;
   }
+  res.data.dados.forEach(a => { _cache.atividades[a.id] = a; });
   el.innerHTML = res.data.dados.map(a => `
     <div class="card mb-2">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <div class="card-header">
         <div>
-          <div style="font-weight:600;color:var(--text-1)">${a.titulo}</div>
-          <div class="muted">📚 ${a.materiaNome} · ${a.totalPerguntas} pergunta(s)</div>
+          <div style="font-weight:600;color:var(--text-1);font-size:.95rem">${a.titulo}</div>
+          <div class="muted" style="font-size:.84rem;margin-top:.15rem">📚 ${a.materiaNome} · ${a.totalPerguntas} pergunta(s)</div>
         </div>
         <div style="display:flex;gap:.5rem;flex-wrap:wrap">
           <button class="btn btn-outline btn-sm" onclick="togglePerguntas('${a.id}')">👁 Ver perguntas</button>
+          <button class="btn btn-outline btn-sm" onclick="abrirEditarAtividade('${a.id}')">✏️ Editar</button>
           <button class="btn btn-danger btn-sm" onclick="excluirAtividade('${a.id}')">Excluir</button>
         </div>
       </div>
-      <div id="pergs-${a.id}" style="display:none;margin-top:.75rem;border-top:1px solid var(--border);padding-top:.75rem"></div>
+      <div id="pergs-${a.id}" style="display:none;padding:.75rem 1.5rem;border-top:1px solid var(--border)"></div>
     </div>
   `).join('');
+}
+
+async function abrirEditarAtividade(id) {
+  const res = await get(`/atividades/${id}/completo`);
+  if (!res?.ok) { toast('Erro ao carregar atividade.', 'error'); return; }
+  const a = res.data.dados;
+
+  document.getElementById('edit-atv-id').value     = id;
+  document.getElementById('edit-atv-titulo').value = a.titulo;
+
+  const container = document.getElementById('edit-perguntas-container');
+  container.innerHTML = '';
+  editPerguntaIdx = 0;
+  a.perguntas.forEach(p => adicionarPerguntaEditar(p));
+
+  abrirModal('modal-editar-atividade');
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function adicionarPerguntaEditar(data = null) {
+  const idx = editPerguntaIdx++;
+  const container = document.getElementById('edit-perguntas-container');
+  const div = document.createElement('div');
+  div.className = 'card mb-2';
+  div.style.cssText = 'padding:1rem;';
+  div.id = `edit-perg-${idx}`;
+
+  const corrIdx = data ? data.alternativas.findIndex(
+    alt => alt.trim().toLowerCase() === data.respostaCorreta.trim().toLowerCase()
+  ) : -1;
+
+  div.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+      <strong style="color:var(--text-1)">Pergunta ${idx + 1}</strong>
+      <button class="btn btn-danger btn-sm" onclick="document.getElementById('edit-perg-${idx}').remove()">✕</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Enunciado</label>
+      <input type="text" class="form-control edit-perg-texto" value="${escHtml(data?.textoPergunta || '')}" placeholder="Digite a pergunta..." />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Alternativas (marque a correta)</label>
+      ${[0,1,2,3].map(i => `
+        <div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.4rem">
+          <input type="radio" name="edit-correta-${idx}" value="${i}" ${corrIdx === i ? 'checked' : ''} style="accent-color:var(--accent)" />
+          <input type="text" class="form-control edit-alt-${idx}" value="${escHtml(data?.alternativas?.[i] || '')}" placeholder="Alternativa ${String.fromCharCode(65+i)}" />
+        </div>
+      `).join('')}
+    </div>
+  `;
+  container.appendChild(div);
+}
+
+async function salvarAtividade() {
+  const btn    = document.getElementById('btn-salvar-atividade');
+  const id     = document.getElementById('edit-atv-id').value;
+  const titulo = document.getElementById('edit-atv-titulo').value.trim();
+  if (!titulo) { toast('Informe o título.', 'error'); return; }
+
+  const perguntas = [];
+  document.querySelectorAll('[id^="edit-perg-"]').forEach((div, i) => {
+    const texto   = div.querySelector('.edit-perg-texto')?.value?.trim();
+    const corrIdx = div.querySelector(`input[type="radio"]:checked`)?.value;
+    const divIdx  = div.id.replace('edit-perg-', '');
+    const alts    = [...div.querySelectorAll(`.edit-alt-${divIdx}`)].map(el => el.value.trim()).filter(Boolean);
+
+    if (texto && corrIdx !== undefined && alts.length) {
+      perguntas.push({
+        textoPergunta:   texto,
+        respostaCorreta: alts[parseInt(corrIdx)],
+        alternativas:    alts,
+        ordem:           i
+      });
+    }
+  });
+
+  if (!perguntas.length) { toast('Adicione ao menos uma pergunta completa.', 'error'); return; }
+
+  mostrarLoader(btn);
+  const res = await put(`/atividades/${id}`, { titulo, perguntas });
+  esconderLoader(btn);
+
+  if (res?.ok) {
+    toast('Atividade atualizada!');
+    fecharModal('modal-editar-atividade');
+    carregarAtividades();
+  } else { toast(res?.data?.mensagem || 'Erro.', 'error'); }
 }
 
 async function togglePerguntas(atividadeId) {
@@ -505,4 +602,118 @@ async function excluirAtividade(id) {
 async function carregarRanking() {
   const res = await get('/relatorios/ranking');
   renderRanking('ranking-list', res?.data?.dados);
+}
+
+// ── Análise de Desempenho ─────────────────────────────────────
+async function carregarAnalise() {
+  const res = await get('/relatorios/ranking');
+  const el  = document.getElementById('analise-content');
+
+  if (!res?.ok || !res.data.dados?.length) {
+    el.innerHTML = `<div class="empty-state"><span class="empty-icon">🧠</span>
+      <p>Sem dados suficientes para análise. Cadastre alunos e atividades primeiro.</p></div>`;
+    return;
+  }
+
+  const dados      = res.data.dados;
+  const total      = dados.length;
+  const destaque   = dados.filter(a => a.media >= 80);
+  const progresso  = dados.filter(a => a.media >= 60 && a.media < 80);
+  const risco      = dados.filter(a => a.media < 60);
+  const mediaTurma = Math.round(dados.reduce((s, a) => s + a.media, 0) / total);
+  const melhor     = dados[0];
+  const maisAtivo  = dados.reduce((a, b) => a.totalAtividades > b.totalAtividades ? a : b);
+  const pct        = n => total > 0 ? Math.round(n / total * 100) : 0;
+
+  const corMedia = mediaTurma >= 70 ? 'var(--green)' : mediaTurma >= 50 ? 'var(--yellow)' : 'var(--red)';
+  const labelMedia = mediaTurma >= 70 ? 'Turma com bom desempenho' : mediaTurma >= 50 ? 'Turma em desenvolvimento' : 'Turma necessita atenção';
+
+  el.innerHTML = `
+    <div class="stats-grid" style="margin-bottom:1.5rem">
+      <div class="stat-card">
+        <span class="stat-icon">👥</span>
+        <div class="stat-value">${total}</div>
+        <div class="stat-label">Alunos analisados</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">📊</span>
+        <div class="stat-value">${mediaTurma}%</div>
+        <div class="stat-label">Média geral</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">⚠️</span>
+        <div class="stat-value" style="color:var(--red)">${risco.length}</div>
+        <div class="stat-label">Alunos em risco</div>
+      </div>
+    </div>
+
+    <div class="card mb-2">
+      <div class="card-header"><div class="card-title">📊 Distribuição de Desempenho</div></div>
+      <div style="padding:1rem 1.5rem">
+        ${renderDistBar('Destaque (≥ 80%)',      pct(destaque.length),  '#22c87a', destaque.length)}
+        ${renderDistBar('Em Progresso (60–79%)', pct(progresso.length), '#f5c518', progresso.length)}
+        ${renderDistBar('Em Risco (< 60%)',       pct(risco.length),     '#ff4d6a', risco.length)}
+      </div>
+    </div>
+
+    ${risco.length ? `
+    <div class="card mb-2">
+      <div class="card-header"><div class="card-title">⚠️ Alunos que Precisam de Atenção</div></div>
+      <div style="padding:.75rem 1.5rem">
+        ${risco.map(a => `
+          <div style="display:flex;justify-content:space-between;align-items:center;
+               padding:.55rem .75rem;background:rgba(255,77,106,.07);
+               border:1px solid rgba(255,77,106,.2);border-radius:10px;margin-bottom:.4rem">
+            <div>
+              <span style="font-weight:600;color:var(--text-1)">${a.alunoNome}</span>
+              <span class="muted"> · ${a.totalAtividades} atividade(s)</span>
+            </div>
+            <span class="badge badge-red">${a.media}%</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>` : ''}
+
+    <div class="card">
+      <div class="card-header"><div class="card-title">💡 Insights Automáticos</div></div>
+      <div style="padding:.75rem 1.5rem">
+        ${melhor ? `
+        <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem 0;border-bottom:1px solid var(--border)">
+          <span style="font-size:1.15rem">🏆</span>
+          <div>
+            <div class="muted" style="font-size:.74rem">Melhor desempenho</div>
+            <div style="font-weight:600;color:var(--text-1)">${melhor.alunoNome} — ${melhor.media}%</div>
+          </div>
+        </div>` : ''}
+        <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem 0;border-bottom:1px solid var(--border)">
+          <span style="font-size:1.15rem">🔥</span>
+          <div>
+            <div class="muted" style="font-size:.74rem">Mais ativo</div>
+            <div style="font-weight:600;color:var(--text-1)">${maisAtivo.alunoNome} — ${maisAtivo.totalAtividades} atividade(s)</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem 0">
+          <span style="font-size:1.15rem">📈</span>
+          <div>
+            <div class="muted" style="font-size:.74rem">Classificação geral</div>
+            <div style="font-weight:600;color:${corMedia}">${labelMedia}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderDistBar(label, pct, color, count) {
+  return `
+    <div style="margin-bottom:.85rem">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.3rem">
+        <span style="font-size:.82rem;color:var(--text-2)">${label}</span>
+        <span style="font-size:.82rem;font-weight:600;color:${color}">${count} aluno(s) · ${pct}%</span>
+      </div>
+      <div style="height:8px;background:var(--bg-3);border-radius:4px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:${color};border-radius:4px;transition:width .6s ease"></div>
+      </div>
+    </div>
+  `;
 }

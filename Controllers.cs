@@ -297,6 +297,22 @@ public class AtividadeController(AtividadeService svc) : BaseController
         return s ? Ok(new { mensagem = m, id }) : Erro(m);
     }
 
+    [HttpGet("{id:guid}/completo")]
+    [Authorize(Roles = "Professor")]
+    public async Task<IActionResult> DetalheCompleto(Guid id)
+    {
+        var detalhe = await svc.BuscarDetalheCompletoAsync(id, CpfLogado);
+        return detalhe != null ? Ok(detalhe) : Erro("Atividade não encontrada.", 404);
+    }
+
+    [HttpPut("{id:guid}")]
+    [Authorize(Roles = "Professor")]
+    public async Task<IActionResult> Editar(Guid id, [FromBody] EditarAtividadeRequest req)
+    {
+        var (s, m) = await svc.EditarAsync(id, CpfLogado, req);
+        return s ? Ok(m) : Erro(m);
+    }
+
     [HttpDelete("{id:guid}")]
     [Authorize(Roles = "Professor")]
     public async Task<IActionResult> Excluir(Guid id)

@@ -422,6 +422,61 @@ public class AtividadeService(AppDbContext db)
         return (true, "Atividade criada!", atividade.Id);
     }
 
+    public async Task<AtividadeDetalheCompletaDto?> BuscarDetalheCompletoAsync(Guid id, string profCpf)
+    {
+        var a = await db.Atividades
+            .Include(x => x.Materia)
+            .Include(x => x.Perguntas)
+                .ThenInclude(p => p.Alternativas)
+            .FirstOrDefaultAsync(x => x.Id == id && x.Materia!.ProfessorCpf == profCpf);
+
+        if (a == null) return null;
+
+        return new AtividadeDetalheCompletaDto(
+            a.Id, a.Titulo, a.Materia!.Nome,
+            a.Perguntas.OrderBy(p => p.Ordem).Select(p => new PerguntaComRespostaDto(
+                p.Id, p.TextoPergunta, p.Ordem,
+                p.Alternativas.OrderBy(alt => alt.Ordem).Select(alt => alt.Texto).ToList(),
+                p.RespostaCorreta
+            )).ToList()
+        );
+    }
+
+    public async Task<(bool sucesso, string mensagem)> EditarAsync(
+        Guid id, string profCpf, EditarAtividadeRequest req)
+    {
+        var a = await db.Atividades
+            .Include(x => x.Materia)
+            .Include(x => x.Perguntas)
+                .ThenInclude(p => p.Alternativas)
+            .FirstOrDefaultAsync(x => x.Id == id && x.Materia!.ProfessorCpf == profCpf);
+
+        if (a == null) return (false, "Atividade não encontrada.");
+
+        a.Titulo = req.Titulo.Trim();
+
+        foreach (var p in a.Perguntas)
+            db.Alternativas.RemoveRange(p.Alternativas);
+        db.Perguntas.RemoveRange(a.Perguntas);
+
+        foreach (var (pReq, i) in req.Perguntas.Select((p, i) => (p, i)))
+        {
+            var pergunta = new Pergunta
+            {
+                AtividadeId     = a.Id,
+                TextoPergunta   = pReq.TextoPergunta.Trim(),
+                RespostaCorreta = pReq.RespostaCorreta.Trim(),
+                Ordem           = pReq.Ordem == 0 ? i : pReq.Ordem
+            };
+            foreach (var (alt, j) in pReq.Alternativas.Select((altText, j) => (altText, j)))
+                pergunta.Alternativas.Add(new Alternativa { Texto = alt.Trim(), Ordem = j });
+            db.Perguntas.Add(pergunta);
+        }
+
+        await db.SaveChangesAsync();
+        return (true, "Atividade atualizada!");
+    }
+
     public async Task<(bool sucesso, string mensagem)> ExcluirAsync(Guid id, string profCpf)
     {
         var a = await db.Atividades

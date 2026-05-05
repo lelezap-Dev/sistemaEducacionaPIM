@@ -182,6 +182,32 @@ public record SessaoDto(
     decimal?  DuracaoMinutos
 );
 
+// ── Editar Atividade ──────────────────────────────────────────
+
+public record EditarAtividadeRequest(string Titulo, List<EditarPerguntaRequest> Perguntas);
+
+public record EditarPerguntaRequest(
+    string       TextoPergunta,
+    string       RespostaCorreta,
+    List<string> Alternativas,
+    int          Ordem = 0
+);
+
+public record PerguntaComRespostaDto(
+    Guid         Id,
+    string       TextoPergunta,
+    int          Ordem,
+    List<string> Alternativas,
+    string       RespostaCorreta
+);
+
+public record AtividadeDetalheCompletaDto(
+    Guid     Id,
+    string   Titulo,
+    string   MateriaNome,
+    List<PerguntaComRespostaDto> Perguntas
+);
+
 // ── Relatórios ────────────────────────────────────────────────────
 
 public record RelatorioAlunoDto(
