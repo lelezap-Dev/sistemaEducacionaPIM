@@ -166,26 +166,31 @@ using (var scope = app.Services.CreateScope())
         END
     ");
 
-    var admin = db.Usuarios.FirstOrDefault(u => u.Cpf == "00000000000");
+    var adminCpf    = app.Configuration["Admin:Cpf"]!;
+    var adminSenha  = app.Configuration["Admin:SenhaInicial"]!;
+    var adminEmail  = app.Configuration["Admin:Email"]!;
+    var adminChave  = app.Configuration["Admin:PalavraChave"]!;
+
+    var admin = db.Usuarios.FirstOrDefault(u => u.Cpf == adminCpf);
 
     if (admin == null)
     {
         db.Usuarios.Add(new SistemaEducacional.Models.Usuario
         {
-            Cpf          = "00000000000",
+            Cpf          = adminCpf,
             Nome         = "Administrador",
-            Email        = "admin@escola.com",
-            SenhaHash    = BCrypt.Net.BCrypt.HashPassword("Admin@123"),
+            Email        = adminEmail,
+            SenhaHash    = BCrypt.Net.BCrypt.HashPassword(adminSenha),
             Perfil       = "Secretaria",
-            PalavraChave = "sistema",
+            PalavraChave = adminChave,
             Status       = "Ativo"
         });
         db.SaveChanges();
     }
     else
     {
-        if (!BCrypt.Net.BCrypt.Verify("Admin@123", admin.SenhaHash))
-            admin.SenhaHash = BCrypt.Net.BCrypt.HashPassword("Admin@123");
+        if (!BCrypt.Net.BCrypt.Verify(adminSenha, admin.SenhaHash))
+            admin.SenhaHash = BCrypt.Net.BCrypt.HashPassword(adminSenha);
 
         // Garante que o admin nunca fique pendente
         admin.Status = "Ativo";
