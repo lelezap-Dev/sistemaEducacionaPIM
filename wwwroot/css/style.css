@@ -664,8 +664,8 @@ body.a11y-high-contrast .form-select    { background: #111 !important; border-co
 body.a11y-high-contrast .modal-content  { background: #0d0d0d !important; border-color: rgba(255,255,255,.4) !important; }
 
 /* Tamanho de texto — aplicado no html para escalar rem */
-html.a11y-text-large  { font-size: 112%; }
-html.a11y-text-larger { font-size: 130%; }
+html.a11y-text-large  { font-size: 112% !important; }
+html.a11y-text-larger { font-size: 130% !important; }
 
 /* ── Responsivo ── */
 @media (max-width: 992px) {
