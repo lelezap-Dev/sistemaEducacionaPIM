@@ -142,12 +142,12 @@
       localStorage.setItem('a11y-contrast', ativo ? '1' : '0');
     });
 
-    // Tamanho de texto
+    // Tamanho de texto — classe aplicada no html para escalar rem
     painel.querySelectorAll('.a11y-font-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const tamanho = btn.dataset.size;
-        document.body.classList.remove('a11y-text-large', 'a11y-text-larger');
-        if (tamanho !== 'normal') document.body.classList.add(`a11y-text-${tamanho}`);
+        document.documentElement.classList.remove('a11y-text-large', 'a11y-text-larger');
+        if (tamanho !== 'normal') document.documentElement.classList.add(`a11y-text-${tamanho}`);
         localStorage.setItem('a11y-font', tamanho);
         painel.querySelectorAll('.a11y-font-btn').forEach(b => {
           b.style.borderColor = 'rgba(255,255,255,.15)';
@@ -167,7 +167,7 @@
 
     const tamanhoSalvo = localStorage.getItem('a11y-font') || 'normal';
     if (tamanhoSalvo !== 'normal') {
-      document.body.classList.add(`a11y-text-${tamanhoSalvo}`);
+      document.documentElement.classList.add(`a11y-text-${tamanhoSalvo}`);
       const btnAtivo = painel.querySelector(`.a11y-font-btn[data-size="${tamanhoSalvo}"]`);
       if (btnAtivo) {
         btnAtivo.style.borderColor = '#8b5cf6';
