@@ -1,4 +1,4 @@
-namespace SistemaEducacional.DTOs;
+namespace SistemaEducacional.Application.DTOs;
 
 // ================================================================
 //  DTOs (Data Transfer Objects)

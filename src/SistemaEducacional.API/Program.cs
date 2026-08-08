@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SistemaEducacional.Data;
-using SistemaEducacional.Services;
+using SistemaEducacional.Infrastructure.Data;
+using SistemaEducacional.Application.Services;
 
 // ================================================================
 //  Program.cs — ponto de entrada da aplicação.
@@ -14,11 +14,35 @@ using SistemaEducacional.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ── 0. Validação dos segredos ────────────────────────────────────
+// Dados sensíveis NÃO ficam no appsettings.json (que é versionado).
+// Em desenvolvimento vêm do User Secrets; em produção, de variáveis
+// de ambiente. Se faltarem, a aplicação para aqui com erro claro em
+// vez de falhar depois com uma exceção confusa.
+static string ExigirConfig(IConfiguration cfg, string chave)
+{
+    var valor = cfg[chave];
+    if (string.IsNullOrWhiteSpace(valor))
+        throw new InvalidOperationException(
+            $"Configuração obrigatória ausente: '{chave}'. " +
+            "Em desenvolvimento use: dotnet user-secrets set \"" + chave + "\" \"<valor>\". " +
+            "Em produção, defina a variável de ambiente correspondente.");
+    return valor;
+}
+
+var connectionString = ExigirConfig(builder.Configuration, "ConnectionStrings:DefaultConnection");
+var jwtKey           = ExigirConfig(builder.Configuration, "Jwt:Key");
+
+// Chave HMAC-SHA256 precisa de no mínimo 256 bits (32 bytes) para ser segura
+if (Encoding.UTF8.GetByteCount(jwtKey) < 32)
+    throw new InvalidOperationException(
+        "'Jwt:Key' precisa ter no mínimo 32 bytes para assinatura HMAC-SHA256.");
+
 // ── 1. Banco de Dados ────────────────────────────────────────────
-// Registra o DbContext com a string de conexão do appsettings.json
+// Registra o DbContext com a string de conexão validada acima
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
+        connectionString,
         sql => sql.EnableRetryOnFailure(3)  // tenta 3x em caso de queda temporária
     )
 );
@@ -27,7 +51,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // JWT = JSON Web Token. Após o login, o servidor devolve um token
 // que o front-end guarda e envia em cada requisição.
 // O servidor verifica a assinatura do token sem precisar do banco.
-var jwtKey = builder.Configuration["Jwt:Key"]!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -175,7 +198,7 @@ using (var scope = app.Services.CreateScope())
 
     if (admin == null)
     {
-        db.Usuarios.Add(new SistemaEducacional.Models.Usuario
+        db.Usuarios.Add(new SistemaEducacional.Domain.Entities.Usuario
         {
             Cpf          = adminCpf,
             Nome         = "Administrador",

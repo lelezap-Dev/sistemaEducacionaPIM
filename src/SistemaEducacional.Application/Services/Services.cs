@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using SistemaEducacional.Data;
-using SistemaEducacional.DTOs;
-using SistemaEducacional.Models;
+using SistemaEducacional.Infrastructure.Data;
+using SistemaEducacional.Application.DTOs;
+using SistemaEducacional.Domain.Entities;
 
-namespace SistemaEducacional.Services;
+namespace SistemaEducacional.Application.Services;
 
 // ================================================================
 //  UsuarioService — CRUD de usuários (usado pela Secretaria)

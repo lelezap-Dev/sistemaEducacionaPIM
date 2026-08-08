@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SistemaEducacional.API</RootNamespace>
+    <!-- Mantém os segredos fora do repositório (dotnet user-secrets) -->
+    <UserSecretsId>dec413df-e851-4661-8609-2a1a0ef42d7b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Autenticação JWT (validação do token nas requisições) -->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
+
+    <!-- Swagger — documentação interativa da API -->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaEducacional.Application\SistemaEducacional.Application.csproj" />
+    <ProjectReference Include="..\SistemaEducacional.Infrastructure\SistemaEducacional.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

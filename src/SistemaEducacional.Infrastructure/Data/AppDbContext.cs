@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using SistemaEducacional.Models;
+using SistemaEducacional.Domain.Entities;
 
-namespace SistemaEducacional.Data;
+namespace SistemaEducacional.Infrastructure.Data;
 
 // ================================================================
 //  AppDbContext — "janela" do C# para o SQL Server.

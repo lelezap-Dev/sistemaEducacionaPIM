@@ -3,12 +3,13 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SistemaEducacional.Data;
-using SistemaEducacional.DTOs;
-using SistemaEducacional.Models;
+using SistemaEducacional.Infrastructure.Data;
+using SistemaEducacional.Application.DTOs;
+using SistemaEducacional.Domain.Entities;
 
-namespace SistemaEducacional.Services;
+namespace SistemaEducacional.Application.Services;
 
 // ================================================================
 //  AuthService — responsável por:

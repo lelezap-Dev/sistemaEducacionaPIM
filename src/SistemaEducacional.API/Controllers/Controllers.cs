@@ -1,10 +1,10 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SistemaEducacional.DTOs;
-using SistemaEducacional.Services;
+using SistemaEducacional.Application.DTOs;
+using SistemaEducacional.Application.Services;
 
-namespace SistemaEducacional.Controllers;
+namespace SistemaEducacional.API.Controllers;
 
 // ================================================================
 //  Helpers usados por todos os controllers
