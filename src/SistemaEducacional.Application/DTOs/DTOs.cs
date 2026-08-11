@@ -226,3 +226,22 @@ public record RankingItemDto(
     double Media,
     int    TotalAtividades
 );
+
+// ── Chatbot ───────────────────────────────────────────────────────
+
+public record ChatbotPerguntaRequest(string Pergunta);
+
+public record ChatbotRespostaDto(
+    string        Resposta,
+    bool          Entendeu,     // false quando não houve correspondência confiável
+    string?       Categoria,
+    List<string>  Sugestoes     // perguntas alternativas para orientar o usuário
+);
+
+public record ChatbotFaqDto(
+    Guid   Id,
+    string Pergunta,
+    string Resposta,
+    string Categoria,
+    string PerfilAlvo
+);

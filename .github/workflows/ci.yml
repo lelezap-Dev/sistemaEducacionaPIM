@@ -1,0 +1,118 @@
+# ============================================================================
+#  Pipeline de Integração Contínua — Sistema Lumina
+#  PIM IV — Etapa 8 (Infraestrutura em Nuvem e DevOps)
+#
+#  Executa automaticamente a cada push ou pull request, garantindo que
+#  código quebrado não chegue à branch principal. As etapas cobrem as
+#  três frentes do projeto: API .NET, aplicativo móvel e imagem Docker.
+# ============================================================================
+
+name: CI
+
+on:
+  push:
+    branches: [ main, 'pim-iv/**' ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:        # permite disparar manualmente pela interface
+
+# Cancela execuções antigas da mesma branch: só o último commit importa
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  # ── 1. Backend .NET ───────────────────────────────────────────────────────
+  api:
+    name: API — compilação e análise
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obter o código
+        uses: actions/checkout@v4
+
+      - name: Instalar o SDK do .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restaurar dependências
+        run: dotnet restore SistemaEducacional.slnx
+
+      - name: Compilar em modo Release
+        # -warnaserror trata avisos como erro: impede que o projeto
+        # acumule pendências silenciosas ao longo do semestre
+        run: dotnet build SistemaEducacional.slnx --configuration Release --no-restore -warnaserror
+
+      - name: Verificar pacotes com vulnerabilidades conhecidas
+        run: |
+          dotnet list SistemaEducacional.slnx package --vulnerable --include-transitive > vulneraveis.txt
+          cat vulneraveis.txt
+          if grep -q "has the following vulnerable packages" vulneraveis.txt; then
+            echo "::error::Foram encontrados pacotes com vulnerabilidades conhecidas."
+            exit 1
+          fi
+
+      - name: Publicar artefato
+        run: dotnet publish src/SistemaEducacional.API/SistemaEducacional.API.csproj --configuration Release --output ./publicado
+
+      - name: Guardar artefato da publicação
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-publicada
+          path: ./publicado
+          retention-days: 7
+
+  # ── 2. Aplicativo móvel ───────────────────────────────────────────────────
+  mobile:
+    name: Mobile — validação do bundle
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obter o código
+        uses: actions/checkout@v4
+
+      - name: Instalar o Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+
+      - name: Instalar dependências
+        working-directory: ./mobile
+        run: npm ci
+
+      - name: Conferir compatibilidade das versões do SDK
+        working-directory: ./mobile
+        run: npx expo install --check
+        continue-on-error: true   # informativo: não deve reprovar a build
+
+      - name: Compilar o bundle iOS
+        # Se algum import estiver quebrado ou houver erro de sintaxe,
+        # a compilação falha aqui, antes de chegar ao dispositivo
+        working-directory: ./mobile
+        run: npx expo export --platform ios --output-dir ./dist-ci
+
+  # ── 3. Imagem Docker ──────────────────────────────────────────────────────
+  docker:
+    name: Docker — construção da imagem
+    runs-on: ubuntu-latest
+    needs: api          # só constrói a imagem se a API compilou
+
+    steps:
+      - name: Obter o código
+        uses: actions/checkout@v4
+
+      - name: Preparar o Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Construir a imagem
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false            # apenas valida; a publicação fica a cargo do Render
+          tags: lumina-api:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

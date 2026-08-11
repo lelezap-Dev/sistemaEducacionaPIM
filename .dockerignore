@@ -1,0 +1,35 @@
+# Arquivos que não devem entrar no contexto de build do Docker.
+# Reduz o tamanho enviado ao daemon e evita levar segredos para a imagem.
+
+# Artefatos de compilação
+**/bin/
+**/obj/
+**/publish/
+**/PublishOutput/
+
+# IDEs
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Configurações locais e segredos
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+*.env
+.env
+
+# Aplicativo móvel (não faz parte da imagem da API)
+mobile/
+
+# Controle de versão e documentação
+.git/
+.github/
+*.md
+docs/
+
+# Logs e temporários
+*.log
+*.tmp

@@ -359,3 +359,43 @@ public class RelatorioController(RelatorioService svc, SessaoService sessaoSvc) 
     public async Task<IActionResult> Sessoes() =>
         Ok(await sessaoSvc.ListarTodasAsync());
 }
+
+// ================================================================
+//  ChatbotController — /api/chatbot
+//
+//  Assistente de apoio ao usuário. Não exige autenticação: a maior
+//  parte das dúvidas surge justamente na tela de login (esqueci a
+//  senha, cadastro pendente). Quando há token, o perfil é usado para
+//  filtrar as respostas pertinentes àquele tipo de usuário.
+// ================================================================
+
+[Route("api/chatbot")]
+public class ChatbotController(ChatbotService svc) : BaseController
+{
+    [HttpPost("perguntar")]
+    public async Task<IActionResult> Perguntar([FromBody] ChatbotPerguntaRequest req)
+    {
+        if (string.IsNullOrWhiteSpace(req.Pergunta))
+            return Erro("Digite sua dúvida.");
+
+        // Limita o tamanho da entrada para evitar abuso do endpoint aberto
+        if (req.Pergunta.Length > 500)
+            return Erro("Pergunta muito longa. Resuma em até 500 caracteres.");
+
+        // PerfilLogado fica vazio quando não há token — usuário visitante
+        var perfil = string.IsNullOrEmpty(PerfilLogado) ? null : PerfilLogado;
+
+        return Ok(await svc.PerguntarAsync(req.Pergunta, perfil));
+    }
+
+    [HttpGet("sugestoes")]
+    public async Task<IActionResult> Sugestoes()
+    {
+        var perfil = string.IsNullOrEmpty(PerfilLogado) ? null : PerfilLogado;
+        return Ok(await svc.SugestoesAsync(perfil));
+    }
+
+    [HttpGet("faq")]
+    public async Task<IActionResult> Faq() =>
+        Ok(await svc.ListarAsync());
+}

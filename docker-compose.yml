@@ -1,0 +1,83 @@
+# ============================================================================
+#  docker-compose.yml — ambiente completo do Sistema Lumina
+#  PIM IV — Etapa 8 (Infraestrutura em Nuvem e DevOps)
+#
+#  Sobe dois contêineres: a API e o SQL Server. Um único comando
+#  reproduz o ambiente inteiro em qualquer máquina, eliminando o
+#  clássico "na minha máquina funciona".
+#
+#  Como usar:
+#     docker compose up -d          sobe tudo em segundo plano
+#     docker compose logs -f api    acompanha os registros da API
+#     docker compose down           encerra os contêineres
+#     docker compose down -v        encerra e APAGA os dados do banco
+#
+#  Antes de subir, crie um arquivo .env com as variáveis indicadas
+#  em .env.exemplo. Nenhum segredo fica neste arquivo.
+# ============================================================================
+
+services:
+
+  # ── Banco de dados ────────────────────────────────────────────────────────
+  banco:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: lumina-banco
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?defina MSSQL_SA_PASSWORD no arquivo .env}
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      # Volume nomeado: os dados sobrevivem ao "docker compose down"
+      - dados-banco:/var/opt/mssql
+      # Scripts ficam disponíveis dentro do contêiner para execução manual
+      - ./database:/scripts:ro
+    healthcheck:
+      # A API só inicia depois que o banco responder de fato a uma consulta
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    networks:
+      - lumina-rede
+    restart: unless-stopped
+
+  # ── Aplicação ─────────────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lumina-api
+    depends_on:
+      banco:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      # Dois underscores representam a hierarquia do appsettings no .NET
+      ConnectionStrings__DefaultConnection: >-
+        Server=banco,1433;Database=SistemaEducacional;User Id=sa;
+        Password=${MSSQL_SA_PASSWORD};TrustServerCertificate=True;MultipleActiveResultSets=True;
+      Jwt__Key:             ${JWT_KEY:?defina JWT_KEY no arquivo .env}
+      Jwt__Issuer:          SistemaEducacional
+      Jwt__Audience:        SistemaEducacionalUsers
+      Jwt__ExpiresInHours:  "8"
+      Admin__Cpf:           ${ADMIN_CPF:-00000000000}
+      Admin__Email:         ${ADMIN_EMAIL:-admin@lumina.edu.br}
+      Admin__SenhaInicial:  ${ADMIN_SENHA:?defina ADMIN_SENHA no arquivo .env}
+      Admin__PalavraChave:  ${ADMIN_PALAVRA_CHAVE:?defina ADMIN_PALAVRA_CHAVE no arquivo .env}
+    ports:
+      - "5199:8080"
+    networks:
+      - lumina-rede
+    restart: unless-stopped
+
+networks:
+  lumina-rede:
+    driver: bridge
+
+volumes:
+  dados-banco:
+    driver: local

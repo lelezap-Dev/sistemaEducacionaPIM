@@ -24,6 +24,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Resultado>       Resultados       { get; set; }
     public DbSet<LeituraConteudo> LeituraConteudos { get; set; }
     public DbSet<Sessao>          Sessoes          { get; set; }
+    public DbSet<ChatbotFaq>      ChatbotFaqs      { get; set; }
 
     protected override void OnModelCreating(ModelBuilder mb)
     {

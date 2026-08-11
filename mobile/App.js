@@ -31,6 +31,7 @@ import MateriasScreen from './src/screens/MateriasScreen';
 import AtividadesScreen from './src/screens/AtividadesScreen';
 import ResponderAtividadeScreen from './src/screens/ResponderAtividadeScreen';
 import ResultadosScreen from './src/screens/ResultadosScreen';
+import ChatbotScreen from './src/screens/ChatbotScreen';
 import AcessibilidadeScreen from './src/screens/AcessibilidadeScreen';
 import { Txt } from './src/components/ui';
 
@@ -47,18 +48,29 @@ function IconeAba({ simbolo, focada }) {
   );
 }
 
-/** Botão de acessibilidade, presente no cabeçalho de todas as telas. */
-function BotaoAcessibilidade({ navigation }) {
+/** Atalhos fixos do cabeçalho: assistente virtual e acessibilidade. */
+function AcoesCabecalho({ navigation }) {
   return (
-    <Pressable
-      onPress={() => navigation.navigate('Acessibilidade')}
-      accessibilityRole="button"
-      accessibilityLabel="Abrir opções de acessibilidade"
-      hitSlop={12}
-      style={{ paddingHorizontal: 8 }}
-    >
-      <Txt tamanho={20}>♿</Txt>
-    </Pressable>
+    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <Pressable
+        onPress={() => navigation.navigate('Chatbot')}
+        accessibilityRole="button"
+        accessibilityLabel="Abrir assistente virtual"
+        hitSlop={10}
+        style={{ paddingHorizontal: 6 }}
+      >
+        <Txt tamanho={20}>💬</Txt>
+      </Pressable>
+      <Pressable
+        onPress={() => navigation.navigate('Acessibilidade')}
+        accessibilityRole="button"
+        accessibilityLabel="Abrir opções de acessibilidade"
+        hitSlop={10}
+        style={{ paddingHorizontal: 6 }}
+      >
+        <Txt tamanho={20}>♿</Txt>
+      </Pressable>
+    </View>
   );
 }
 
@@ -90,7 +102,7 @@ function AbasPrincipais() {
         headerTintColor: paleta.texto,
         headerTitleStyle: { fontWeight: '800' },
         headerLeft:  () => <BotaoSair />,
-        headerRight: () => <BotaoAcessibilidade navigation={navigation} />,
+        headerRight: () => <AcoesCabecalho navigation={navigation} />,
         tabBarStyle: {
           backgroundColor: paleta.bg1,
           borderTopColor: paleta.roxoBorda,
@@ -198,7 +210,13 @@ function Rotas() {
           </>
         )}
 
-        {/* Acessível estando ou não autenticado */}
+        {/* Acessíveis estando ou não autenticado: as dúvidas mais
+            frequentes surgem justamente antes do login */}
+        <Pilha.Screen
+          name="Chatbot"
+          component={ChatbotScreen}
+          options={{ title: 'Assistente Lumina' }}
+        />
         <Pilha.Screen
           name="Acessibilidade"
           component={AcessibilidadeScreen}

@@ -130,17 +130,34 @@ export default function LoginScreen({ navigation }) {
             <Botao titulo="Entrar" onPress={aoEntrar} carregando={enviando} />
           </View>
 
-          {/* Acessibilidade sempre acessível, inclusive antes do login */}
-          <Pressable
-            onPress={() => navigation.navigate('Acessibilidade')}
-            accessibilityRole="button"
-            accessibilityLabel="Abrir opções de acessibilidade"
-            style={{ marginTop: espaco.lg, alignSelf: 'center', padding: espaco.sm }}
+          {/* Apoio disponível antes mesmo do login: é onde surgem as
+              dúvidas mais frequentes (senha esquecida, cadastro pendente) */}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              gap: espaco.lg,
+              marginTop: espaco.lg,
+            }}
           >
-            <Txt tamanho={14} cor={paleta.roxoClaro}>
-              ♿  Acessibilidade
-            </Txt>
-          </Pressable>
+            <Pressable
+              onPress={() => navigation.navigate('Chatbot')}
+              accessibilityRole="button"
+              accessibilityLabel="Abrir assistente virtual"
+              style={{ padding: espaco.sm }}
+            >
+              <Txt tamanho={14} cor={paleta.roxoClaro}>💬  Ajuda</Txt>
+            </Pressable>
+
+            <Pressable
+              onPress={() => navigation.navigate('Acessibilidade')}
+              accessibilityRole="button"
+              accessibilityLabel="Abrir opções de acessibilidade"
+              style={{ padding: espaco.sm }}
+            >
+              <Txt tamanho={14} cor={paleta.roxoClaro}>♿  Acessibilidade</Txt>
+            </Pressable>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

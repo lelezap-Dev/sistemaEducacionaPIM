@@ -79,6 +79,7 @@ builder.Services.AddScoped<TurmaService>();
 builder.Services.AddScoped<AtividadeService>();
 builder.Services.AddScoped<RelatorioService>();
 builder.Services.AddScoped<SessaoService>();
+builder.Services.AddScoped<ChatbotService>();
 
 // ── 4. Controllers e JSON ────────────────────────────────────────
 builder.Services.AddControllers()
@@ -231,6 +232,30 @@ using (var scope = app.Services.CreateScope())
 
         // Garante que o admin nunca fique pendente
         admin.Status = "Ativo";
+        db.SaveChanges();
+    }
+
+    // ── Chatbot: cria a tabela e carrega a base de conhecimento ──
+    db.Database.ExecuteSqlRaw(@"
+        IF OBJECT_ID(N'ChatbotFaqs', N'U') IS NULL
+        BEGIN
+            CREATE TABLE ChatbotFaqs (
+                Id            UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+                Pergunta      NVARCHAR(300)    NOT NULL,
+                Resposta      NVARCHAR(2000)   NOT NULL,
+                PalavrasChave NVARCHAR(500)    NOT NULL,
+                Categoria     NVARCHAR(50)     NOT NULL DEFAULT 'Geral',
+                PerfilAlvo    NVARCHAR(20)     NOT NULL DEFAULT 'Todos',
+                Ordem         INT              NOT NULL DEFAULT 0,
+                Ativo         BIT              NOT NULL DEFAULT 1,
+                CONSTRAINT PK_ChatbotFaqs PRIMARY KEY (Id)
+            );
+        END
+    ");
+
+    if (!db.ChatbotFaqs.Any())
+    {
+        db.ChatbotFaqs.AddRange(SistemaEducacional.API.SeedChatbot.BaseInicial());
         db.SaveChanges();
     }
 }
