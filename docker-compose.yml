@@ -44,6 +44,40 @@ services:
       - lumina-rede
     restart: unless-stopped
 
+  # ── Inicialização do banco ────────────────────────────────────────────────
+  # O contêiner do SQL Server sobe vazio: a imagem oficial não cria bancos
+  # nem aplica scripts. Este serviço executa os scripts de schema,
+  # procedures e carga inicial, encerrando em seguida. A API só inicia
+  # depois que ele termina com sucesso.
+  #
+  # Reutiliza a imagem do SQL Server porque ela já traz a ferramenta
+  # sqlcmd, evitando baixar uma segunda imagem só para isso.
+  init-banco:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: lumina-init-banco
+    depends_on:
+      banco:
+        condition: service_healthy
+    environment:
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+    volumes:
+      - ./database:/scripts:ro
+    # -b interrompe na primeira falha; -C confia no certificado autoassinado
+    # do contêiner; -f 65001 garante a leitura correta dos acentos
+    command: >
+      /bin/bash -c "
+      echo '--- Aplicando schema ---' &&
+      /opt/mssql-tools18/bin/sqlcmd -S banco -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -b -f 65001 -i /scripts/01_schema.sql &&
+      echo '--- Aplicando procedures e triggers ---' &&
+      /opt/mssql-tools18/bin/sqlcmd -S banco -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -b -f 65001 -i /scripts/02_procedures_triggers.sql &&
+      echo '--- Aplicando carga inicial ---' &&
+      /opt/mssql-tools18/bin/sqlcmd -S banco -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -b -f 65001 -i /scripts/03_carga_inicial.sql &&
+      echo '--- Banco pronto ---'
+      "
+    networks:
+      - lumina-rede
+    restart: "no"   # tarefa de uma passagem só; não deve reiniciar
+
   # ── Aplicação ─────────────────────────────────────────────────────────────
   api:
     build:
@@ -53,6 +87,8 @@ services:
     depends_on:
       banco:
         condition: service_healthy
+      init-banco:
+        condition: service_completed_successfully
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: http://+:8080

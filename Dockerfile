@@ -37,21 +37,24 @@ RUN dotnet publish src/SistemaEducacional.API/SistemaEducacional.API.csproj \
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 
-# Executa como usuário sem privilégios: se a aplicação for comprometida,
-# o invasor não recebe root dentro do contêiner.
-RUN adduser --disabled-password --gecos "" --uid 1001 lumina
-USER lumina
+# As imagens oficiais do .NET 8 em diante já trazem um usuário sem
+# privilégios chamado "app" e expõem seu identificador na variável
+# APP_UID. Aproveitá-lo é mais seguro do que criar outro usuário: a
+# imagem base é enxuta e sequer inclui o utilitário adduser.
+COPY --from=build --chown=$APP_UID:$APP_UID /app/publicado .
+USER $APP_UID
 
-COPY --from=build --chown=lumina:lumina /app/publicado .
-
-# A porta é definida pela variável PORT quando existir (o Render e outros
-# PaaS a injetam); caso contrário, 8080.
+# Porta fixa dentro do contêiner. O mapeamento para o mundo externo é
+# responsabilidade de quem executa a imagem (docker compose, Render,
+# Kubernetes). Provedores que injetam a variável PORT exigem que
+# ASPNETCORE_URLS seja ajustada na configuração do serviço.
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
 
-# Verificação de saúde: o orquestrador reinicia o contêiner se a API
-# parar de responder.
-HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-    CMD ["dotnet", "--info"]
+# Verificação de saúde: consulta o endpoint /health, que confirma que a
+# aplicação responde E que o banco está acessível. A imagem base não traz
+# curl nem wget, por isso a requisição é feita pelo próprio runtime .NET.
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD ["dotnet", "SistemaEducacional.API.dll", "--verificar-saude"]
 
 ENTRYPOINT ["dotnet", "SistemaEducacional.API.dll"]

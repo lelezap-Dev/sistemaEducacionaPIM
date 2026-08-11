@@ -12,6 +12,26 @@ using SistemaEducacional.Application.Services;
 //  de requisições HTTP.
 // ================================================================
 
+// ── Modo de verificação de saúde ─────────────────────────────────
+// Executado pelo HEALTHCHECK do Docker. A imagem base do .NET não traz
+// curl nem wget, então a própria aplicação consulta o endpoint /health
+// e devolve 0 (saudável) ou 1 (com falha) ao orquestrador.
+if (args.Contains("--verificar-saude"))
+{
+    try
+    {
+        using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+        var resposta = await http.GetAsync("http://localhost:8080/health");
+        Console.WriteLine($"/health respondeu {(int)resposta.StatusCode}");
+        return resposta.IsSuccessStatusCode ? 0 : 1;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Falha ao consultar /health: {ex.Message}");
+        return 1;
+    }
+}
+
 var builder = WebApplication.CreateBuilder(args);
 
 // ── 0. Validação dos segredos ────────────────────────────────────
@@ -183,6 +203,39 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
+// ── Verificação de saúde ─────────────────────────────────────────
+// Consultado pelo Docker, pelo Render e por orquestradores para saber
+// se o contêiner está saudável. Confirma que a aplicação responde e
+// que o banco de dados está acessível — uma API que sobe mas não
+// alcança o banco não está pronta para receber tráfego.
+app.MapGet("/health", async (AppDbContext db) =>
+{
+    try
+    {
+        var bancoOk = await db.Database.CanConnectAsync();
+        if (!bancoOk)
+            return Results.Json(
+                new { status = "degradado", banco = false },
+                statusCode: StatusCodes.Status503ServiceUnavailable);
+
+        return Results.Ok(new
+        {
+            status = "saudavel",
+            banco  = true,
+            versao = "PIM IV",
+            hora   = DateTime.UtcNow
+        });
+    }
+    catch (Exception ex)
+    {
+        return Results.Json(
+            new { status = "indisponivel", erro = ex.GetType().Name },
+            statusCode: StatusCodes.Status503ServiceUnavailable);
+    }
+})
+.AllowAnonymous()
+.WithName("VerificarSaude");
+
 // Redireciona qualquer rota não encontrada para o index.html
 // (necessário para o front-end funcionar com rotas client-side)
 app.MapFallbackToFile("index.html");
@@ -261,3 +314,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+// Encerramento normal. O valor é exigido porque o modo de verificação
+// de saúde, no início do arquivo, também devolve um código de saída.
+return 0;
