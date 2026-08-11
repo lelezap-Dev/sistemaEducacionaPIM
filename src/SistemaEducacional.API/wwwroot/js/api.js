@@ -3,7 +3,11 @@
    Toda chamada HTTP passa por aqui. Centraliza token, erros, etc.
 ================================================================ */
 
-const API_BASE = 'http://localhost:5000/api';
+// URL relativa: o front-end é servido pela própria API (wwwroot), então
+// as chamadas seguem para o mesmo host e porta de onde a página veio.
+// Isso faz o sistema funcionar sem alteração em qualquer cenário:
+// localhost, IP da máquina na rede local (acesso pelo celular) e nuvem.
+const API_BASE = '/api';
 
 // ── Token JWT ──────────────────────────────────────────────────
 const Auth = {

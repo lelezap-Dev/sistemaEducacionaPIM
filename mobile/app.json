@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "Lumina",
+    "slug": "lumina-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "lumina",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#050507",
+    "primaryColor": "#6b3fcf",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#050507"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "br.unip.pim.lumina",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsLocalNetworking": true
+        }
+      }
+    },
+    "android": {
+      "package": "br.unip.pim.lumina",
+      "adaptiveIcon": {
+        "backgroundColor": "#050507",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store"
+    ]
+  }
+}

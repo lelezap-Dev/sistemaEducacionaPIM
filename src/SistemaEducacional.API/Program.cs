@@ -90,20 +90,34 @@ builder.Services.AddControllers()
     });
 
 // ── 5. CORS ──────────────────────────────────────────────────────
-// CORS permite que o front-end (rodando em outra porta) acesse a API.
-// Em desenvolvimento liberamos tudo; em produção restringimos.
+// CORS permite que clientes servidos de outra origem acessem a API.
+// O app mobile nativo (Expo) não envia cabeçalho Origin, então não é
+// afetado por CORS — a política abaixo atende o front-end web e o
+// Expo rodando em modo web durante o desenvolvimento.
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontEnd", policy =>
-        policy.WithOrigins(
-                "http://localhost:5500",   // Live Server do VS Code
-                "http://127.0.0.1:5500",
-                "http://localhost:3000",
-                "http://localhost:8080"
-              )
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-    );
+    {
+        if (builder.Environment.IsDevelopment())
+        {
+            // Em desenvolvimento o Metro/Expo sobe em portas variáveis e
+            // o celular acessa pelo IP da máquina na rede local.
+            policy.SetIsOriginAllowed(_ => true)
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        }
+        else
+        {
+            policy.WithOrigins(
+                    "http://localhost:5500",   // Live Server do VS Code
+                    "http://127.0.0.1:5500",
+                    "http://localhost:3000",
+                    "http://localhost:8080"
+                  )
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        }
+    });
 });
 
 // ── 6. Swagger ───────────────────────────────────────────────────

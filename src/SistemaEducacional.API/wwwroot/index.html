@@ -48,6 +48,27 @@
       text-transform: uppercase;
     }
 
+    /* ── Responsivo: telas estreitas (celulares) ──
+       O logo centralizado por position:absolute se sobrepõe aos links
+       quando não há largura suficiente. Abaixo de 640px ele volta ao
+       fluxo normal do flexbox e a barra passa a empilhar os itens. */
+    @media (max-width: 640px) {
+      .top-nav {
+        flex-direction: column;
+        gap: .5rem;
+        padding: 1rem 1rem .75rem;
+        text-align: center;
+      }
+      .top-nav-logo {
+        position: static;
+        left: auto;
+        transform: none;
+        order: -1;              /* marca aparece acima dos atalhos */
+        font-size: 1.15rem;
+      }
+      .top-nav-links { display: none; }  /* bloco reservado, vazio no mobile */
+    }
+
     /* ── Corpo ── */
     .login-page {
       flex: 1;
