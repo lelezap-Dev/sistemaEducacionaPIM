@@ -42,7 +42,13 @@ function Balao({ texto, deQuem }) {
         marginBottom: espaco.sm,
       }}
     >
-      <Txt tamanho={14} style={{ lineHeight: 20 }}>{texto}</Txt>
+      <Txt
+        tamanho={14}
+        cor={ehBot ? paleta.texto : paleta.textoSobreDestaque}
+        style={{ lineHeight: 20 }}
+      >
+        {texto}
+      </Txt>
     </View>
   );
 }
@@ -196,7 +202,7 @@ export default function ChatbotScreen() {
               opacity: enviando || !entrada.trim() ? 0.5 : 1,
             }}
           >
-            <Txt tamanho={18}>➤</Txt>
+            <Txt tamanho={18} cor={paleta.textoSobreDestaque}>➤</Txt>
           </Pressable>
         </View>
       </KeyboardAvoidingView>

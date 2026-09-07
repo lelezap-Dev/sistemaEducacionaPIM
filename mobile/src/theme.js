@@ -27,6 +27,13 @@ export const cores = {
   textoSuave:  '#b9b3cf',
   textoFraco:  '#7d7796',
 
+  // Texto aplicado SOBRE superfícies pintadas com roxoPrincipal (botão
+  // primário, item selecionado, balão do usuário). Existe como token
+  // próprio porque a paleta de alto contraste troca esse fundo por
+  // amarelo, e o branco deixaria de ser legível sobre ele.
+  textoSobreDestaque:      '#ffffff',
+  textoSobreDestaqueFraco: 'rgba(255,255,255,0.72)',
+
   // Estados
   sucesso: '#22c55e',
   alerta:  '#f59e0b',
@@ -74,4 +81,9 @@ export const coresAltoContraste = {
   texto:      '#ffffff',
   textoSuave: '#ffffff',
   textoFraco: '#dddddd',
+
+  // Sobre o amarelo, o preto rende 19,6:1 — muito acima do mínimo de
+  // 4,5:1 exigido pela WCAG 2.1 para texto normal (nível AA).
+  textoSobreDestaque:      '#000000',
+  textoSobreDestaqueFraco: '#1a1a1a',
 };

@@ -56,10 +56,18 @@ export default function AcessibilidadeScreen() {
             justifyContent: 'center',
           }}
         >
-          <Txt tamanho={15} peso="600">
+          <Txt
+            tamanho={15}
+            peso="600"
+            cor={altoContraste ? paleta.textoSobreDestaque : paleta.texto}
+          >
             {altoContraste ? '✓  Alto contraste ativado' : 'Ativar alto contraste'}
           </Txt>
-          <Txt tamanho={12} cor={paleta.textoFraco} style={{ marginTop: 2 }}>
+          <Txt
+            tamanho={12}
+            cor={altoContraste ? paleta.textoSobreDestaqueFraco : paleta.textoFraco}
+            style={{ marginTop: 2 }}
+          >
             Reduz barreiras visuais para baixa visão e daltonismo
           </Txt>
         </Pressable>
@@ -95,7 +103,13 @@ export default function AcessibilidadeScreen() {
                   justifyContent: 'center',
                 }}
               >
-                <Txt tamanho={16} peso="800">{op.rotulo}</Txt>
+                <Txt
+                  tamanho={16}
+                  peso="800"
+                  cor={ativa ? paleta.textoSobreDestaque : paleta.texto}
+                >
+                  {op.rotulo}
+                </Txt>
               </Pressable>
             );
           })}

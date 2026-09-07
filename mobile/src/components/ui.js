@@ -69,6 +69,10 @@ export function Botao({ titulo, onPress, carregando, desabilitado, variante = 'p
   const inativo = desabilitado || carregando;
   const ehPrimario = variante === 'primario';
 
+  // Só o botão primário tem fundo pintado; o secundário é transparente
+  // sobre o fundo da tela e continua usando a cor de texto comum.
+  const corDoRotulo = ehPrimario ? paleta.textoSobreDestaque : paleta.texto;
+
   return (
     <Pressable
       onPress={onPress}
@@ -93,9 +97,9 @@ export function Botao({ titulo, onPress, carregando, desabilitado, variante = 'p
       ]}
     >
       {carregando ? (
-        <ActivityIndicator color={paleta.texto} />
+        <ActivityIndicator color={corDoRotulo} />
       ) : (
-        <Text style={{ color: paleta.texto, fontSize: fonte(15), fontWeight: '700' }}>
+        <Text style={{ color: corDoRotulo, fontSize: fonte(15), fontWeight: '700' }}>
           {titulo}
         </Text>
       )}
