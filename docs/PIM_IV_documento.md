@@ -259,104 +259,64 @@ aproximadamente 800 estudantes distribuídos em dois períodos. O quadro
 funcional é composto por cerca de 45 docentes e 12 colaboradores
 técnico-administrativos.
 
-O segmento educacional privado brasileiro caracteriza-se por elevada
-competitividade e por margens operacionais sensíveis à eficiência
-administrativa. Instituições desse porte encontram-se em posição peculiar: são
+Instituições desse porte ocupam posição peculiar no segmento privado: são
 grandes o bastante para que processos manuais se tornem gargalo, mas não
-dispõem de orçamento comparável ao de grandes redes para aquisição de sistemas
-corporativos proprietários, cujo licenciamento costuma ser cobrado por aluno
-matriculado.
+dispõem de orçamento comparável ao de grandes redes para adquirir sistemas
+proprietários, cujo licenciamento costuma ser cobrado por aluno matriculado.
 
 ## 2.2 Produtos e serviços
 
-A instituição oferece os seguintes serviços:
-
-- **Ensino regular** — aulas presenciais do Ensino Fundamental II e do Ensino
-  Médio, organizadas em turmas de até 40 estudantes;
-- **Acompanhamento pedagógico** — avaliações periódicas, registro de
-  frequência e comunicação de desempenho às famílias;
-- **Material didático digital** — disponibilização de conteúdos complementares
-  produzidos pelo próprio corpo docente;
-- **Atendimento administrativo** — matrículas, rematrículas, emissão de
-  documentos escolares e atendimento às famílias.
+A instituição oferece ensino regular presencial do Fundamental II e do Ensino
+Médio, em turmas de até 40 estudantes; acompanhamento pedagógico, com
+avaliações periódicas e comunicação de desempenho às famílias; material
+didático digital produzido pelo próprio corpo docente; e atendimento
+administrativo de matrículas, rematrículas e emissão de documentos escolares.
 
 ## 2.3 Estrutura organizacional
 
-A estrutura da Lumina organiza-se em três níveis:
+A estrutura organiza-se em três níveis. A **direção** responde pelas decisões
+estratégicas e pelo orçamento. A **coordenação pedagógica** acompanha o plano
+de ensino, orienta os docentes e monitora indicadores de aprendizagem. A
+**secretaria acadêmica** executa os processos administrativos e o atendimento
+de primeiro nível aos usuários dos sistemas internos. Sob a coordenação atua o
+corpo docente, responsável por aulas, material, avaliações e lançamento de
+notas; o corpo discente é o público final dos serviços.
 
-**Direção** — responde pelas decisões estratégicas, pelo orçamento e pelas
-relações institucionais.
-
-**Coordenação pedagógica** — acompanha o cumprimento do plano de ensino,
-orienta o corpo docente e monitora os indicadores de aprendizagem.
-
-**Secretaria acadêmica** — executa os processos administrativos: cadastro de
-estudantes, matrícula em turmas, controle de documentos e atendimento de
-primeiro nível aos usuários dos sistemas internos.
-
-Sob a coordenação pedagógica atua o **corpo docente**, responsável pelo
-planejamento das aulas, produção de material, aplicação de avaliações e
-lançamento de notas. O **corpo discente** constitui o público final dos
-serviços prestados.
-
-Essa estrutura relaciona-se diretamente com o modelo de controle de acesso
-adotado no sistema, apresentado na seção 5, no qual os privilégios foram
-segmentados nos perfis Secretaria, Professor e Aluno.
+Essa divisão relaciona-se diretamente com o controle de acesso adotado no
+sistema, apresentado na seção 5, no qual os privilégios foram segmentados nos
+perfis Secretaria, Professor e Aluno.
 
 ## 2.4 Principais processos
 
-Foram mapeados quatro processos centrais para o funcionamento da instituição:
-
-**Matrícula e alocação.** A secretaria cadastra o estudante, verifica a
-documentação e o vincula a uma turma, respeitando o limite de vagas. O processo
-era conduzido em planilhas eletrônicas, sem validação automática de capacidade.
-
-**Gestão de conteúdo pedagógico.** Docentes preparam materiais e os distribuem
-às turmas. Antes da solução proposta, a distribuição ocorria por meios
-heterogêneos — mensageiros instantâneos, correio eletrônico e cópias impressas
-—, sem repositório central nem histórico organizado.
-
-**Avaliação e registro de desempenho.** Provas e exercícios eram aplicados em
-papel, corrigidos manualmente e os resultados transcritos para planilhas. O
-intervalo entre a aplicação e a divulgação chegava a duas semanas.
-
-**Acompanhamento gerencial.** A coordenação solicitava periodicamente
-levantamentos de rendimento por turma, produzidos de forma manual a partir das
-planilhas dos docentes.
+Quatro processos são centrais. A **matrícula e alocação** era conduzida em
+planilhas, sem validação automática do limite de vagas. A **gestão de conteúdo
+pedagógico** distribuía material por meios heterogêneos — mensageiros,
+correio eletrônico e cópias impressas —, sem repositório central. A
+**avaliação** aplicava provas em papel, com correção manual e transcrição para
+planilhas, levando até duas semanas entre a aplicação e a divulgação. O
+**acompanhamento gerencial** dependia de levantamentos produzidos manualmente
+a partir das planilhas dos docentes.
 
 ## 2.5 Problemas identificados
 
-A análise conduzida no PIM III identificou os seguintes problemas, aqui
-retomados por constituírem a justificativa da solução desenvolvida:
-
-**Dispersão da informação.** Dados acadêmicos distribuídos entre planilhas
-individuais, documentos impressos e mensagens pessoais, sem fonte única de
-consulta. A consequência direta é a divergência entre registros e a
-dificuldade de auditoria.
-
-**Comunicação fragmentada.** Ausência de canal institucional único entre
-docentes, estudantes e secretaria, o que gera perda de prazos e retrabalho no
-esclarecimento de dúvidas recorrentes.
-
-**Ausência de indicadores.** Inexistência de painéis consolidados que
-permitissem à coordenação identificar tempestivamente estudantes com baixo
-rendimento, o que restringe a atuação pedagógica ao caráter corretivo.
-
-**Sobrecarga administrativa.** Concentração de tarefas repetitivas na
-secretaria, com destaque para atendimentos de recuperação de senha e
-esclarecimento de dúvidas operacionais, atividades que consomem tempo
-qualificado sem agregar valor ao processo.
-
-**Consumo de papel.** Impressão recorrente de avaliações, listas de presença e
-comunicados, com impacto ambiental e financeiro.
-
-**Barreiras de acessibilidade.** Ausência de recursos que assegurassem o uso
-autônomo dos sistemas por pessoas com deficiência visual ou auditiva.
+A análise conduzida no PIM III identificou seis problemas, aqui retomados por
+constituírem a justificativa da solução. A **dispersão da informação** entre
+planilhas, impressos e mensagens pessoais elimina a fonte única de consulta e
+produz divergência entre registros. A **comunicação fragmentada** decorre da
+ausência de canal institucional único, gerando perda de prazos e retrabalho. A
+**ausência de indicadores** consolidados impede identificar tempestivamente
+estudantes com baixo rendimento, restringindo a atuação pedagógica ao caráter
+corretivo. A **sobrecarga administrativa** concentra na secretaria tarefas
+repetitivas — sobretudo recuperação de senha e dúvidas operacionais — que
+consomem tempo qualificado sem agregar valor. O **consumo de papel** decorre
+da impressão recorrente de avaliações e comunicados. As **barreiras de
+acessibilidade** impedem o uso autônomo dos sistemas por pessoas com
+deficiência visual ou auditiva.
 
 ## 2.6 Oportunidades de melhoria por meio da tecnologia
 
-Do diagnóstico apresentado decorrem as seguintes oportunidades, que orientaram
-as decisões técnicas descritas nos capítulos seguintes:
+Do diagnóstico decorrem as oportunidades que orientaram as decisões técnicas
+descritas nos capítulos seguintes:
 
 | Problema identificado | Oportunidade tecnológica | Seção correspondente |
 |---|---|---|
@@ -367,9 +327,8 @@ as decisões técnicas descritas nos capítulos seguintes:
 | Consumo de papel | Digitalização de avaliações e materiais didáticos | 5 |
 | Barreiras de acessibilidade | Recursos de acessibilidade nas duas plataformas | 4 |
 
-Cabe registrar que a solução proposta não pretende substituir a atuação
-humana, mas eliminar o trabalho repetitivo que hoje a consome, liberando
-docentes e equipe administrativa para atividades de maior valor pedagógico.
+A solução não pretende substituir a atuação humana, mas eliminar o trabalho
+repetitivo que hoje a consome.
 
 ---
 
@@ -385,11 +344,10 @@ administrativos, o que provoca dispersão de informações, retrabalho e ausênc
 de indicadores para a tomada de decisão pedagógica.**
 
 Trata-se de problema de integração, e não de falta de ferramentas. A
-instituição utiliza diversos recursos digitais — planilhas, mensageiros,
-correio eletrônico —, porém desconectados entre si. Cada um resolve
-adequadamente uma tarefa isolada, mas o conjunto não constitui um sistema: os
-dados não circulam, exigindo transcrição manual a cada etapa, procedimento que
-introduz erros e consome tempo.
+instituição utiliza planilhas, mensageiros e correio eletrônico, cada qual
+resolvendo bem uma tarefa isolada; o conjunto, porém, não constitui um
+sistema, pois os dados não circulam entre eles e exigem transcrição manual a
+cada etapa.
 
 ## 3.2 Objetivos da solução
 
@@ -414,45 +372,32 @@ apuração de indicadores de desempenho.
 ## 3.3 Público-alvo
 
 A solução destina-se a três públicos internos, cujos perfis foram definidos no
-PIM III a partir da técnica de personas e aqui retomados por terem orientado as
-decisões de projeto:
+PIM III pela técnica de personas e aqui retomados por terem orientado as
+decisões de projeto. Os **estudantes** (cerca de 800) são representados pela
+persona Lucas, 16 anos, com alta familiaridade tecnológica e acesso
+predominante por telefone celular; necessita consultar materiais, acompanhar
+prazos e verificar desempenho. Os **docentes** (cerca de 45) são
+representados por Mariana, 34 anos, professora de Matemática, cuja rotina se
+divide entre planejamento, correção e aulas; necessita publicar materiais com
+agilidade e identificar estudantes com dificuldade. A **equipe
+administrativa** (cerca de 12) é representada por Carla, 45 anos, da
+secretaria, que cadastra usuários, efetiva matrículas, emite relatórios e
+resolve problemas de acesso.
 
-**Estudantes** (cerca de 800 usuários). Representados pela persona Lucas, 16
-anos, cursando o segundo ano do Ensino Médio, com alta familiaridade
-tecnológica e acesso predominante por telefone celular. Necessita consultar
-materiais, acompanhar prazos e verificar seu desempenho.
-
-**Docentes** (cerca de 45 usuários). Representados pela persona Mariana, 34
-anos, professora de Matemática, com rotina dividida entre planejamento,
-correção e aulas presenciais. Necessita publicar materiais e avaliações com
-agilidade e identificar rapidamente estudantes com dificuldade.
-
-**Equipe administrativa** (cerca de 12 usuários). Representada pela persona
-Carla, 45 anos, profissional da secretaria. Necessita cadastrar usuários,
-efetivar matrículas, emitir relatórios e resolver problemas de acesso.
-
-A predominância do acesso móvel entre estudantes justificou o desenvolvimento
-do aplicativo descrito na seção 6, bem como a revisão da responsividade da
-aplicação web.
+A predominância do acesso móvel entre estudantes justificou o aplicativo
+descrito na seção 6 e a revisão da responsividade da aplicação web.
 
 ## 3.4 Proposta de valor
 
-A proposta de valor da solução articula-se em quatro elementos:
-
-**Unificação.** Uma única base de dados alimenta a aplicação web e o
-aplicativo móvel. A informação registrada em uma plataforma torna-se
-imediatamente disponível na outra, eliminando a transcrição manual.
-
-**Imediatismo.** A correção automática das avaliações converte um processo que
-demandava até duas semanas em resultado instantâneo, permitindo que a
-intervenção pedagógica ocorra enquanto o conteúdo ainda está sendo trabalhado.
-
-**Visibilidade.** Indicadores consolidados e classificação automática por faixa
-de rendimento transformam dados operacionais em informação gerencial,
-deslocando a atuação da coordenação do caráter corretivo para o preventivo.
-
-**Inclusão.** Recursos de acessibilidade disponíveis em ambas as plataformas
-asseguram que a modernização alcance também os usuários habitualmente
+A proposta articula-se em quatro elementos. A **unificação** faz com que uma
+única base alimente a aplicação web e o aplicativo, tornando imediatamente
+disponível em uma plataforma o que se registra na outra. O **imediatismo** da
+correção automática converte um processo de até duas semanas em resultado
+instantâneo, permitindo intervenção pedagógica enquanto o conteúdo ainda está
+sendo trabalhado. A **visibilidade** dada por indicadores consolidados e pela
+classificação automática por faixa de rendimento desloca a atuação da
+coordenação do caráter corretivo para o preventivo. A **inclusão**, por fim,
+assegura que a modernização alcance também os usuários habitualmente
 preteridos por soluções convencionais.
 
 ## 3.5 Benefícios esperados
@@ -467,35 +412,23 @@ preteridos por soluções convencionais.
 | Social | Uso autônomo por pessoas com deficiência | Recursos de acessibilidade implementados |
 
 Cabe ressalva metodológica: por tratar-se de instituição simulada, os
-indicadores acima constituem parâmetros propostos para aferição em implantação
-real, não resultados mensurados. Os dados apresentados neste documento provêm
-de ambiente de demonstração.
+indicadores acima são parâmetros propostos para aferição em implantação real,
+não resultados mensurados.
 
 ## 3.6 Diferenciais competitivos
 
-Comparada às alternativas disponíveis no mercado, a solução apresenta os
-seguintes diferenciais:
-
-**Ausência de licenciamento por usuário.** Sistemas acadêmicos comerciais
-costumam cobrar mensalidade proporcional ao número de estudantes matriculados.
-A solução desenvolvida utiliza exclusivamente tecnologias sem custo de
-licenciamento, tornando o custo de operação independente do porte da
-instituição.
-
-**Autonomia em relação a serviços externos.** O assistente virtual descrito na
-seção 5 opera sobre base de conhecimento própria, sem recorrer a serviços
-externos de inteligência artificial. A decisão elimina custo por requisição,
-dispensa conexão com provedores terceiros e — aspecto relevante diante da Lei
-Geral de Proteção de Dados — evita que dados de estudantes trafeguem para fora
-da instituição.
-
-**Acessibilidade nativa.** Os recursos de acessibilidade foram incorporados ao
-projeto desde a concepção, e não adicionados posteriormente, estando presentes
-igualmente na aplicação web e no aplicativo móvel.
-
-**Portabilidade de implantação.** A conteinerização descrita na seção 9 permite
-que a solução seja implantada em servidor próprio ou em provedor de nuvem, sem
-dependência de fornecedor específico.
+Quatro diferenciais distinguem a solução das alternativas de mercado. Não há
+**licenciamento por usuário**: sistemas acadêmicos comerciais cobram
+mensalidade proporcional ao número de matriculados, ao passo que a solução
+emprega apenas tecnologias sem custo de licença, tornando o custo de operação
+independente do porte da instituição. Há **autonomia em relação a serviços
+externos**, pois o assistente virtual opera sobre base de conhecimento própria
+— o que elimina custo por requisição e, diante da Lei Geral de Proteção de
+Dados, evita que dados de estudantes trafeguem para fora da instituição. A
+**acessibilidade é nativa**, incorporada desde a concepção e presente
+igualmente nas duas plataformas. E a **portabilidade** conferida pela
+conteinerização descrita na seção 9 permite implantar a solução em servidor
+próprio ou em provedor de nuvem, sem dependência de fornecedor específico.
 
 ---
 
@@ -505,87 +438,62 @@ dependência de fornecedor específico.
 
 ## 4.1 Combate à discriminação
 
-O combate à discriminação foi tratado no projeto não como declaração de
-princípios, mas como conjunto de decisões técnicas verificáveis.
+O combate à discriminação foi tratado como conjunto de decisões técnicas
+verificáveis, e não como declaração de princípios.
 
-**Identificação por dado objetivo.** A autenticação utiliza o Cadastro de
-Pessoa Física como identificador, e o sistema não coleta informações de raça,
-religião, orientação sexual ou origem. Ao não registrar tais dados, elimina-se
-a possibilidade de que sejam empregados, ainda que involuntariamente, como
-critério de diferenciação em consultas ou relatórios.
-
-**Critérios de avaliação uniformes.** A correção das atividades é integralmente
-automatizada, comparando a resposta assinalada com o gabarito armazenado. O
-procedimento é idêntico para todos os estudantes e independe de julgamento
-humano, o que afasta a interferência de vieses inconscientes na atribuição de
-notas.
-
-**Segregação de privilégios.** O controle de acesso baseado em perfis assegura
-que o escopo de visualização decorra exclusivamente da função exercida. Um
-docente acessa apenas as turmas sob sua responsabilidade; um estudante, apenas
-seu próprio desempenho. A regra é aplicada no servidor, de modo que não pode
-ser contornada pela manipulação da interface.
-
-**Rastreabilidade das alterações.** O gatilho de auditoria descrito na seção 8
-registra toda modificação de perfil ou de situação cadastral, indicando valor
-anterior, valor novo e momento da alteração. Eventual tratamento diferenciado
-torna-se, portanto, auditável.
+A **identificação emprega dado objetivo**: a autenticação usa o Cadastro de
+Pessoa Física, e o sistema não coleta informações de raça, religião,
+orientação sexual ou origem — ao não registrá-las, elimina-se a possibilidade
+de que sejam empregadas, ainda que involuntariamente, como critério de
+diferenciação. Os **critérios de avaliação são uniformes**, pois a correção
+compara a resposta assinalada com o gabarito armazenado, procedimento idêntico
+para todos e independente de julgamento humano, o que afasta vieses
+inconscientes. A **segregação de privilégios** faz o escopo de visualização
+decorrer apenas da função exercida — um docente vê somente suas turmas; um
+estudante, apenas seu desempenho — e a regra é aplicada no servidor, não
+podendo ser contornada pela manipulação da interface. Por fim, a
+**rastreabilidade** garantida pelo gatilho de auditoria da seção 8 registra
+toda alteração de perfil ou situação cadastral com valor anterior, valor novo
+e momento, tornando auditável eventual tratamento diferenciado.
 
 ## 4.2 Valorização da diversidade
 
-A valorização da diversidade manifesta-se no reconhecimento de que os usuários
+A valorização da diversidade parte do reconhecimento de que os usuários
 acessam o sistema em condições materiais desiguais.
 
-**Diversidade de dispositivos.** A persona Lucas, definida no PIM III, acessa a
-internet predominantemente por telefone celular. Essa constatação — que reflete
-a realidade de parcela expressiva dos estudantes brasileiros, para quem o
-aparelho móvel é o principal meio de acesso — motivou tanto o desenvolvimento
-do aplicativo quanto a correção da responsividade da aplicação web, descrita na
-seção 5.
-
-**Diversidade de condições de conexão.** O aplicativo móvel mantém cópia local
-dos dados consultados. Estudantes sem conexão permanente podem consultar
-matérias, conteúdos e resultados já carregados, recebendo aviso explícito de
-que os dados podem estar desatualizados. A funcionalidade reconhece que o
-acesso contínuo à internet não é condição universal.
-
-**Diversidade de repertório tecnológico.** O assistente virtual responde em
-linguagem corrente e admite variações de escrita — a busca desconsidera acentos
-e diferenças entre maiúsculas e minúsculas. A decisão beneficia usuários com
-menor familiaridade tecnológica, como parte do corpo docente e das famílias.
+Quanto aos **dispositivos**, a persona Lucas acessa a internet
+predominantemente por telefone celular — realidade de parcela expressiva dos
+estudantes brasileiros —, o que motivou tanto o aplicativo quanto a correção
+da responsividade da aplicação web. Quanto às **condições de conexão**, o
+aplicativo mantém cópia local dos dados consultados, permitindo consultar
+matérias, conteúdos e resultados já carregados mesmo sem conexão, com aviso
+explícito de que podem estar desatualizados; a funcionalidade reconhece que o
+acesso contínuo à internet não é condição universal. Quanto ao **repertório
+tecnológico**, o assistente virtual responde em linguagem corrente e admite
+variações de escrita, desconsiderando acentos e diferenças entre maiúsculas e
+minúsculas, o que beneficia usuários com menor familiaridade tecnológica.
 
 ## 4.3 Recursos tecnológicos inclusivos
 
-Foram implementados os seguintes recursos, disponíveis nas duas plataformas:
-
-**Modo de alto contraste.** Substitui a paleta cromática por combinação de
-maior razão de contraste, atendendo a usuários com baixa visão ou daltonismo.
-A preferência é persistida entre sessões.
-
-**Escalas tipográficas.** Três níveis progressivos de ampliação de texto,
-aplicados dinamicamente sem quebra do alinhamento dos elementos.
-
-**Glossário em Língua Brasileira de Sinais.** Relação de termos acadêmicos
-recorrentes acompanhados da descrição do respectivo sinal, oferecendo apoio a
-usuários surdos. O glossário foi ampliado dos três termos do PIM III para doze
-na versão atual.
-
-**Rotulação para leitores de tela.** Todos os elementos interativos do
-aplicativo receberam rótulos de acessibilidade e a indicação de seu papel
-semântico, permitindo navegação por tecnologia assistiva.
-
-**Dimensionamento de alvos de toque.** Os elementos acionáveis do aplicativo
-observam a dimensão mínima de 48 pontos, conforme recomendação das diretrizes
-de acessibilidade, beneficiando usuários com limitação de coordenação motora.
+Cinco recursos foram implementados, disponíveis nas duas plataformas. O **modo
+de alto contraste** substitui a paleta por combinação de maior razão de
+contraste, com a preferência persistida entre sessões. As **escalas
+tipográficas** oferecem três níveis progressivos de ampliação, aplicados sem
+quebra do alinhamento. O **glossário em Língua Brasileira de Sinais** relaciona
+termos acadêmicos recorrentes à descrição do respectivo sinal, tendo sido
+ampliado dos três termos do PIM III para doze. A **rotulação para leitores de
+tela** atribuiu a todos os elementos interativos do aplicativo rótulos e papéis
+semânticos, permitindo navegação por tecnologia assistiva. E o
+**dimensionamento dos alvos de toque** observa o mínimo de 48 pontos,
+beneficiando usuários com limitação de coordenação motora.
 
 ## 4.4 Ações voltadas à acessibilidade
 
 As ações adotadas orientaram-se pelas Diretrizes de Acessibilidade para
 Conteúdo Web (WCAG) e pela Lei Brasileira de Inclusão da Pessoa com Deficiência
 (Lei nº 13.146/2015), cujo artigo 63 estabelece a obrigatoriedade de
-acessibilidade em sítios eletrônicos.
-
-O quadro a seguir relaciona cada ação ao princípio correspondente:
+acessibilidade em sítios eletrônicos. O quadro relaciona cada ação ao
+princípio correspondente:
 
 | Princípio WCAG | Ação implementada |
 |---|---|
@@ -600,25 +508,18 @@ implantação real e que se recomenda como desdobramento futuro do trabalho.
 
 ## 4.5 Tecnologia para a promoção da cidadania
 
-A dimensão cidadã do projeto expressa-se em três frentes:
-
-**Transparência do desempenho.** O estudante acessa diretamente seu histórico
-de avaliações, com o número de acertos e o percentual obtido em cada uma. A
-informação deixa de ser mediada exclusivamente pela instituição, o que
-constitui condição para que o estudante acompanhe e questione sua própria
-trajetória.
-
-**Autonomia no acesso.** Os mecanismos de autoatendimento — recuperação de
-senha por palavra-chave e assistente virtual — reduzem a dependência de
-intermediação administrativa para tarefas rotineiras, particularmente
-relevante para famílias com menor disponibilidade de deslocamento à
-instituição.
-
-**Sustentabilidade ambiental.** A digitalização de avaliações e materiais
-didáticos reduz o consumo de papel. Considerando o porte da instituição
-simulada — 800 estudantes submetidos a avaliações periódicas —, a economia
-projetada é da ordem de milhares de folhas por período letivo, com impacto
-correspondente sobre custos e sobre a pegada ambiental da operação.
+A dimensão cidadã expressa-se em três frentes. A **transparência do
+desempenho** dá ao estudante acesso direto ao histórico de avaliações, com
+acertos e percentual de cada uma; a informação deixa de ser mediada
+exclusivamente pela instituição, condição para que o estudante acompanhe e
+questione a própria trajetória. A **autonomia no acesso**, viabilizada pela
+recuperação de senha por palavra-chave e pelo assistente virtual, reduz a
+dependência de intermediação administrativa em tarefas rotineiras —
+especialmente relevante para famílias com menor disponibilidade de
+deslocamento. E a **sustentabilidade ambiental** decorre da digitalização de
+avaliações e materiais: para 800 estudantes submetidos a avaliações
+periódicas, a economia projetada é da ordem de milhares de folhas por período
+letivo.
 
 ---
 
@@ -636,30 +537,26 @@ Core, que reduz o código repetitivo de acesso a dados; e o alinhamento com a
 disciplina de Programação Aplicada em .NET, cursada no mesmo semestre.
 
 O modelo adotado é o de **aplicação monolítica com interface de programação
-REST**, no qual um único processo atende tanto as requisições da interface
-quanto as do aplicativo móvel. A opção por um monólito, em detrimento de
-microsserviços, foi deliberada. Newman (2019) adverte que a decomposição
-prematura em serviços introduz complexidade de rede, de implantação e de
-observabilidade que raramente se justifica em sistemas de domínio único e
-equipe pequena. Para o porte da instituição estudada — cerca de 800 usuários e
-uma equipe de seis desenvolvedores —, o monólito bem estruturado em camadas
-oferece a simplicidade operacional necessária sem comprometer a organização
-interna do código, tema tratado na seção 7.
+REST**, no qual um único processo atende as requisições da interface e do
+aplicativo móvel. A opção pelo monólito foi deliberada: Newman (2019) adverte
+que a decomposição prematura em serviços introduz complexidade de rede, de
+implantação e de observabilidade que raramente se justifica em domínio único e
+equipe pequena. Para cerca de 800 usuários e seis desenvolvedores, o monólito
+bem estruturado em camadas oferece simplicidade operacional sem comprometer a
+organização interna do código, tema da seção 7.
 
-O servidor web embutido, Kestrel, atende as requisições e serve simultaneamente
-os arquivos estáticos da interface. Essa decisão de servir o front-end pela
-mesma aplicação eliminou uma classe inteira de problemas: como a página e a
-interface de programação compartilham origem, as chamadas podem usar caminho
-relativo, e a aplicação funciona sem alteração em qualquer endereço —
-localhost, endereço de rede local ou provedor de nuvem.
+O servidor embutido, Kestrel, atende as requisições e serve os arquivos
+estáticos da interface. Servir o front-end pela mesma aplicação eliminou uma
+classe inteira de problemas: como página e interface de programação
+compartilham origem, as chamadas usam caminho relativo e a aplicação funciona
+sem alteração em qualquer endereço.
 
 `[INSERIR FIGURA — Tela de login da aplicação web]`
 
 ## 5.2 Interface de programação REST
 
 A interface expõe **48 endpoints** distribuídos em oito controladores, cada um
-responsável por um agregado do domínio. A tabela a seguir sintetiza a
-organização:
+responsável por um agregado do domínio:
 
 | Controlador | Rota base | Responsabilidade | Perfil exigido |
 |---|---|---|---|
@@ -672,20 +569,11 @@ organização:
 | `ChatbotController` | `/api/chatbot` | Assistente virtual | Público |
 | — | `/health` | Verificação de disponibilidade | Público |
 
-Todas as respostas seguem um envelope uniforme, o que simplifica o tratamento
-no cliente:
-
-```json
-// Sucesso
-{ "sucesso": true, "dados": { } }
-
-// Erro
-{ "sucesso": false, "mensagem": "CPF ou senha inválidos." }
-```
-
-A padronização permitiu que tanto o front-end web quanto o aplicativo móvel
-implementassem um único ponto de tratamento de erros, em vez de verificar cada
-chamada individualmente.
+Todas as respostas seguem envelope uniforme — `{ "sucesso": true, "dados": {…} }`
+em caso de êxito e `{ "sucesso": false, "mensagem": "…" }` em caso de falha —,
+padronização que permitiu ao front-end web e ao aplicativo móvel implementarem
+um único ponto de tratamento de erros, em vez de verificar cada chamada
+individualmente.
 
 ## 5.3 Autenticação
 
@@ -694,106 +582,83 @@ O fluxo é o seguinte: o usuário envia CPF e senha; o servidor verifica a senha
 contra o hash armazenado; em caso de sucesso, emite um token assinado contendo
 as reivindicações de identidade, nome e perfil, com validade de oito horas.
 
-A opção pelo token, em lugar de sessão em memória do servidor, atende a dois
-requisitos do projeto. Primeiro, a **ausência de estado no servidor** permite
-que a aplicação seja replicada horizontalmente sem necessidade de
-compartilhamento de sessão, o que sustenta o requisito de escalabilidade
-discutido na seção 9. Segundo, o mesmo mecanismo atende navegador e aplicativo
-móvel sem adaptação, já que o token trafega em cabeçalho HTTP e não depende de
-cookies.
+A opção pelo token, em lugar de sessão em memória, atende a dois requisitos. A
+**ausência de estado no servidor** permite replicar a aplicação
+horizontalmente sem compartilhamento de sessão, sustentando a escalabilidade
+discutida na seção 9; e o mesmo mecanismo atende navegador e aplicativo sem
+adaptação, já que o token trafega em cabeçalho HTTP e não depende de cookies.
 
 As senhas são armazenadas com **BCrypt**, algoritmo de hash deliberadamente
 lento e com sal embutido. Diferentemente de funções como SHA-256, projetadas
-para velocidade, o BCrypt impõe custo computacional a cada verificação, o que
-torna inviável o teste massivo de combinações em ataques de força bruta. A
-senha em texto claro nunca é gravada nem registrada em log.
+para velocidade, o BCrypt impõe custo computacional a cada verificação,
+inviabilizando o teste massivo de combinações. A senha em texto claro nunca é
+gravada nem registrada em log.
 
 ## 5.4 Segurança
 
-Além da autenticação, foram implementados os seguintes controles:
+Além da autenticação, seis controles foram implementados. O **controle de
+acesso por perfis** é aplicado por atributos nos controladores e verificado no
+servidor a cada requisição: um estudante que alterasse a interface no navegador
+para exibir opções administrativas ainda receberia resposta 403, pois a decisão
+não depende do cliente. A **verificação de propriedade do dado** acrescenta a
+titularidade ao perfil — no relatório individual, o estudante obtém apenas o
+próprio desempenho, e consultar o de outro resulta em 403, impedindo que o
+simples conhecimento do CPF alheio dê acesso. A **proteção do gabarito** mantém
+as respostas corretas exclusivamente no banco: o objeto enviado ao estudante
+não inclui esse campo e a correção ocorre no servidor, o que impede obtê-lo por
+inspeção do tráfego. A **auditoria** registra alterações de perfil e situação
+cadastral por gatilho, conforme a seção 8.
 
-**Controle de acesso por perfis.** A autorização é aplicada por atributos nos
-controladores e verificada no servidor a cada requisição. Um estudante que
-alterasse a interface no navegador para exibir opções administrativas ainda
-receberia resposta 403 ao tentar utilizá-las, pois a decisão não depende do
-cliente.
-
-**Verificação de propriedade do dado.** Além do perfil, endpoints sensíveis
-verificam a titularidade. No relatório individual, por exemplo, um estudante
-autenticado só obtém o próprio desempenho; a tentativa de consultar o relatório
-de outro resulta em 403. A regra impede que o simples conhecimento do CPF alheio
-permita o acesso.
-
-**Segregação de segredos.** Durante o desenvolvimento identificou-se que a
-chave de assinatura dos tokens e a senha administrativa estavam gravadas no
+A **segregação de segredos** merece relato mais detido. Identificou-se que a
+chave de assinatura dos tokens e a senha administrativa estavam gravadas em
 arquivo de configuração versionado, em repositório público. A correção
-consistiu em transferir esses valores para o mecanismo de segredos do usuário
-em desenvolvimento e para variáveis de ambiente em produção, além de **rotacionar
-a chave comprometida**. Foi ainda acrescentada validação na inicialização: a
-aplicação recusa-se a subir se algum segredo estiver ausente ou se a chave de
-assinatura tiver menos de 32 bytes, exigência do algoritmo HMAC-SHA256. O
-episódio é relatado por constituir aprendizado relevante — a exposição de
-segredos em repositório é uma das falhas mais comuns e mais facilmente
-exploráveis em projetos acadêmicos e profissionais.
+transferiu esses valores para o mecanismo de segredos do usuário, em
+desenvolvimento, e para variáveis de ambiente, em produção, além de
+**rotacionar a chave comprometida**. Acrescentou-se validação na inicialização:
+a aplicação recusa-se a subir se algum segredo estiver ausente ou se a chave
+tiver menos de 32 bytes, exigência do HMAC-SHA256. A exposição de segredos em
+repositório é uma das falhas mais comuns e mais facilmente exploráveis em
+projetos acadêmicos e profissionais.
 
-**Proteção do gabarito.** As respostas corretas das avaliações permanecem
-exclusivamente no banco de dados. O objeto de transferência enviado ao
-estudante não inclui esse campo, e a correção ocorre integralmente no servidor.
-A medida impede que o gabarito seja obtido por inspeção do tráfego de rede ou
-da memória do aplicativo.
-
-**Auditoria.** Alterações de perfil e de situação cadastral são registradas
-automaticamente por gatilho no banco de dados, conforme detalhado na seção 8.
-
-**Atualização de dependência vulnerável.** A análise das dependências
-identificou que o pacote `Microsoft.OpenApi` na versão 2.0.0, incluído por
-padrão pelo modelo de projeto, apresentava vulnerabilidade de severidade alta
-catalogada sob o identificador GHSA-v5pm-xwqc-g5wc. O pacote foi removido e
-substituído. A verificação de pacotes vulneráveis foi posteriormente
-incorporada ao pipeline de integração contínua descrito na seção 9, de modo que
-a checagem passe a ser automática.
+Por fim, a **atualização de dependência vulnerável**: o pacote
+`Microsoft.OpenApi` 2.0.0, incluído por padrão pelo modelo de projeto,
+apresentava vulnerabilidade de severidade alta catalogada sob
+GHSA-v5pm-xwqc-g5wc. O pacote foi removido, e a verificação de pacotes
+vulneráveis passou a integrar o pipeline descrito na seção 9.
 
 ## 5.5 Estrutura administrativa
 
-O perfil Secretaria dispõe de painel com as seguintes funcionalidades:
-
-- **Indicadores consolidados** — quantitativos de estudantes, docentes,
-  disciplinas e turmas;
-- **Gestão de identidades** — cadastro, edição, aprovação e revogação de contas;
-- **Matrículas** — vinculação de estudantes a turmas, com validação automática
-  de vagas;
-- **Auditoria de sessões** — histórico de acessos com data, hora e duração;
-- **Relatórios** — desempenho individual e ranking geral.
+O perfil Secretaria dispõe de painel com indicadores consolidados de
+estudantes, docentes, disciplinas e turmas; gestão de identidades, incluindo
+cadastro, aprovação e revogação de contas; matrículas com validação automática
+de vagas; auditoria de sessões com data, hora e duração; e relatórios de
+desempenho individual e ranking geral.
 
 `[INSERIR FIGURA — Painel da Secretaria]`
 
 ## 5.6 Assistente virtual
 
-Uma funcionalidade prevista no PIM III e não implementada naquela etapa foi o
-assistente virtual de apoio ao usuário, incorporado nesta fase.
-
-O assistente opera sobre uma **base de conhecimento armazenada no próprio banco
-de dados**, composta atualmente por quinze perguntas categorizadas. O
-atendimento se dá por correspondência de palavras-chave: a pergunta do usuário
-é normalizada — convertida para minúsculas e despida de acentuação — e
-comparada com os termos cadastrados; correspondência exata soma três pontos e
-correspondência parcial soma um. A resposta de maior pontuação é devolvida,
-desde que ultrapasse um limiar mínimo de confiança.
+O assistente virtual, previsto no PIM III e não implementado naquela etapa, foi
+incorporado nesta fase. Opera sobre **base de conhecimento armazenada no
+próprio banco de dados**, com quinze perguntas categorizadas. O atendimento se
+dá por correspondência de palavras-chave: a pergunta é normalizada —
+convertida para minúsculas e despida de acentuação — e comparada com os termos
+cadastrados, somando três pontos por correspondência exata e um por parcial; a
+resposta de maior pontuação é devolvida, desde que ultrapasse um limiar mínimo
+de confiança.
 
 A decisão de **não recorrer a serviços externos de inteligência artificial**
-merece registro, por contrariar a tendência atual. Três razões a sustentam:
-
-1. **Proteção de dados.** Perguntas de estudantes podem conter informações
-   pessoais. Encaminhá-las a um provedor externo implicaria transferência
-   internacional de dados, hipótese que a Lei Geral de Proteção de Dados
-   submete a requisitos específicos e que seria desproporcional ao benefício.
-2. **Previsibilidade.** Modelos generativos podem produzir respostas
-   plausíveis porém incorretas. Em contexto educacional, uma orientação errada
-   sobre prazo ou procedimento de matrícula gera prejuízo concreto. A base
-   curada garante que toda resposta tenha sido previamente revisada.
-3. **Custo e autonomia.** Serviços externos cobram por requisição e dependem de
-   disponibilidade de terceiros, comprometendo o requisito de operação
-   autônoma da instituição.
+merece registro, por contrariar a tendência atual. Sustentam-na três razões. A
+**proteção de dados**: perguntas de estudantes podem conter informações
+pessoais, e encaminhá-las a provedor externo implicaria transferência
+internacional de dados, hipótese que a Lei Geral de Proteção de Dados submete a
+requisitos específicos e que seria desproporcional ao benefício. A
+**previsibilidade**: modelos generativos produzem respostas plausíveis porém
+incorretas, e em contexto educacional uma orientação errada sobre prazo ou
+matrícula gera prejuízo concreto, enquanto a base curada garante que toda
+resposta tenha sido revisada. E o **custo e a autonomia**: serviços externos
+cobram por requisição e dependem de disponibilidade de terceiros,
+comprometendo o requisito de operação autônoma da instituição.
 
 Quando não há correspondência confiável, o assistente **declara que não sabe**
 e oferece perguntas alternativas, encaminhando o usuário ao canal de contato da
@@ -806,38 +671,29 @@ forçar uma resposta.
 
 ## 5.7 Integração entre módulos
 
-A integração entre a aplicação web, o aplicativo móvel e o banco de dados
-ocorre exclusivamente pela interface REST. Não há acesso direto do cliente ao
-banco, o que concentra a validação das regras de negócio em um único ponto.
-
-Um efeito prático dessa arquitetura foi observado durante os testes: uma
-matéria cadastrada pela interface web tornou-se imediatamente visível no
-aplicativo móvel, sem qualquer sincronização adicional — ambos consultam a
-mesma fonte.
+A integração entre a aplicação web, o aplicativo móvel e o banco ocorre
+exclusivamente pela interface REST. Não há acesso direto do cliente ao banco,
+o que concentra a validação das regras de negócio em um único ponto. Um efeito
+prático foi observado nos testes: uma matéria cadastrada pela interface web
+tornou-se imediatamente visível no aplicativo, sem sincronização adicional —
+ambos consultam a mesma fonte.
 
 ## 5.8 Correções decorrentes de teste em dispositivo real
 
-O teste da aplicação em telefone celular revelou dois defeitos que não se
-manifestavam no ambiente de desenvolvimento:
+O teste em telefone celular revelou dois defeitos ausentes no ambiente de
+desenvolvimento. O primeiro era um **endereço de interface fixo**: o front-end
+apontava para `http://localhost:5000/api`, e em um celular `localhost` refere-se
+ao próprio aparelho, não ao servidor — a porta, ademais, estava incorreta. A
+correção substituiu o endereço absoluto por caminho relativo (`/api`), fazendo
+as requisições seguirem para a mesma origem da página. O segundo era a
+**sobreposição de elementos na barra superior**: a marca institucional usava
+`position: absolute` com deslocamento central e cobria os atalhos de navegação
+em telas estreitas; uma consulta de mídia devolve o elemento ao fluxo normal
+abaixo de 640 pixels.
 
-**Endereço de interface fixo.** O código do front-end apontava para
-`http://localhost:5000/api`. O problema é sutil: em um telefone celular,
-`localhost` refere-se ao próprio aparelho, e não ao servidor. A porta,
-adicionalmente, estava incorreta. A correção substituiu o endereço absoluto por
-caminho relativo (`/api`), fazendo com que as requisições sigam para a mesma
-origem de onde a página foi servida. Com isso, a aplicação passou a funcionar
-sem alteração em qualquer ambiente.
-
-**Sobreposição de elementos na barra superior.** A marca institucional estava
-posicionada com `position: absolute` e deslocamento central, o que provocava
-sobreposição aos atalhos de navegação em telas estreitas. A correção introduziu
-uma consulta de mídia que, abaixo de 640 pixels, devolve o elemento ao fluxo
-normal e empilha a barra verticalmente.
-
-Ambos os defeitos correspondem precisamente ao risco antecipado no PIM III, em
-que se registrou o "risco de quebra de componentes em telas de smartphones"
-para a persona Lucas. O episódio confirma a importância do teste em dispositivo
-real: nenhum dos dois problemas apareceria em navegador de computador.
+Ambos correspondem ao risco antecipado no PIM III, que registrara o "risco de
+quebra de componentes em telas de smartphones" para a persona Lucas. Nenhum
+dos dois apareceria em navegador de computador.
 
 ---
 
@@ -860,10 +716,9 @@ Expo Go, distribuído pela App Store, que interpreta o código JavaScript
 entregue pelo ambiente de desenvolvimento — viabilizando execução em iPhone
 real a partir de uma estação Windows.
 
-A contrapartida é a introdução de JavaScript no projeto. Considerou-se aceitável
-porque a disciplina de Desenvolvimento Mobile não impõe tecnologia específica, e
-porque o alinhamento com .NET permanece assegurado pela camada de serviço, que
-é integralmente C#, conforme a seção 7.
+A contrapartida é a introdução de JavaScript no projeto, considerada aceitável
+porque a disciplina não impõe tecnologia específica e porque o alinhamento com
+.NET permanece assegurado pela camada de serviço, integralmente C#.
 
 ## 6.2 Telas principais
 
@@ -891,54 +746,40 @@ dá acesso às áreas principais — Início, Matérias, Atividades e Resultados
 enquanto uma **pilha de navegação** trata telas de contexto, como a execução de
 uma atividade e o assistente virtual.
 
-A aba Resultados é exibida apenas para o perfil Aluno. Docentes e a secretaria
-acompanham desempenho pelos relatórios da aplicação web, mais adequados à
-visualização de dados agregados.
-
-O fluxo principal do estudante é o seguinte:
-
-1. Autenticação com CPF e senha;
-2. Painel inicial com indicadores e atividades pendentes;
-3. Acesso a Matérias e leitura de conteúdo, registrada automaticamente;
-4. Execução de atividade, com envio das respostas e retorno imediato do
-   resultado;
-5. Consulta ao histórico em Meus Resultados.
+A aba Resultados é exibida apenas ao perfil Aluno; docentes e secretaria
+acompanham desempenho pelos relatórios da aplicação web, mais adequados a
+dados agregados. O fluxo principal do estudante percorre a autenticação por
+CPF e senha, o painel inicial com indicadores e atividades pendentes, o acesso
+a Matérias com registro automático de leitura, a execução da atividade com
+retorno imediato do resultado e, por fim, a consulta ao histórico.
 
 ## 6.4 Autenticação e armazenamento seguro
 
-O token recebido no login é gravado por meio do **expo-secure-store**, que
-utiliza o Keychain no iOS e o Keystore no Android. Ambos são serviços do
-sistema operacional que cifram o conteúdo e o vinculam ao aplicativo.
+O token recebido no login é gravado pelo **expo-secure-store**, que utiliza o
+Keychain no iOS e o Keystore no Android — serviços do sistema operacional que
+cifram o conteúdo e o vinculam ao aplicativo. A escolha contrasta com a
+alternativa comum, o `AsyncStorage`, que grava **em texto claro** no sistema de
+arquivos: em aparelho comprometido, um token assim armazenado poderia ser
+extraído e usado para personificar o usuário durante a validade da sessão.
 
-A escolha é relevante em contraste com a alternativa comum, o
-`AsyncStorage`, que grava os dados **em texto claro** no sistema de arquivos.
-Em um aparelho comprometido, um token assim armazenado poderia ser extraído e
-utilizado para personificar o usuário durante a validade da sessão.
-
-Ao iniciar, o aplicativo restaura a sessão gravada e **verifica a data de
-expiração antes de considerá-la válida**, descartando tokens vencidos. O
-procedimento evita que o usuário navegue até receber uma recusa de autorização,
-substituindo o erro por um redirecionamento silencioso à tela de login.
+Ao iniciar, o aplicativo restaura a sessão e **verifica a data de expiração
+antes de considerá-la válida**, descartando tokens vencidos e substituindo a
+eventual recusa de autorização por redirecionamento silencioso ao login.
 
 ## 6.5 Sincronização de dados
 
-O aplicativo mantém **cópia local dos dados consultados**. Cada leitura
-bem-sucedida é gravada em armazenamento local junto com o instante da coleta.
-Quando uma requisição falha por indisponibilidade de rede, a tela exibe a
-última cópia conhecida acompanhada de aviso explícito de que os dados podem
-estar desatualizados.
-
-A estratégia adotada é a de **cache com precedência da rede**: tenta-se sempre
-obter o dado atualizado, recorrendo à cópia local apenas em caso de falha.
-Evita-se, assim, apresentar informação obsoleta quando há conexão disponível.
+O aplicativo mantém **cópia local dos dados consultados**, gravando cada
+leitura bem-sucedida junto com o instante da coleta. Falhando a requisição por
+indisponibilidade de rede, a tela exibe a última cópia conhecida com aviso
+explícito de possível desatualização. A estratégia é a de **cache com
+precedência da rede**: tenta-se sempre o dado atualizado, recorrendo à cópia
+local apenas em caso de falha.
 
 Cabe distinguir os tipos de falha. Erros de negócio — credencial inválida,
-permissão insuficiente — não acionam o cache, pois representam respostas
-legítimas do servidor. Somente falhas de rede o fazem. A distinção evita que o
-usuário receba dados antigos quando o problema é de outra natureza.
-
-No encerramento da sessão, todo o cache é descartado, impedindo que dados de um
-usuário permaneçam acessíveis a outro que utilize o mesmo aparelho.
+permissão insuficiente — não acionam o cache, por serem respostas legítimas do
+servidor; somente falhas de rede o fazem. No encerramento da sessão todo o
+cache é descartado, impedindo que dados de um usuário permaneçam acessíveis a
+outro que utilize o mesmo aparelho.
 
 ## 6.6 Integração com a interface de programação
 
@@ -954,46 +795,36 @@ permaneça indefinidamente em espera diante de um servidor inacessível.
 ## 6.7 Acessibilidade no aplicativo
 
 Os recursos descritos na seção 4 foram implementados também no aplicativo:
-
-- Alto contraste e três escalas tipográficas, com preferências persistidas;
-- Glossário em Libras com doze termos;
-- Rótulos de acessibilidade e papéis semânticos em todos os elementos
-  interativos, viabilizando o uso por leitor de tela;
-- Alvos de toque com dimensão mínima de 48 pontos.
+alto contraste e três escalas tipográficas com preferências persistidas;
+glossário em Libras com doze termos; rótulos de acessibilidade e papéis
+semânticos em todos os elementos interativos, viabilizando leitor de tela; e
+alvos de toque de no mínimo 48 pontos.
 
 `[INSERIR FIGURA — Recursos de acessibilidade no aplicativo]`
 
 A captura desta figura revelou um defeito que três revisões do código não
-haviam identificado. A paleta de alto contraste substitui a cor de destaque —
-o roxo institucional — pelo amarelo, mas o texto sobreposto a essas
-superfícies permanecia branco. A razão de contraste resultante era de 1,07:1,
-quando a WCAG 2.1 estabelece 4,5:1 como mínimo para texto comum no nível AA.
-Cinco componentes eram afetados, entre eles o próprio interruptor de alto
+haviam identificado. A paleta de alto contraste substitui a cor de destaque
+pelo amarelo, mas o texto sobreposto a essas superfícies permanecia branco,
+produzindo razão de contraste de 1,07:1 quando a WCAG 2.1 exige 4,5:1 no nível
+AA. Cinco componentes eram afetados, entre eles o próprio interruptor de alto
 contraste: o texto que descreve o recurso tornava-se ilegível exatamente
-quando o recurso era acionado.
+quando o recurso era acionado. A correção introduziu um token cromático
+específico para texto sobre superfícies de destaque, definido por paleta; em
+alto contraste, o preto sobre amarelo rende 19,6:1.
 
-A correção introduziu um token cromático específico para texto aplicado sobre
-superfícies de destaque, definido separadamente em cada paleta. Na paleta de
-alto contraste, o preto sobre amarelo produz razão de 19,6:1.
-
-O episódio é instrutivo por dois motivos. Primeiro, porque o defeito residia
-precisamente no recurso destinado a mitigar barreiras visuais — declarar
-conformidade não a produz. Segundo, porque nenhuma leitura de código o teria
-revelado: as duas cores estavam corretas isoladamente, e apenas a
-sobreposição, observada na tela do aparelho, o tornou evidente.
+O episódio é instrutivo porque o defeito residia justamente no recurso
+destinado a mitigar barreiras visuais — declarar conformidade não a produz — e
+porque nenhuma leitura de código o revelaria: as duas cores estavam corretas
+isoladamente, e só a sobreposição, observada na tela do aparelho, o evidenciou.
 
 ## 6.8 Verificação
 
-A verificação do aplicativo compreendeu duas frentes.
-
-A **compilação do pacote** foi executada a cada alteração relevante, produzindo
-sem erros o pacote de 2,2 MB destinado ao dispositivo. O procedimento detecta
-importações inexistentes e erros de sintaxe antes que o código chegue ao
-aparelho, e por isso precedeu cada envio.
-
-A **execução em dispositivo real** foi realizada em iPhone conectado à mesma
-rede local do servidor. Registram-se as dificuldades enfrentadas, por
-constituírem aprendizado sobre desenvolvimento móvel:
+A verificação compreendeu duas frentes. A **compilação do pacote**, executada a
+cada alteração relevante, produziu sem erros o pacote de 2,2 MB destinado ao
+dispositivo, detectando importações inexistentes e erros de sintaxe antes que o
+código chegasse ao aparelho. A **execução em dispositivo real** foi feita em
+iPhone conectado à mesma rede local do servidor; registram-se as dificuldades
+enfrentadas, por constituírem aprendizado sobre desenvolvimento móvel:
 
 | Obstáculo | Causa | Solução |
 |---|---|---|
@@ -1002,21 +833,20 @@ constituírem aprendizado sobre desenvolvimento móvel:
 | Projeto recusado pelo Expo Go | Divergência entre o SDK do projeto e o suportado pela versão do aplicativo intermediário | Alinhamento do projeto à versão vigente |
 | Projeto recusado por falta de autenticação | Aplicativo intermediário autenticado em uma conta, ferramenta de linha de comando anônima | Autenticação da ferramenta na mesma conta |
 
-O segundo obstáculo merece nota: o endereço da estação foi alterado
-automaticamente pelo roteador durante o intervalo entre dois testes, fazendo
-falhar uma configuração que antes funcionava. A ocorrência ilustra a fragilidade
-de ambientes de desenvolvimento apoiados em endereçamento dinâmico.
+O segundo obstáculo ilustra a fragilidade de ambientes apoiados em
+endereçamento dinâmico: o endereço da estação foi alterado pelo roteador no
+intervalo entre dois testes, fazendo falhar uma configuração que antes
+funcionava.
 
-O terceiro obstáculo ocorreu duas vezes, em sentidos opostos, e por isso
-merece registro. O aplicativo intermediário utilizado para executar o projeto
-em dispositivo físico é distribuído pela loja da fabricante, que mantém apenas
-a versão mais recente. Quando o projeto foi criado, essa versão era anterior à
-do projeto, o que exigiu regredir o projeto. Semanas depois, o aplicativo foi
-atualizado automaticamente no aparelho e passou a exigir a versão mais nova,
-tornando necessário desfazer a regressão. A dependência de um componente cuja
-versão não está sob controle da equipe é um risco concreto de indisponibilidade
-em demonstrações agendadas, mitigado com a desativação da atualização
-automática do aplicativo no aparelho.
+O terceiro ocorreu duas vezes, em sentidos opostos. O aplicativo intermediário
+usado para executar o projeto em dispositivo físico é distribuído pela loja da
+fabricante, que mantém apenas a versão mais recente. Quando o projeto foi
+criado, essa versão era anterior à dele, o que exigiu regredi-lo; semanas
+depois, o aplicativo atualizou-se automaticamente e passou a exigir a versão
+mais nova, tornando necessário desfazer a regressão. A dependência de um
+componente cuja versão não está sob controle da equipe é risco concreto de
+indisponibilidade em demonstrações agendadas, mitigado com a desativação da
+atualização automática no aparelho.
 
 ---
 
@@ -1026,12 +856,11 @@ automática do aplicativo no aparelho.
 
 ## 7.1 Situação inicial e motivação
 
-Ao término do PIM III, o sistema encontrava-se organizado em **projeto único**,
-com todos os arquivos na raiz do repositório: modelos, contexto de dados,
-serviços, controladores e ponto de entrada. A estrutura funcionava, mas
-apresentava as limitações típicas dessa organização — ausência de fronteiras
-que impedissem, por exemplo, que um controlador acessasse o banco diretamente,
-contornando a camada de serviço.
+Ao término do PIM III, o sistema estava organizado em **projeto único**, com
+modelos, contexto de dados, serviços, controladores e ponto de entrada na raiz
+do repositório. A estrutura funcionava, mas não impunha fronteiras: nada
+impedia que um controlador acessasse o banco diretamente, contornando a camada
+de serviço.
 
 Martin (2019) sustenta que o propósito da arquitetura é **postergar decisões e
 preservar opções**, mantendo as regras de negócio independentes de detalhes de
@@ -1059,83 +888,53 @@ SistemaEducacional.slnx
         └── wwwroot/     — interface web
 ```
 
-**Camada de Domínio.** Reúne as entidades que representam os conceitos do
-negócio. Não referencia nenhum outro projeto, tampouco bibliotecas de acesso a
-dados. A ausência de dependências é intencional: as regras do domínio não devem
-mudar porque o banco mudou.
+A **camada de Domínio** reúne as entidades do negócio e não referencia nenhum
+outro projeto nem bibliotecas de acesso a dados — ausência intencional, pois as
+regras do domínio não devem mudar porque o banco mudou. A **Infraestrutura**
+concentra o acesso a dados pelo contexto do Entity Framework, onde se
+configuram relacionamentos, chaves compostas e restrições de unicidade. A
+**Aplicação** contém os serviços que implementam os casos de uso, os objetos de
+transferência, as validações e a orquestração das operações. A
+**Apresentação** expõe a interface de programação e serve os arquivos da
+interface web, tratando exclusivamente de protocolo HTTP.
 
-**Camada de Infraestrutura.** Concentra o acesso a dados, por meio do contexto
-do Entity Framework, onde estão configurados relacionamentos, chaves compostas
-e restrições de unicidade.
-
-**Camada de Aplicação.** Contém os serviços que implementam os casos de uso e
-os objetos de transferência. É nesta camada que residem as regras de validação
-e a orquestração das operações.
-
-**Camada de Apresentação.** Expõe a interface de programação por meio dos
-controladores e serve os arquivos da interface web. Trata exclusivamente de
-protocolo HTTP: recebe requisições, delega aos serviços e formata respostas.
-
-A separação entre entidade e objeto de transferência merece destaque por seu
-efeito sobre a segurança. A entidade `Usuario` possui o campo `SenhaHash`; o
-objeto `UsuarioDto` não. Como os controladores devolvem apenas objetos de
-transferência, o hash da senha **não pode ser exposto por descuido** — a
-omissão é estrutural, e não fruto de atenção do programador.
+A separação entre entidade e objeto de transferência tem efeito direto sobre a
+segurança: a entidade `Usuario` possui o campo `SenhaHash`, e o objeto
+`UsuarioDto` não. Como os controladores devolvem apenas objetos de
+transferência, o hash **não pode ser exposto por descuido** — a omissão é
+estrutural, e não fruto de atenção do programador.
 
 ## 7.3 Orientação a objetos
 
-A aplicação dos princípios de orientação a objetos manifesta-se em:
-
-**Encapsulamento.** Os serviços expõem métodos que representam operações de
-negócio — `MatricularAsync`, `SubmeterAtividadeAsync` — e mantêm privados os
-detalhes de sua execução. O controlador desconhece se a operação envolve uma ou
-várias consultas.
-
-**Abstração.** Os controladores dependem da assinatura pública dos serviços, e
-não de sua implementação. A substituição do Entity Framework por outro mecanismo
-de acesso exigiria alterações apenas na camada de Infraestrutura.
-
-**Responsabilidade única.** A divisão do arquivo de modelos original, com 316
-linhas e 11 classes, em **doze arquivos independentes**, cada um com uma
-entidade, atende ao princípio de que cada unidade deve ter uma única razão para
-mudar.
-
-**Injeção de dependência.** Os serviços recebem suas dependências pelo
-construtor, registradas no contêiner nativo da plataforma. O padrão elimina o
-acoplamento a instâncias concretas e viabiliza a substituição por implementações
-de teste.
+Os princípios de orientação a objetos manifestam-se em quatro pontos. O
+**encapsulamento** faz os serviços exporem métodos que representam operações de
+negócio — `MatricularAsync`, `SubmeterAtividadeAsync` — mantendo privados os
+detalhes de execução, de modo que o controlador desconhece quantas consultas a
+operação envolve. A **abstração** faz os controladores dependerem da assinatura
+pública dos serviços, e não da implementação: substituir o Entity Framework por
+outro mecanismo exigiria alterar apenas a Infraestrutura. A **responsabilidade
+única** levou à divisão do arquivo de modelos original, com 316 linhas e 11
+classes, em doze arquivos independentes. E a **injeção de dependência**, com os
+serviços recebendo suas dependências pelo construtor a partir do contêiner
+nativo, elimina o acoplamento a instâncias concretas e viabiliza substituí-las
+por implementações de teste.
 
 ## 7.4 Modularização
 
-Cada camada constitui um projeto compilado independentemente, e as dependências
-são declaradas explicitamente. A consequência prática é que **violações
-arquiteturais tornam-se erros de compilação**: uma tentativa de acessar o
-contexto de dados a partir da camada de Domínio não compila, pois a referência
-não existe.
-
-A tabela a seguir sintetiza a organização resultante:
-
-| Camada | Projetos referenciados | Conteúdo |
-|---|---|---|
-| Domain | nenhum | 12 entidades |
-| Infrastructure | Domain | 1 contexto de dados |
-| Application | Domain, Infrastructure | 31 objetos de transferência, 8 serviços |
-| API | Application, Infrastructure | 8 controladores, configuração, interface web |
+Cada camada é um projeto compilado independentemente, com dependências
+declaradas explicitamente. A consequência prática é que **violações
+arquiteturais tornam-se erros de compilação**: acessar o contexto de dados a
+partir do Domínio não compila, pois a referência não existe.
 
 ## 7.5 Verificação da refatoração
 
 Uma refatoração dessa amplitude — 36 arquivos movidos ou criados — exige
-verificação, pois alterações estruturais podem introduzir defeitos silenciosos.
-Após a reorganização, foram executados os seguintes testes:
-
-| Verificação | Resultado |
-|---|---|
-| Compilação da solução | Bem-sucedida, sem erros ou avisos |
-| Inicialização e conexão ao banco | Bem-sucedida |
-| Autenticação com emissão de token | Bem-sucedida |
-| Consulta a endpoint restrito por perfil | Retorno correto dos registros |
-| Interface web estática | Resposta HTTP 200 |
-| Documentação interativa | Disponível |
+verificação, pois alterações estruturais introduzem defeitos silenciosos. Após
+a reorganização, verificou-se que a solução compila sem erros nem avisos, que a
+aplicação inicia e conecta ao banco, que a autenticação emite token válido, que
+endpoints restritos por perfil retornam corretamente os registros, que a
+interface web responde com HTTP 200 e que a documentação interativa permanece
+disponível.
 
 A verificação confirmou que a reorganização preservou o comportamento
 observável do sistema — condição que define uma refatoração, por oposição a uma
@@ -1300,35 +1099,30 @@ primeira inserção, e a contagem final permaneceu em exatamente 40. A regra
 RN01, que no PIM III era uma linha de tabela, passou a ser restrição
 verificável.
 
-A verificação também expôs um defeito de natureza distinta. A carga inicial
-gravava as senhas das contas de demonstração a partir de um valor de hash
-fixado diretamente no script. As contas eram criadas sem qualquer erro, os
-relacionamentos permaneciam íntegros e todas as consultas retornavam os dados
-esperados — mas **nenhuma das cinco contas conseguia autenticar**. O hash
-utilizado provinha de um exemplo da documentação da biblioteca BCrypt e
-correspondia a senha diversa da anunciada nos comentários do próprio script.
+A verificação também expôs defeito de natureza distinta. A carga inicial
+gravava as senhas das contas de demonstração a partir de um hash fixado no
+script. As contas eram criadas sem erro, os relacionamentos permaneciam
+íntegros e as consultas retornavam os dados esperados — mas **nenhuma das cinco
+contas conseguia autenticar**: o hash provinha de um exemplo da documentação da
+biblioteca BCrypt e correspondia a senha diversa da anunciada nos comentários
+do próprio script.
 
-O caso é ilustrativo porque o defeito é invisível à inspeção do banco: não há
-consulta capaz de revelá-lo, uma vez que o hash é, por construção,
-irreversível. Só a tentativa efetiva de autenticação o evidencia. A correção
-consistiu em gerar o hash com a mesma biblioteca empregada pela aplicação e
-submetê-lo a `Verify()` antes de fixá-lo, procedimento que substitui a
-suposição pela verificação.
+O caso é ilustrativo porque o defeito é invisível à inspeção do banco — o hash
+é, por construção, irreversível, e nenhuma consulta o revelaria; só a tentativa
+efetiva de autenticação o evidencia. A correção gerou o hash com a mesma
+biblioteca empregada pela aplicação e o submeteu a `Verify()` antes de fixá-lo,
+substituindo a suposição pela verificação.
 
 ## 8.8 Script completo
 
-O projeto do banco está organizado em três scripts de execução sequencial:
+O projeto do banco organiza-se em três scripts sequenciais: `01_schema.sql`,
+que cria o banco, as 13 tabelas e os 15 índices; `02_procedures_triggers.sql`,
+com os procedimentos, gatilhos, visão e tabela de auditoria; e
+`03_carga_inicial.sql`, com os dados de demonstração.
 
-| Ordem | Arquivo | Conteúdo |
-|---|---|---|
-| 1 | `01_schema.sql` | Banco, 13 tabelas e 15 índices |
-| 2 | `02_procedures_triggers.sql` | Procedimentos, gatilhos, visão e auditoria |
-| 3 | `03_carga_inicial.sql` | Dados de demonstração |
-
-Os scripts 2 e 3 são **idempotentes**: podem ser executados repetidamente sem
-erro, pois verificam a existência dos objetos antes de criá-los. A propriedade
-é necessária para que sejam aplicados automaticamente na implantação, conforme
-descrito na seção 9.
+Os scripts 2 e 3 são **idempotentes**: executam repetidamente sem erro, pois
+verificam a existência dos objetos antes de criá-los — propriedade necessária
+para a aplicação automática descrita na seção 9.
 
 ---
 
@@ -1398,31 +1192,21 @@ qualquer máquina, que é o que a prática de DevOps efetivamente busca.
 
 ## 9.3 Contêineres
 
-A aplicação foi conteinerizada com **Docker**, empregando construção em
-múltiplos estágios:
-
-- **Estágio de compilação** — utiliza a imagem do SDK do .NET (cerca de 800 MB)
-  para restaurar dependências e publicar a aplicação;
-- **Estágio de execução** — parte da imagem do runtime (cerca de 220 MB) e
-  recebe apenas os binários publicados.
-
-A separação resultou em imagem final de **376 MB**. Além da economia de espaço,
-a redução diminui a superfície de ataque: o SDK, os compiladores e o
-código-fonte não integram a imagem publicada.
-
-A aplicação executa sob **usuário sem privilégios**. Caso seja comprometida, o
-invasor não obtém privilégios administrativos dentro do contêiner.
+A aplicação foi conteinerizada com **Docker**, em construção de múltiplos
+estágios: o **estágio de compilação** usa a imagem do SDK do .NET (cerca de
+800 MB) para restaurar dependências e publicar a aplicação, e o **estágio de
+execução** parte da imagem do runtime (cerca de 220 MB) e recebe apenas os
+binários publicados. A separação resultou em imagem final de **376 MB** e
+reduziu a superfície de ataque, pois SDK, compiladores e código-fonte não
+integram a imagem publicada. A aplicação executa sob **usuário sem
+privilégios**, de modo que um comprometimento não confere privilégios
+administrativos dentro do contêiner.
 
 O ambiente completo é descrito em `docker-compose.yml`, que orquestra três
-serviços:
-
-1. **banco** — SQL Server, com verificação de disponibilidade que executa uma
-   consulta real ao gerenciador;
-2. **init-banco** — aplica os três scripts de banco e encerra;
-3. **api** — a aplicação, que só inicia após a conclusão bem-sucedida do
-   serviço anterior.
-
-A sequência garante que a aplicação nunca encontre um banco inexistente.
+serviços: **banco**, o SQL Server, com verificação de disponibilidade que
+executa consulta real ao gerenciador; **init-banco**, que aplica os três
+scripts e encerra; e **api**, que só inicia após a conclusão bem-sucedida do
+anterior. A sequência garante que a aplicação nunca encontre banco inexistente.
 
 `[INSERIR FIGURA — Contêineres em execução]`
 
@@ -1447,37 +1231,31 @@ O monitoramento apoia-se no endpoint `/health`, que verifica não apenas a
 resposta da aplicação, mas também **o acesso ao banco de dados**, retornando
 código 503 quando este está inacessível.
 
-A distinção é relevante. Uma implementação inicial deste projeto verificava
-apenas a presença do runtime — abordagem que se revelou inadequada, pois
-reportaria o contêiner como saudável ainda que a aplicação estivesse
-inoperante. Um indicador que nunca acusa falha é pior que sua ausência, por
-produzir falsa confiança.
-
-A implementação corrigida foi verificada experimentalmente: com o banco em
-operação, o endpoint retornou 200; após a interrupção deliberada do contêiner
-do banco, passou a retornar 503; restabelecido o serviço, voltou a 200.
+A distinção é relevante. A implementação inicial verificava apenas a presença
+do runtime, e reportaria o contêiner como saudável ainda que a aplicação
+estivesse inoperante — um indicador que nunca acusa falha é pior que sua
+ausência, por produzir falsa confiança. A implementação corrigida foi
+verificada experimentalmente: com o banco em operação o endpoint retornou 200;
+após a interrupção deliberada do contêiner do banco, 503; restabelecido o
+serviço, voltou a 200.
 
 ## 9.6 Escalabilidade
 
-A escalabilidade horizontal é viabilizada pela ausência de estado na aplicação.
-Não havendo sessão em memória, qualquer instância atende qualquer requisição, e
-a adição de réplicas não exige coordenação.
-
-Os índices descritos na seção 8 sustentam o desempenho das consultas conforme o
-volume cresce. Em cenário de expansão significativa, as medidas seguintes
-seriam a introdução de cache distribuído para dados de leitura frequente e a
-adoção de réplicas de leitura no banco.
+A escalabilidade horizontal é viabilizada pela ausência de estado: não havendo
+sessão em memória, qualquer instância atende qualquer requisição e a adição de
+réplicas não exige coordenação. Os índices da seção 8 sustentam o desempenho
+das consultas conforme o volume cresce; em expansão significativa, as medidas
+seguintes seriam cache distribuído para dados de leitura frequente e réplicas
+de leitura no banco.
 
 ## 9.7 Segurança da infraestrutura
 
-| Medida | Implementação |
-|---|---|
-| Segredos fora do código | Variáveis de ambiente; nenhum valor sensível versionado |
-| Execução sem privilégios | Contêiner executa como usuário comum |
-| Superfície reduzida | Imagem final sem SDK, compiladores ou código-fonte |
-| Isolamento de rede | Rede dedicada; banco não exposto publicamente |
-| Dependências verificadas | Varredura automática no pipeline |
-| Persistência dos dados | Volume nomeado, preservado entre reinicializações |
+Seis medidas compõem a segurança do ambiente: os segredos permanecem fora do
+código, em variáveis de ambiente, sem nenhum valor sensível versionado; o
+contêiner executa como usuário comum; a imagem final não contém SDK,
+compiladores nem código-fonte; o banco opera em rede dedicada, sem exposição
+pública; as dependências passam por varredura automática no pipeline; e os
+dados residem em volume nomeado, preservado entre reinicializações.
 
 ## 9.8 Verificação do ambiente
 
@@ -1525,14 +1303,12 @@ colunas Pendente, Em Andamento, Teste e Concluído.
 
 ## 10.2 Papéis
 
-| Papel | Atribuição |
-|---|---|
-| Product Owner | Priorização do backlog conforme os critérios de avaliação do PIM |
-| Scrum Master | Condução das reuniões e remoção de impedimentos |
-| Time de Desenvolvimento | Implementação, testes e documentação |
-
-Dada a dimensão da equipe — seis integrantes —, os papéis foram exercidos de
-forma compartilhada, com rodízio das responsabilidades de condução.
+Ao **Product Owner** coube priorizar o backlog conforme os critérios de
+avaliação do PIM; ao **Scrum Master**, conduzir as reuniões e remover
+impedimentos; e ao **Time de Desenvolvimento**, a implementação, os testes e a
+documentação. Dada a dimensão da equipe — seis integrantes —, os papéis foram
+exercidos de forma compartilhada, com rodízio das responsabilidades de
+condução.
 
 ## 10.3 Product Backlog
 
@@ -1557,68 +1333,25 @@ priorizado segundo dois critérios: peso na avaliação e dependência técnica.
 As estimativas empregam a sequência de Fibonacci, medida em pontos de história,
 representando esforço relativo e não duração absoluta.
 
-## 10.4 Sprints
+## 10.4 Sprint Backlog
 
-O desenvolvimento organizou-se em **quatro sprints de duas semanas**.
+O desenvolvimento organizou-se em **quatro sprints de duas semanas**, com os
+itens do backlog distribuídos conforme a dependência técnica entre eles. Todos
+foram concluídos.
 
-### Sprint 1 — Fundação e segurança
+| Sprint | Meta | Itens | Resultado |
+|---|---|---|---|
+| 1 — Fundação e segurança | Base arquitetural sólida e eliminação de vulnerabilidades | PB01, PB02 e configuração do ambiente | Solução em quatro projetos, compilando sem avisos, com verificação funcional preservada |
+| 2 — Banco de dados | Transpor as regras de negócio para o banco | PB05, PB06, PB12 e consolidação dos scripts | 4 procedimentos, 4 gatilhos e 1 visão, verificados em banco criado do zero |
+| 3 — Aplicação móvel | Disponibilizar acesso por dispositivo móvel | PB03, PB04, PB08, PB11 | Aplicativo executado em dispositivo real |
+| 4 — Assistente e infraestrutura | Concluir funcionalidades pendentes e infraestrutura | PB07, PB09, PB10 | Ambiente conteinerizado verificado em execução, com três defeitos corrigidos |
 
-**Meta:** estabelecer base arquitetural sólida e eliminar vulnerabilidades.
-
-| Item | Descrição | Situação |
-|---|---|---|
-| PB01 | Divisão em quatro camadas | Concluído |
-| PB02 | Migração de segredos e rotação de chave | Concluído |
-| — | Configuração do ambiente de desenvolvimento | Concluído |
-
-**Resultado:** solução reorganizada em quatro projetos, compilando sem avisos, com
-verificação funcional preservada.
-
-### Sprint 2 — Banco de dados
-
-**Meta:** transpor as regras de negócio para o banco.
-
-| Item | Descrição | Situação |
-|---|---|---|
-| PB06 | Gatilho de limite de vagas | Concluído |
-| PB12 | Gatilho de auditoria | Concluído |
-| PB05 | Procedimentos de ranking e desempenho | Concluído |
-| — | Consolidação dos scripts e modelos | Concluído |
-
-**Resultado:** 4 procedimentos, 4 gatilhos e 1 visão, verificados em banco criado
-do zero.
-
-### Sprint 3 — Aplicação móvel
-
-**Meta:** disponibilizar acesso por dispositivo móvel.
-
-| Item | Descrição | Situação |
-|---|---|---|
-| PB03 | Aplicativo com autenticação e navegação | Concluído |
-| PB04 | Execução de atividades e consulta de resultados | Concluído |
-| PB08 | Acessibilidade no aplicativo | Concluído |
-| PB11 | Consulta offline | Concluído |
-
-**Resultado:** aplicativo executado em dispositivo real. Registre-se o impedimento
-tratado nesta sprint: a incompatibilidade entre a versão do SDK do projeto e a
-suportada pelo aplicativo intermediário instalado no aparelho, discutida na
-seção 6.8. O impedimento reapareceu semanas depois, em sentido inverso, quando
-esse aplicativo foi atualizado automaticamente — evidência de que impedimentos
-originados em dependências externas não se encerram com a sprint em que foram
-tratados.
-
-### Sprint 4 — Assistente virtual e infraestrutura
-
-**Meta:** concluir as funcionalidades pendentes e a infraestrutura.
-
-| Item | Descrição | Situação |
-|---|---|---|
-| PB07 | Assistente virtual na web e no aplicativo | Concluído |
-| PB09 | Conteinerização do ambiente | Concluído |
-| PB10 | Pipeline de integração contínua | Concluído |
-
-**Resultado:** ambiente conteinerizado verificado em execução, com três defeitos
-identificados e corrigidos.
+Registre-se o impedimento tratado na terceira sprint: a incompatibilidade entre
+a versão do SDK do projeto e a suportada pelo aplicativo intermediário
+instalado no aparelho, discutida na seção 6.8. O impedimento reapareceu semanas
+depois, em sentido inverso, quando esse aplicativo foi atualizado
+automaticamente — evidência de que impedimentos originados em dependências
+externas não se encerram com a sprint em que foram tratados.
 
 ## 10.5 Cronograma
 
@@ -1634,14 +1367,11 @@ identificados e corrigidos.
 
 ## 10.6 Definição de pronto
 
-Estabeleceu-se que um item somente é considerado concluído quando satisfaz
-todos os critérios:
-
-1. Funcionalidade implementada e compilando sem avisos;
-2. Comportamento verificado por execução — não apenas por compilação;
-3. Código comentado nos pontos em que a intenção não é evidente;
-4. Alterações registradas no controle de versão com mensagem descritiva;
-5. Documentação correspondente atualizada.
+Um item só é considerado concluído quando satisfaz cinco critérios:
+funcionalidade implementada e compilando sem avisos; comportamento verificado
+por execução, e não apenas por compilação; código comentado onde a intenção não
+é evidente; alterações registradas no controle de versão com mensagem
+descritiva; e documentação correspondente atualizada.
 
 O segundo critério foi decisivo. Diversos defeitos relatados neste trabalho —
 a verificação de saúde inócua, a ordem incorreta de inicialização, o endereço
@@ -1657,21 +1387,15 @@ que não escreveu o código.
 
 ## 10.7 Retrospectiva
 
-**O que funcionou bem.** A priorização por dependência técnica evitou
-retrabalho: a arquitetura precedeu as funcionalidades, e o banco precedeu o
-aplicativo. A prática de verificar cada entrega por execução revelou defeitos
-que a compilação não acusava.
-
-**Dificuldades enfrentadas.** Restrições de ambiente consumiram tempo
-significativo — regras de firewall, alteração de endereço por DHCP,
-incompatibilidade de versões e política de execução de scripts. São
-dificuldades pouco visíveis no planejamento, mas de impacto real sobre o
-cronograma.
-
-**Melhorias identificadas.** Verificar antecipadamente a compatibilidade entre
-as versões de ferramentas e as suportadas pelos dispositivos de teste; reservar
-endereço fixo para a estação de desenvolvimento; e executar toda configuração
-de infraestrutura assim que escrita, em vez de postergar a verificação.
+**Funcionou bem** a priorização por dependência técnica, que evitou retrabalho:
+a arquitetura precedeu as funcionalidades, e o banco precedeu o aplicativo.
+**Dificultaram** o andamento as restrições de ambiente — firewall, alteração de
+endereço por DHCP, incompatibilidade de versões e política de execução de
+scripts —, pouco visíveis no planejamento e de impacto real sobre o cronograma.
+Como **melhoria**, registra-se a necessidade de verificar antecipadamente a
+compatibilidade entre versões de ferramentas e dispositivos de teste, reservar
+endereço fixo para a estação de desenvolvimento e executar toda configuração de
+infraestrutura assim que escrita, em vez de postergar a verificação.
 
 ---
 
