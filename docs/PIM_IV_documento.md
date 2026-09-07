@@ -338,16 +338,13 @@ repetitivo que hoje a consome.
 
 ## 3.1 Problema a ser resolvido
 
-O problema central pode ser assim enunciado: **a instituição Lumina não dispõe
-de um ambiente digital unificado que integre os processos acadêmicos e
-administrativos, o que provoca dispersão de informações, retrabalho e ausência
-de indicadores para a tomada de decisão pedagógica.**
-
-Trata-se de problema de integração, e não de falta de ferramentas. A
-instituição utiliza planilhas, mensageiros e correio eletrônico, cada qual
-resolvendo bem uma tarefa isolada; o conjunto, porém, não constitui um
-sistema, pois os dados não circulam entre eles e exigem transcrição manual a
-cada etapa.
+O problema central: **a instituição Lumina não dispõe de ambiente digital
+unificado que integre os processos acadêmicos e administrativos, o que provoca
+dispersão de informações, retrabalho e ausência de indicadores para a decisão
+pedagógica.** Trata-se de problema de integração, e não de falta de
+ferramentas: planilhas, mensageiros e correio eletrônico resolvem bem tarefas
+isoladas, mas o conjunto não constitui um sistema, pois os dados não circulam
+entre eles e exigem transcrição manual a cada etapa.
 
 ## 3.2 Objetivos da solução
 
@@ -356,18 +353,14 @@ acessível por navegador e por dispositivo móvel, que centralize o cadastro de
 usuários, a gestão de turmas e conteúdos, a aplicação de avaliações e a
 apuração de indicadores de desempenho.
 
-**Objetivos específicos:**
-
-1. Centralizar em base única os dados de estudantes, docentes, turmas,
-   disciplinas e avaliações;
-2. Reduzir o tempo entre a aplicação de uma avaliação e a divulgação do
-   resultado, por meio de correção automática;
-3. Disponibilizar indicadores consolidados que permitam identificar
-   antecipadamente estudantes em situação de risco acadêmico;
-4. Diminuir a demanda de atendimentos operacionais sobre a secretaria mediante
-   recursos de autoatendimento;
-5. Assegurar o uso autônomo da plataforma por pessoas com deficiência;
-6. Reduzir o consumo de papel pela digitalização de avaliações e materiais.
+**Objetivos específicos:** centralizar em base única os dados de estudantes,
+docentes, turmas, disciplinas e avaliações; reduzir, por correção automática, o
+tempo entre a aplicação de uma avaliação e a divulgação do resultado;
+disponibilizar indicadores consolidados que permitam identificar
+antecipadamente estudantes em risco acadêmico; diminuir a demanda de
+atendimentos operacionais sobre a secretaria mediante autoatendimento;
+assegurar o uso autônomo da plataforma por pessoas com deficiência; e reduzir o
+consumo de papel pela digitalização de avaliações e materiais.
 
 ## 3.3 Público-alvo
 
@@ -402,14 +395,14 @@ preteridos por soluções convencionais.
 
 ## 3.5 Benefícios esperados
 
-| Dimensão | Benefício | Indicador de verificação |
+| Dimensão | Benefício | Indicador |
 |---|---|---|
-| Operacional | Redução do tempo de divulgação de resultados | De até 14 dias para divulgação imediata |
-| Operacional | Diminuição de atendimentos de suporte | Volume de chamados de recuperação de senha |
-| Pedagógica | Identificação precoce de risco acadêmico | Percentual de estudantes classificados como "Em Risco" |
-| Pedagógica | Ampliação do acesso a materiais | Registros de leitura de conteúdo |
-| Ambiental | Redução do consumo de papel | Volume de impressões de avaliações |
-| Social | Uso autônomo por pessoas com deficiência | Recursos de acessibilidade implementados |
+| Operacional | Divulgação de resultados mais rápida | De 14 dias para imediata |
+| Operacional | Menos atendimentos de suporte | Chamados de recuperação de senha |
+| Pedagógica | Risco acadêmico detectado cedo | Estudantes na faixa "Em Risco" |
+| Pedagógica | Mais acesso a materiais | Registros de leitura |
+| Ambiental | Menos papel | Impressões de avaliações |
+| Social | Uso autônomo por pessoa com deficiência | Recursos implementados |
 
 Cabe ressalva metodológica: por tratar-se de instituição simulada, os
 indicadores acima são parâmetros propostos para aferição em implantação real,
@@ -707,18 +700,15 @@ O aplicativo foi desenvolvido em **React Native**, com o ecossistema **Expo
 (SDK 57)**. A decisão exigiu análise, uma vez que a alternativa natural seria
 .NET MAUI, mantendo a uniformidade linguística com o restante do projeto.
 
-O fator determinante foi de ordem prática: **compilar aplicações para iOS exige
-macOS e Xcode**. Nenhum integrante da equipe dispunha de computador Apple, e o
-dispositivo disponível para teste era um iPhone. Nessas condições, o MAUI
-permitiria apenas a compilação para Android, restringindo a validação a
-emulador. O React Native com Expo contorna a limitação por meio do aplicativo
-Expo Go, distribuído pela App Store, que interpreta o código JavaScript
-entregue pelo ambiente de desenvolvimento — viabilizando execução em iPhone
-real a partir de uma estação Windows.
-
-A contrapartida é a introdução de JavaScript no projeto, considerada aceitável
-porque a disciplina não impõe tecnologia específica e porque o alinhamento com
-.NET permanece assegurado pela camada de serviço, integralmente C#.
+O fator determinante foi prático: **compilar para iOS exige macOS e Xcode**.
+Nenhum integrante dispunha de computador Apple, e o dispositivo de teste era um
+iPhone; o MAUI permitiria apenas compilação para Android, restringindo a
+validação a emulador. O React Native com Expo contorna a limitação pelo
+aplicativo Expo Go, distribuído pela loja, que interpreta o código entregue
+pelo ambiente de desenvolvimento — viabilizando execução em iPhone real a
+partir de uma estação Windows. A contrapartida, a introdução de JavaScript, foi
+considerada aceitável porque a disciplina não impõe tecnologia específica e
+porque o alinhamento com .NET permanece na camada de serviço, integralmente C#.
 
 ## 6.2 Telas principais
 
@@ -752,30 +742,24 @@ retorno imediato do resultado e, por fim, a consulta ao histórico.
 ## 6.4 Autenticação e armazenamento seguro
 
 O token recebido no login é gravado pelo **expo-secure-store**, que utiliza o
-Keychain no iOS e o Keystore no Android — serviços do sistema operacional que
-cifram o conteúdo e o vinculam ao aplicativo. A escolha contrasta com a
-alternativa comum, o `AsyncStorage`, que grava **em texto claro** no sistema de
-arquivos: em aparelho comprometido, um token assim armazenado poderia ser
-extraído e usado para personificar o usuário durante a validade da sessão.
-
-Ao iniciar, o aplicativo restaura a sessão e **verifica a data de expiração
-antes de considerá-la válida**, descartando tokens vencidos e substituindo a
-eventual recusa de autorização por redirecionamento silencioso ao login.
+Keychain no iOS e o Keystore no Android — serviços do sistema que cifram o
+conteúdo e o vinculam ao aplicativo. A alternativa comum, o `AsyncStorage`,
+grava **em texto claro**: em aparelho comprometido, o token poderia ser
+extraído e usado para personificar o usuário durante a validade da sessão. Ao
+iniciar, o aplicativo restaura a sessão e **verifica a expiração antes de
+considerá-la válida**, descartando tokens vencidos.
 
 ## 6.5 Sincronização de dados
 
 O aplicativo mantém **cópia local dos dados consultados**, gravando cada
-leitura bem-sucedida junto com o instante da coleta. Falhando a requisição por
-indisponibilidade de rede, a tela exibe a última cópia conhecida com aviso
-explícito de possível desatualização. A estratégia é a de **cache com
-precedência da rede**: tenta-se sempre o dado atualizado, recorrendo à cópia
-local apenas em caso de falha.
-
-Cabe distinguir os tipos de falha. Erros de negócio — credencial inválida,
-permissão insuficiente — não acionam o cache, por serem respostas legítimas do
-servidor; somente falhas de rede o fazem. No encerramento da sessão todo o
-cache é descartado, impedindo que dados de um usuário permaneçam acessíveis a
-outro que utilize o mesmo aparelho.
+leitura junto com o instante da coleta. Falhando a requisição por
+indisponibilidade de rede, a tela exibe a última cópia conhecida com aviso de
+possível desatualização. A estratégia é a de **cache com precedência da rede**:
+tenta-se sempre o dado atualizado, recorrendo à cópia local apenas em caso de
+falha. Erros de negócio — credencial inválida, permissão insuficiente — não
+acionam o cache, por serem respostas legítimas do servidor. No encerramento da
+sessão todo o cache é descartado, impedindo que dados de um usuário permaneçam
+acessíveis a outro no mesmo aparelho.
 
 ## 6.6 Integração com a interface de programação
 
@@ -946,21 +930,19 @@ reescrita.
 
 ## 8.1 Justificativa do modelo relacional
 
-Adotou-se o modelo **relacional**, implementado em Microsoft SQL Server. A
-decisão apoia-se na natureza dos dados manipulados: informações acadêmicas são
-altamente estruturadas e densamente relacionadas — estudantes vinculam-se a
-turmas, turmas a disciplinas, disciplinas a conteúdos e avaliações.
+Adotou-se o modelo **relacional**, em Microsoft SQL Server, pela natureza dos
+dados: informações acadêmicas são altamente estruturadas e densamente
+relacionadas — estudantes vinculam-se a turmas, turmas a disciplinas,
+disciplinas a conteúdos e avaliações.
 
 Elmasri e Navathe (2018) observam que a principal vantagem do modelo relacional
-está na garantia de integridade referencial pelo próprio gerenciador. No
-contexto deste projeto, isso significa que não é possível registrar o resultado
-de uma avaliação para um estudante inexistente: a restrição é imposta pelo
-banco, independentemente do código que tenta a operação.
-
-Bancos não relacionais ofereceriam maior flexibilidade de esquema — vantagem
-pouco relevante aqui, dado que a estrutura acadêmica é estável — mas exigiriam
-que a consistência entre entidades fosse assegurada pela aplicação, justamente
-o que se pretendia evitar.
+está na garantia de integridade referencial pelo próprio gerenciador: aqui,
+isso significa que não é possível registrar resultado de avaliação para
+estudante inexistente, pois a restrição é imposta pelo banco,
+independentemente do código que tenta a operação. Bancos não relacionais
+ofereceriam maior flexibilidade de esquema — vantagem pouco relevante, dado que
+a estrutura acadêmica é estável — mas exigiriam que a consistência fosse
+assegurada pela aplicação, justamente o que se pretendia evitar.
 
 Registre-se uma correção quanto ao PIM III: aquele documento mencionava banco
 não relacional na introdução e na conclusão, enquanto a seção técnica descrevia
@@ -974,17 +956,13 @@ detalhes de implementação e representa apenas as regras do negócio.
 
 `[INSERIR FIGURA — Diagrama Entidade-Relacionamento]`
 
-As cardinalidades principais são:
-
-| Relacionamento | Cardinalidade | Interpretação |
-|---|---|---|
-| Usuário — Sessão | 1:N | Um usuário inicia nenhuma ou várias sessões; cada sessão pertence a um único usuário |
-| Usuário — Turma | N:N | Um estudante cursa várias turmas; uma turma reúne vários estudantes |
-| Matéria — Conteúdo | 1:N | Uma disciplina reúne vários conteúdos |
-| Atividade — Pergunta | 1:N | Uma avaliação compõe-se de várias questões |
-| Pergunta — Alternativa | 1:N | Cada questão oferece várias opções |
-| Usuário — Atividade | N:N | Resolvido pela entidade associativa Resultado |
-| Usuário — Conteúdo | N:N | Resolvido pela entidade associativa Leitura |
+Predominam relacionamentos de um para muitos: um usuário inicia várias sessões,
+cada qual pertencente a um único usuário; uma disciplina reúne vários
+conteúdos; uma avaliação compõe-se de várias questões; e cada questão oferece
+várias alternativas. Há dois relacionamentos de muitos para muitos —
+usuário e turma, resolvido pela matrícula, e usuário e atividade, resolvido
+pela entidade associativa Resultado —, além do registro de leitura, que associa
+usuário e conteúdo.
 
 ## 8.3 Modelo lógico
 
@@ -994,7 +972,8 @@ foram normalizados por tabelas associativas com chave primária composta:
 `TurmaAlunos`, que representa a matrícula, e `LeituraConteudos`, que registra o
 acompanhamento de leitura.
 
-`[INSERIR FIGURA — Modelo lógico de dados]`
+O diagrama completo, por reunir as treze tabelas com seus atributos, chaves e
+relacionamentos, é apresentado em página própria no **Apêndice A**.
 
 ### Normalização
 
@@ -1005,12 +984,11 @@ tabelas de chave composta, os atributos dependem da chave integral. Na **3FN**,
 não há dependências transitivas — o nome do docente não se repete em
 `Materias`, onde se armazena o CPF, obtendo-se o nome por junção.
 
-Registra-se uma **exceção deliberada**: a tabela `Resultados` armazena
-`MateriaId`, valor obtenível pela navegação até `Atividades`. A redundância foi
-mantida porque relatórios por disciplina constituem a consulta mais frequente
-do sistema, e a supressão de uma junção em cada uma delas compensa o custo de
-armazenamento. Trata-se de desnormalização consciente, e não de falha de
-modelagem.
+Registra-se uma **exceção deliberada**: `Resultados` armazena `MateriaId`,
+obtenível pela navegação até `Atividades`. A redundância foi mantida porque
+relatórios por disciplina são a consulta mais frequente, e suprimir uma junção
+em cada uma compensa o custo de armazenamento — desnormalização consciente, e
+não falha de modelagem.
 
 ## 8.4 Modelo físico
 
@@ -1027,9 +1005,8 @@ As estratégias de exclusão foram diferenciadas conforme o significado do dado:
 | `NO ACTION` | Resultados de avaliações | Histórico acadêmico não deve ser apagado por efeito colateral |
 | `SET NULL` | Turma de uma atividade | Removida a turma, a atividade torna-se geral em vez de ser destruída |
 
-Os índices foram criados sobre as colunas empregadas em filtros e junções
-frequentes. Sem eles, consultas como "disciplinas deste docente" exigiriam
-varredura completa da tabela.
+Os índices cobrem as colunas usadas em filtros e junções frequentes; sem eles,
+consultas como "disciplinas deste docente" exigiriam varredura completa.
 
 ## 8.5 Procedimentos armazenados
 
@@ -1042,18 +1019,13 @@ Foram implementados quatro procedimentos:
 | `sp_MatricularAluno` | Efetiva matrícula com validação de perfil, situação e vagas |
 | `sp_DesempenhoTurma` | Classifica a turma em faixas de rendimento |
 
-Duas decisões merecem explicação.
-
-A **média é ponderada**, calculada pela razão entre o total de acertos e o total
-de questões, e não pela média aritmética dos percentuais. A diferença é
-relevante: pela média aritmética, uma avaliação de duas questões pesaria tanto
-quanto uma de vinte, distorcendo o resultado.
-
-O procedimento de matrícula emprega os **indicadores de bloqueio `UPDLOCK` e
-`HOLDLOCK`** ao contar as vagas ocupadas. Sem eles, duas matrículas simultâneas
-poderiam ler a mesma contagem e ambas serem aceitas, ultrapassando o limite —
-condição de corrida que só se manifesta sob concorrência e é notoriamente
-difícil de diagnosticar em produção.
+Duas decisões merecem explicação. A **média é ponderada**, calculada pela razão
+entre acertos e questões, e não pela média aritmética dos percentuais — que
+faria uma avaliação de duas questões pesar tanto quanto uma de vinte. E o
+procedimento de matrícula emprega os **indicadores de bloqueio `UPDLOCK` e
+`HOLDLOCK`** ao contar vagas: sem eles, duas matrículas simultâneas leriam a
+mesma contagem e ambas seriam aceitas, condição de corrida que só se manifesta
+sob concorrência e é notoriamente difícil de diagnosticar em produção.
 
 ## 8.6 Gatilhos
 
@@ -1069,9 +1041,8 @@ documentação:
 
 A implementação no banco, e não apenas na aplicação, decorre de uma
 constatação: a regra deve valer para **qualquer caminho de escrita**. Uma
-restrição implementada somente no código da aplicação é contornada por
-importação em massa, por script de manutenção ou por acesso direto ao
-gerenciador.
+restrição existente só no código é contornada por importação em massa, script
+de manutenção ou acesso direto ao gerenciador.
 
 ## 8.7 Verificação
 
@@ -1123,22 +1094,12 @@ para a aplicação automática descrita na seção 9.
 
 ## 9.1 Arquitetura proposta
 
-A arquitetura de implantação proposta organiza-se em quatro camadas:
+A arquitetura de implantação proposta organiza-se em três camadas encadeadas:
 
 ```
-                    ┌─────────────────────────┐
-   Usuários  ────►  │   Balanceador / CDN     │   TLS, distribuição de carga
-                    └───────────┬─────────────┘
-                                │
-                    ┌───────────▼─────────────┐
-                    │  Contêineres da API     │   2 ou mais instâncias
-                    │  (ASP.NET Core)         │   escaláveis horizontalmente
-                    └───────────┬─────────────┘
-                                │
-                    ┌───────────▼─────────────┐
-                    │  Banco de dados         │   SQL Server gerenciado
-                    │  gerenciado             │   com cópias de segurança
-                    └─────────────────────────┘
+Usuários → Balanceador / CDN          — TLS e distribuição de carga
+         → Contêineres da API         — ASP.NET Core, duas ou mais instâncias
+         → Banco de dados gerenciado  — SQL Server, com cópias de segurança
 ```
 
 A ausência de estado na aplicação, viabilizada pela autenticação por token
@@ -1164,17 +1125,15 @@ dependentes de persistência falham: a instância de banco associada foi removid
 pelo provedor por inatividade, condição comum aos planos gratuitos, e a
 autenticação retorna erro de resolução de nome do servidor de dados.
 
-A versão descrita neste documento **não foi publicada nessa instância**. A
-camada de dados emprega SQL Server, e o plano gratuito oferece apenas
-PostgreSQL; migrar exigiria converter as instruções em dialeto Transact-SQL
-executadas na inicialização, além dos procedimentos e gatilhos da seção 8.
-Optou-se por manter o SQL Server, preservando os objetos programáveis que
-constituem a entrega da disciplina de banco de dados, e verificar o ambiente
-pela conteinerização descrita a seguir, que reproduz integralmente aplicação,
-banco e inicialização, e foi submetida a execução conforme a seção 9.8. A
-distinção é relevante: demonstra-se não uma hospedagem em funcionamento, mas a
-capacidade de reproduzir o ambiente de produção de forma determinística em
-qualquer máquina — que é o que a prática de DevOps efetivamente busca.
+A versão descrita neste documento **não foi publicada nessa instância**: a
+camada de dados emprega SQL Server e o plano gratuito oferece apenas
+PostgreSQL, de modo que migrar exigiria converter o dialeto Transact-SQL, os
+procedimentos e os gatilhos da seção 8. Optou-se por preservar esses objetos,
+que constituem a entrega da disciplina de banco de dados, e verificar o
+ambiente pela conteinerização descrita a seguir. Demonstra-se, assim, não uma
+hospedagem em funcionamento, mas a capacidade de reproduzir o ambiente de
+produção de forma determinística em qualquer máquina — que é o que a prática de
+DevOps efetivamente busca.
 
 ## 9.3 Contêineres
 
@@ -1298,23 +1257,23 @@ condução.
 O backlog do produto foi derivado das nove etapas exigidas pelo manual e
 priorizado segundo dois critérios: peso na avaliação e dependência técnica.
 
-| ID | História de usuário | Prioridade | Estimativa |
+| ID | História de usuário | Prior. | Est. |
 |---|---|---|---|
-| PB01 | Como desenvolvedor, preciso da arquitetura em camadas para organizar o código | Alta | 8 |
-| PB02 | Como administrador, preciso que segredos não fiquem expostos no repositório | Alta | 5 |
+| PB01 | Como desenvolvedor, preciso de arquitetura em camadas | Alta | 8 |
+| PB02 | Como administrador, preciso de segredos fora do repositório | Alta | 5 |
 | PB03 | Como estudante, quero acessar o sistema pelo celular | Alta | 21 |
-| PB04 | Como estudante, quero responder atividades e ver o resultado imediatamente | Alta | 13 |
-| PB05 | Como docente, quero acompanhar o desempenho da turma por faixas | Média | 8 |
-| PB06 | Como secretaria, quero que o limite de vagas seja respeitado automaticamente | Alta | 5 |
+| PB04 | Como estudante, quero responder atividades e ver o resultado | Alta | 13 |
+| PB05 | Como docente, quero acompanhar a turma por faixas | Média | 8 |
+| PB06 | Como secretaria, quero o limite de vagas respeitado | Alta | 5 |
 | PB07 | Como usuário, quero tirar dúvidas sem acionar a secretaria | Média | 13 |
-| PB08 | Como usuário com deficiência, quero utilizar o sistema com autonomia | Alta | 8 |
+| PB08 | Como usuário com deficiência, quero autonomia de uso | Alta | 8 |
 | PB09 | Como equipe, queremos reproduzir o ambiente em qualquer máquina | Média | 13 |
-| PB10 | Como equipe, queremos que erros sejam detectados antes da entrega | Média | 8 |
-| PB11 | Como estudante, quero consultar dados mesmo sem conexão | Baixa | 8 |
+| PB10 | Como equipe, queremos detectar erros antes da entrega | Média | 8 |
+| PB11 | Como estudante, quero consultar dados sem conexão | Baixa | 8 |
 | PB12 | Como instituição, queremos rastrear alterações de privilégio | Média | 5 |
 
-As estimativas empregam a sequência de Fibonacci, medida em pontos de história,
-representando esforço relativo e não duração absoluta.
+As estimativas empregam a sequência de Fibonacci, em pontos de história, que
+representam esforço relativo e não duração absoluta.
 
 ## 10.4 Sprint Backlog
 
@@ -1360,25 +1319,11 @@ O segundo critério foi decisivo. Diversos defeitos relatados neste trabalho —
 a verificação de saúde inócua, a ordem incorreta de inicialização, o endereço
 fixo no front-end, o hash de senha que não correspondia à senha anunciada e o
 texto ilegível sobre a superfície de alto contraste — passavam pela compilação
-sem qualquer indício de problema. Somente a execução os revelou.
-
-Os dois últimos merecem distinção. Não foram encontrados por um teste
-planejado, mas durante a captura das imagens que ilustram este documento —
-isto é, ao usar o sistema como um usuário o usaria. Sugerem que o critério de
-pronto deveria exigir não apenas execução, mas execução observada por alguém
-que não escreveu o código.
-
-## 10.7 Retrospectiva
-
-**Funcionou bem** a priorização por dependência técnica, que evitou retrabalho:
-a arquitetura precedeu as funcionalidades, e o banco precedeu o aplicativo.
-**Dificultaram** o andamento as restrições de ambiente — firewall, alteração de
-endereço por DHCP, incompatibilidade de versões e política de execução de
-scripts —, pouco visíveis no planejamento e de impacto real sobre o cronograma.
-Como **melhoria**, registra-se a necessidade de verificar antecipadamente a
-compatibilidade entre versões de ferramentas e dispositivos de teste, reservar
-endereço fixo para a estação de desenvolvimento e executar toda configuração de
-infraestrutura assim que escrita, em vez de postergar a verificação.
+sem indício de problema, e somente a execução os revelou. Os dois últimos não
+foram encontrados por teste planejado, mas durante a captura das imagens que
+ilustram este documento, ao usar o sistema como um usuário o usaria — o que
+sugere que a definição de pronto deveria exigir não apenas execução, mas
+execução observada por quem não escreveu o código.
 
 ---
 
@@ -1493,3 +1438,12 @@ Brasília, DF: Presidência da República, 2015.
 
 BRASIL. **Lei nº 13.709, de 14 de agosto de 2018**. Lei Geral de Proteção de
 Dados Pessoais (LGPD). Brasília, DF: Presidência da República, 2018.
+
+---
+
+# APÊNDICE A — MODELO LÓGICO DE DADOS
+
+O diagrama reúne as treze tabelas do banco com seus atributos, tipos, chaves
+primárias e estrangeiras, conforme descrito na seção 8.3.
+
+`[INSERIR FIGURA — Modelo lógico de dados]`
