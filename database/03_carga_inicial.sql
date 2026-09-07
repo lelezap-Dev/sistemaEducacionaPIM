@@ -24,8 +24,13 @@ GO
 SET NOCOUNT ON;
 
 -- ── 1. Usuários ─────────────────────────────────────────────────────────────
--- Hash BCrypt correspondente à senha "Lumina@2026"
-DECLARE @Senha NVARCHAR(100) = '$2a$11$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy';
+-- Hash BCrypt (fator de custo 11) correspondente à senha "Lumina@2026".
+-- Gerado com a mesma biblioteca usada pela aplicação (BCrypt.Net-Next) e
+-- conferido com Verify() antes de ser fixado aqui. O valor anterior era um
+-- vetor de exemplo da documentação da biblioteca, que corresponde a outra
+-- senha: as cinco contas de demonstração eram criadas, mas nenhuma
+-- conseguia autenticar.
+DECLARE @Senha NVARCHAR(100) = '$2a$11$g9eI7vZ/aGpArjZMy0QO9e/DCXizB/mc0opIMVOioxif0pftdyX.2';
 
 IF NOT EXISTS (SELECT 1 FROM Usuarios WHERE Cpf = '11111111111')
 INSERT INTO Usuarios (Cpf, Nome, Email, SenhaHash, Perfil, PalavraChave, Status) VALUES

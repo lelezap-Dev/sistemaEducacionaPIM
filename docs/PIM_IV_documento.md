@@ -1261,6 +1261,21 @@ primeira inserção, e a contagem final permaneceu em exatamente 40. A regra
 RN01, que no PIM III era uma linha de tabela, passou a ser restrição
 verificável.
 
+A verificação também expôs um defeito de natureza distinta. A carga inicial
+gravava as senhas das contas de demonstração a partir de um valor de hash
+fixado diretamente no script. As contas eram criadas sem qualquer erro, os
+relacionamentos permaneciam íntegros e todas as consultas retornavam os dados
+esperados — mas **nenhuma das cinco contas conseguia autenticar**. O hash
+utilizado provinha de um exemplo da documentação da biblioteca BCrypt e
+correspondia a senha diversa da anunciada nos comentários do próprio script.
+
+O caso é ilustrativo porque o defeito é invisível à inspeção do banco: não há
+consulta capaz de revelá-lo, uma vez que o hash é, por construção,
+irreversível. Só a tentativa efetiva de autenticação o evidencia. A correção
+consistiu em gerar o hash com a mesma biblioteca empregada pela aplicação e
+submetê-lo a `Verify()` antes de fixá-lo, procedimento que substitui a
+suposição pela verificação.
+
 ## 8.8 Script completo
 
 O projeto do banco está organizado em três scripts de execução sequencial:
