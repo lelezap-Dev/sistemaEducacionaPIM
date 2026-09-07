@@ -1362,15 +1362,39 @@ compartilhamento de sessão.
 
 ## 9.2 Serviços utilizados
 
-A solução foi implantada em **Render**, plataforma que oferece publicação
-contínua a partir de repositório Git. Alternativas equivalentes seriam Azure
-App Service, AWS Elastic Beanstalk ou Google Cloud Run.
+A plataforma escolhida para a implantação é o **Render**, que oferece
+publicação contínua a partir de repositório Git. Alternativas equivalentes
+seriam Azure App Service, AWS Elastic Beanstalk ou Google Cloud Run.
 
 A escolha por um modelo de Plataforma como Serviço (PaaS), em detrimento de
 Infraestrutura como Serviço (IaaS), considerou o perfil da instituição: não
 dispondo de equipe dedicada à administração de servidores, o modelo em que o
 provedor assume a manutenção do sistema operacional e do runtime reduz a carga
 operacional.
+
+Cabe registrar uma limitação, cuja omissão comprometeria a honestidade do
+relato. Uma versão anterior do sistema, correspondente ao estágio do PIM III,
+encontra-se publicada nessa plataforma e responde às requisições; contudo, as
+operações que dependem de persistência falham, porque a instância de banco de
+dados associada foi removida pelo provedor por inatividade — condição comum
+aos planos gratuitos. A aplicação permanece no ar, mas a autenticação retorna
+erro de resolução de nome do servidor de dados.
+
+Registre-se ainda que a versão descrita neste documento **não foi publicada
+nessa instância**. A camada de dados emprega SQL Server, e o plano gratuito da
+plataforma oferece apenas PostgreSQL; a migração exigiria converter as
+instruções específicas do dialeto Transact-SQL executadas na inicialização da
+aplicação, além dos procedimentos e gatilhos descritos na seção 8. A decisão
+foi manter o SQL Server, preservando os objetos programáveis que constituem a
+entrega da disciplina de banco de dados, e verificar o ambiente completo por
+outro meio.
+
+Esse outro meio é a conteinerização descrita a seguir, que reproduz
+integralmente o ambiente de implantação — aplicação, banco e inicialização —
+e foi submetida a execução e verificação, conforme a seção 9.8. A distinção é
+relevante: o que se demonstra não é uma hospedagem em funcionamento, mas a
+capacidade de reproduzir o ambiente de produção de forma determinística em
+qualquer máquina, que é o que a prática de DevOps efetivamente busca.
 
 ## 9.3 Contêineres
 
@@ -1455,7 +1479,7 @@ adoção de réplicas de leitura no banco.
 | Dependências verificadas | Varredura automática no pipeline |
 | Persistência dos dados | Volume nomeado, preservado entre reinicializações |
 
-## 9.8 Verificação da implantação
+## 9.8 Verificação do ambiente
 
 O ambiente conteinerizado foi executado e verificado integralmente:
 
