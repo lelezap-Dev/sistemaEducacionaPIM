@@ -38,20 +38,20 @@ erDiagram
     USUARIO ||--o{ RESULTADO      : "realiza"
     USUARIO ||--o{ LEITURA        : "registra"
     USUARIO ||--o{ SESSAO         : "inicia"
-    USUARIO ||--o{ AUDITORIA      : "e auditado em"
+    USUARIO ||--o{ AUDITORIA      : "é auditado em"
 
-    MATERIA  ||--o{ CONTEUDO      : "contem"
-    MATERIA  ||--o{ TURMA         : "e ofertada em"
-    MATERIA  ||--o{ ATIVIDADE     : "avalia por"
+    MATERIA  ||--o{ CONTEUDO      : "contém"
+    MATERIA  ||--o{ TURMA         : "é ofertada em"
+    MATERIA  ||--o{ ATIVIDADE     : "é avaliada por"
 
     TURMA    ||--o{ MATRICULA     : "agrupa"
     TURMA    ||--o{ ATIVIDADE     : "recebe"
 
-    ATIVIDADE ||--o{ PERGUNTA     : "composta por"
+    ATIVIDADE ||--o{ PERGUNTA     : "é composta por"
     ATIVIDADE ||--o{ RESULTADO    : "gera"
 
     PERGUNTA  ||--o{ ALTERNATIVA  : "oferece"
-    CONTEUDO  ||--o{ LEITURA      : "e lido em"
+    CONTEUDO  ||--o{ LEITURA      : "é lido em"
 ```
 
 ### Cardinalidades principais
@@ -103,8 +103,8 @@ erDiagram
         nvarchar Horario
     }
     TurmaAlunos {
-        nvarchar TurmaCodigo PK_FK
-        char11 AlunoCpf PK_FK
+        nvarchar TurmaCodigo PK, FK
+        char11 AlunoCpf PK, FK
         datetime2 DataMatricula
     }
     Atividades {
@@ -135,8 +135,8 @@ erDiagram
         int TotalPerguntas
     }
     LeituraConteudos {
-        char11 AlunoCpf PK_FK
-        uniqueidentifier ConteudoId PK_FK
+        char11 AlunoCpf PK, FK
+        uniqueidentifier ConteudoId PK, FK
         datetime2 LidoEm
     }
     Sessoes {

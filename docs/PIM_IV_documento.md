@@ -792,8 +792,9 @@ merece registro, por contrariar a tendência atual. Três razões a sustentam:
 Quando não há correspondência confiável, o assistente **declara que não sabe**
 e oferece perguntas alternativas, encaminhando o usuário ao canal de contato da
 secretaria. O comportamento foi verificado com a pergunta "qual a receita de
-bolo de chocolate", diante da qual o sistema corretamente admitiu
-desconhecimento em vez de forçar uma resposta.
+bolo", diante da qual o sistema corretamente admitiu desconhecimento e
+apresentou quatro perguntas pertinentes ao domínio acadêmico, em vez de
+forçar uma resposta.
 
 `[INSERIR FIGURA — Assistente virtual em uso]`
 
