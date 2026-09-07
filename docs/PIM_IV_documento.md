@@ -841,7 +841,7 @@ real: nenhum dos dois problemas apareceria em navegador de computador.
 ## 6.1 Tecnologia adotada e justificativa
 
 O aplicativo foi desenvolvido em **React Native**, com o ecossistema **Expo
-(SDK 54)**. A decisão exigiu análise, uma vez que a alternativa natural seria
+(SDK 57)**. A decisão exigiu análise, uma vez que a alternativa natural seria
 .NET MAUI, mantendo a uniformidade linguística com o restante do projeto.
 
 O fator determinante foi de ordem prática: **compilar aplicações para iOS exige
@@ -956,6 +956,25 @@ Os recursos descritos na seção 4 foram implementados também no aplicativo:
 
 `[INSERIR FIGURA — Recursos de acessibilidade no aplicativo]`
 
+A captura desta figura revelou um defeito que três revisões do código não
+haviam identificado. A paleta de alto contraste substitui a cor de destaque —
+o roxo institucional — pelo amarelo, mas o texto sobreposto a essas
+superfícies permanecia branco. A razão de contraste resultante era de 1,07:1,
+quando a WCAG 2.1 estabelece 4,5:1 como mínimo para texto comum no nível AA.
+Cinco componentes eram afetados, entre eles o próprio interruptor de alto
+contraste: o texto que descreve o recurso tornava-se ilegível exatamente
+quando o recurso era acionado.
+
+A correção introduziu um token cromático específico para texto aplicado sobre
+superfícies de destaque, definido separadamente em cada paleta. Na paleta de
+alto contraste, o preto sobre amarelo produz razão de 19,6:1.
+
+O episódio é instrutivo por dois motivos. Primeiro, porque o defeito residia
+precisamente no recurso destinado a mitigar barreiras visuais — declarar
+conformidade não a produz. Segundo, porque nenhuma leitura de código o teria
+revelado: as duas cores estavam corretas isoladamente, e apenas a
+sobreposição, observada na tela do aparelho, o tornou evidente.
+
 ## 6.8 Verificação
 
 A verificação do aplicativo compreendeu duas frentes.
@@ -972,12 +991,24 @@ constituírem aprendizado sobre desenvolvimento móvel:
 |---|---|---|
 | Aparelho não alcançava o servidor | Firewall bloqueando as portas em rede classificada como pública | Regra restrita à sub-rede local |
 | Endereço deixou de responder | Endereço IP renovado por DHCP | Atualização da configuração e recomendação de reserva fixa |
-| Projeto recusado pelo Expo Go | Projeto gerado no SDK 57; a versão publicada na loja suporta o SDK 54 | Regressão do projeto ao SDK 54 |
+| Projeto recusado pelo Expo Go | Divergência entre o SDK do projeto e o suportado pela versão do aplicativo intermediário | Alinhamento do projeto à versão vigente |
+| Projeto recusado por falta de autenticação | Aplicativo intermediário autenticado em uma conta, ferramenta de linha de comando anônima | Autenticação da ferramenta na mesma conta |
 
 O segundo obstáculo merece nota: o endereço da estação foi alterado
 automaticamente pelo roteador durante o intervalo entre dois testes, fazendo
 falhar uma configuração que antes funcionava. A ocorrência ilustra a fragilidade
 de ambientes de desenvolvimento apoiados em endereçamento dinâmico.
+
+O terceiro obstáculo ocorreu duas vezes, em sentidos opostos, e por isso
+merece registro. O aplicativo intermediário utilizado para executar o projeto
+em dispositivo físico é distribuído pela loja da fabricante, que mantém apenas
+a versão mais recente. Quando o projeto foi criado, essa versão era anterior à
+do projeto, o que exigiu regredir o projeto. Semanas depois, o aplicativo foi
+atualizado automaticamente no aparelho e passou a exigir a versão mais nova,
+tornando necessário desfazer a regressão. A dependência de um componente cuja
+versão não está sob controle da equipe é um risco concreto de indisponibilidade
+em demonstrações agendadas, mitigado com a desativação da atualização
+automática do aplicativo no aparelho.
 
 ---
 
