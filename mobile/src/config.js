@@ -15,7 +15,7 @@
 // ATENÇÃO: o roteador entrega esse IP por DHCP e ele MUDA de tempos em
 // tempos. Se o aplicativo parar de conectar, rode "ipconfig" e atualize
 // o valor abaixo — ou reserve um IP fixo para esta máquina no roteador.
-const IP_LOCAL = '192.168.0.4';
+const IP_LOCAL = '192.168.0.6';
 const PORTA    = 5199;
 
 /** URL usada em desenvolvimento (API rodando na máquina local). */
