@@ -1569,8 +1569,12 @@ do zero.
 | PB11 | Consulta offline | Concluído |
 
 **Resultado:** aplicativo executado em dispositivo real. Registre-se o impedimento
-tratado nesta sprint: a incompatibilidade entre a versão do SDK gerada e a
-suportada pelo aplicativo de execução, resolvida por regressão de versão.
+tratado nesta sprint: a incompatibilidade entre a versão do SDK do projeto e a
+suportada pelo aplicativo intermediário instalado no aparelho, discutida na
+seção 6.8. O impedimento reapareceu semanas depois, em sentido inverso, quando
+esse aplicativo foi atualizado automaticamente — evidência de que impedimentos
+originados em dependências externas não se encerram com a sprint em que foram
+tratados.
 
 ### Sprint 4 — Assistente virtual e infraestrutura
 
@@ -1610,8 +1614,15 @@ todos os critérios:
 
 O segundo critério foi decisivo. Diversos defeitos relatados neste trabalho —
 a verificação de saúde inócua, a ordem incorreta de inicialização, o endereço
-fixo no front-end — passavam pela compilação sem qualquer indício de problema.
-Somente a execução os revelou.
+fixo no front-end, o hash de senha que não correspondia à senha anunciada e o
+texto ilegível sobre a superfície de alto contraste — passavam pela compilação
+sem qualquer indício de problema. Somente a execução os revelou.
+
+Os dois últimos merecem distinção. Não foram encontrados por um teste
+planejado, mas durante a captura das imagens que ilustram este documento —
+isto é, ao usar o sistema como um usuário o usaria. Sugerem que o critério de
+pronto deveria exigir não apenas execução, mas execução observada por alguém
+que não escreveu o código.
 
 ## 10.7 Retrospectiva
 
