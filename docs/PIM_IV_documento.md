@@ -722,17 +722,13 @@ porque a disciplina não impõe tecnologia específica e porque o alinhamento co
 
 ## 6.2 Telas principais
 
-O aplicativo é composto por sete telas:
-
-| Tela | Finalidade |
-|---|---|
-| Login | Autenticação por CPF e senha |
-| Início | Indicadores de engajamento e atividades recentes |
-| Matérias | Disciplinas e conteúdos, com registro automático de leitura |
-| Atividades | Avaliações separadas entre pendentes e concluídas |
-| Responder Atividade | Execução da avaliação com barra de progresso |
-| Meus Resultados | Histórico de desempenho com representação gráfica |
-| Assistente e Acessibilidade | Apoio ao usuário e recursos de inclusão |
+O aplicativo compõe-se de sete telas: **Login**, com autenticação por CPF e
+senha; **Início**, com indicadores de engajamento e atividades recentes;
+**Matérias**, que apresenta disciplinas e conteúdos com registro automático de
+leitura; **Atividades**, separando pendentes de concluídas; **Responder
+Atividade**, com barra de progresso; **Meus Resultados**, com o histórico de
+desempenho; e **Assistente e Acessibilidade**, que reúne o apoio ao usuário e
+os recursos de inclusão.
 
 `[INSERIR FIGURA — Tela de login do aplicativo]`
 `[INSERIR FIGURA — Painel inicial do aplicativo]`
@@ -826,12 +822,14 @@ código chegasse ao aparelho. A **execução em dispositivo real** foi feita em
 iPhone conectado à mesma rede local do servidor; registram-se as dificuldades
 enfrentadas, por constituírem aprendizado sobre desenvolvimento móvel:
 
-| Obstáculo | Causa | Solução |
-|---|---|---|
-| Aparelho não alcançava o servidor | Firewall bloqueando as portas em rede classificada como pública | Regra restrita à sub-rede local |
-| Endereço deixou de responder | Endereço IP renovado por DHCP | Atualização da configuração e recomendação de reserva fixa |
-| Projeto recusado pelo Expo Go | Divergência entre o SDK do projeto e o suportado pela versão do aplicativo intermediário | Alinhamento do projeto à versão vigente |
-| Projeto recusado por falta de autenticação | Aplicativo intermediário autenticado em uma conta, ferramenta de linha de comando anônima | Autenticação da ferramenta na mesma conta |
+O aparelho não alcançava o servidor porque o firewall bloqueava as portas em
+rede classificada como pública, resolvido por regra restrita à sub-rede local.
+O endereço deixou de responder após renovação por DHCP, corrigido pela
+atualização da configuração e pela recomendação de reserva fixa. O projeto foi
+recusado pelo aplicativo intermediário por divergência de SDK, resolvida pelo
+alinhamento à versão vigente, e novamente por falta de autenticação, já que o
+aplicativo estava vinculado a uma conta enquanto a ferramenta de linha de
+comando permanecia anônima.
 
 O segundo obstáculo ilustra a fragilidade de ambientes apoiados em
 endereçamento dinâmico: o endereço da estação foi alterado pelo roteador no
@@ -959,15 +957,15 @@ contexto deste projeto, isso significa que não é possível registrar o resulta
 de uma avaliação para um estudante inexistente: a restrição é imposta pelo
 banco, independentemente do código que tenta a operação.
 
-Bancos não relacionais ofereceriam maior flexibilidade de esquema, vantagem
-pouco relevante aqui, dado que a estrutura acadêmica é estável. Em contrapartida,
-exigiriam que a consistência entre entidades fosse assegurada pela aplicação —
-justamente o que se pretendia evitar.
+Bancos não relacionais ofereceriam maior flexibilidade de esquema — vantagem
+pouco relevante aqui, dado que a estrutura acadêmica é estável — mas exigiriam
+que a consistência entre entidades fosse assegurada pela aplicação, justamente
+o que se pretendia evitar.
 
-Registre-se uma correção em relação ao PIM III: aquele documento apresentava
-inconsistência interna, mencionando banco não relacional na introdução e na
-conclusão, enquanto a seção técnica descrevia corretamente o modelo relacional.
-O sistema sempre utilizou SQL Server; a divergência era de redação.
+Registre-se uma correção quanto ao PIM III: aquele documento mencionava banco
+não relacional na introdução e na conclusão, enquanto a seção técnica descrevia
+corretamente o modelo relacional. O sistema sempre utilizou SQL Server; a
+divergência era de redação.
 
 ## 8.2 Modelo conceitual
 
@@ -1000,15 +998,12 @@ acompanhamento de leitura.
 
 ### Normalização
 
-O modelo encontra-se na **Terceira Forma Normal**:
-
-- **1FN** — todos os atributos são atômicos. As alternativas de uma questão,
-  por exemplo, ocupam tabela própria, e não uma lista delimitada por vírgulas
-  em um único campo;
-- **2FN** — nas tabelas de chave composta, os atributos dependem da chave
-  integral;
-- **3FN** — não há dependências transitivas. O nome do docente não se repete em
-  `Materias`: armazena-se o CPF, e o nome é obtido por junção.
+O modelo encontra-se na **Terceira Forma Normal**. Na **1FN**, todos os
+atributos são atômicos: as alternativas de uma questão ocupam tabela própria, e
+não uma lista delimitada por vírgulas em um único campo. Na **2FN**, nas
+tabelas de chave composta, os atributos dependem da chave integral. Na **3FN**,
+não há dependências transitivas — o nome do docente não se repete em
+`Materias`, onde se armazena o CPF, obtendo-se o nome por junção.
 
 Registra-se uma **exceção deliberada**: a tabela `Resultados` armazena
 `MateriaId`, valor obtenível pela navegação até `Atividades`. A redundância foi
@@ -1082,16 +1077,12 @@ gerenciador.
 
 Os scripts foram aplicados em banco criado do zero — descartado ao final, sem
 afetar a base de trabalho — e submetidos a verificação:
-
-| Verificação | Resultado |
-|---|---|
-| Criação do esquema | 13 tabelas, 15 índices explícitos |
-| Objetos programáveis | 4 procedimentos, 4 gatilhos, 1 visão |
-| Carga inicial | 5 usuários, 1 disciplina, 1 turma, 1 avaliação |
-| `sp_RankingGeral` | Classificação correta: 100% e 66,67% |
-| `sp_DesempenhoTurma` | Faixas "Destaque" e "Em Progresso" atribuídas corretamente |
-| `tr_Resultados_Validar` | Rejeitou acertos = 999 e acertos = −5 |
-| `tr_Usuarios_Auditoria` | Registrou as alterações de situação |
+o esquema criou 13 tabelas e 15 índices explícitos; os objetos programáveis
+somaram 4 procedimentos, 4 gatilhos e 1 visão; a carga inicial inseriu 5
+usuários, 1 disciplina, 1 turma e 1 avaliação. O `sp_RankingGeral` classificou
+corretamente em 100% e 66,67%; o `sp_DesempenhoTurma` atribuiu as faixas
+"Destaque" e "Em Progresso"; o `tr_Resultados_Validar` rejeitou acertos iguais a
+999 e a −5; e o `tr_Usuarios_Auditoria` registrou as alterações de situação.
 
 O teste mais significativo foi o do limite de vagas: **tentou-se inserir 45
 estudantes em uma turma**. O gatilho interrompeu a operação na quadragésima
@@ -1168,27 +1159,22 @@ operacional.
 
 Cabe registrar uma limitação, cuja omissão comprometeria a honestidade do
 relato. Uma versão anterior do sistema, correspondente ao estágio do PIM III,
-encontra-se publicada nessa plataforma e responde às requisições; contudo, as
-operações que dependem de persistência falham, porque a instância de banco de
-dados associada foi removida pelo provedor por inatividade — condição comum
-aos planos gratuitos. A aplicação permanece no ar, mas a autenticação retorna
-erro de resolução de nome do servidor de dados.
+está publicada nessa plataforma e responde às requisições, mas as operações
+dependentes de persistência falham: a instância de banco associada foi removida
+pelo provedor por inatividade, condição comum aos planos gratuitos, e a
+autenticação retorna erro de resolução de nome do servidor de dados.
 
-Registre-se ainda que a versão descrita neste documento **não foi publicada
-nessa instância**. A camada de dados emprega SQL Server, e o plano gratuito da
-plataforma oferece apenas PostgreSQL; a migração exigiria converter as
-instruções específicas do dialeto Transact-SQL executadas na inicialização da
-aplicação, além dos procedimentos e gatilhos descritos na seção 8. A decisão
-foi manter o SQL Server, preservando os objetos programáveis que constituem a
-entrega da disciplina de banco de dados, e verificar o ambiente completo por
-outro meio.
-
-Esse outro meio é a conteinerização descrita a seguir, que reproduz
-integralmente o ambiente de implantação — aplicação, banco e inicialização —
-e foi submetida a execução e verificação, conforme a seção 9.8. A distinção é
-relevante: o que se demonstra não é uma hospedagem em funcionamento, mas a
+A versão descrita neste documento **não foi publicada nessa instância**. A
+camada de dados emprega SQL Server, e o plano gratuito oferece apenas
+PostgreSQL; migrar exigiria converter as instruções em dialeto Transact-SQL
+executadas na inicialização, além dos procedimentos e gatilhos da seção 8.
+Optou-se por manter o SQL Server, preservando os objetos programáveis que
+constituem a entrega da disciplina de banco de dados, e verificar o ambiente
+pela conteinerização descrita a seguir, que reproduz integralmente aplicação,
+banco e inicialização, e foi submetida a execução conforme a seção 9.8. A
+distinção é relevante: demonstra-se não uma hospedagem em funcionamento, mas a
 capacidade de reproduzir o ambiente de produção de forma determinística em
-qualquer máquina, que é o que a prática de DevOps efetivamente busca.
+qualquer máquina — que é o que a prática de DevOps efetivamente busca.
 
 ## 9.3 Contêineres
 
@@ -1213,15 +1199,13 @@ anterior. A sequência garante que a aplicação nunca encontre banco inexistent
 ## 9.4 Pipeline de integração contínua
 
 Foi configurado um pipeline em **GitHub Actions**, acionado a cada envio de
-código ou solicitação de incorporação, composto por três tarefas:
+código ou solicitação de incorporação, com três tarefas. A tarefa **API**
+restaura dependências, compila em modo Release com avisos tratados como erro e
+varre pacotes com vulnerabilidades conhecidas. A tarefa **Mobile** instala as
+dependências e compila o pacote. A tarefa **Docker** constrói a imagem,
+condicionada ao êxito da compilação da API.
 
-| Tarefa | Verificações |
-|---|---|
-| API | Restauração, compilação em modo Release com avisos tratados como erro, e varredura de pacotes com vulnerabilidades conhecidas |
-| Mobile | Instalação de dependências e compilação do pacote |
-| Docker | Construção da imagem, condicionada ao êxito da compilação da API |
-
-O tratamento de avisos como erro impede o acúmulo silencioso de pendências. A
+O tratamento de avisos como erro impede o acúmulo silencioso de pendências, e a
 varredura de vulnerabilidades automatiza a verificação que, conduzida
 manualmente, identificou o pacote comprometido mencionado na seção 5.
 
@@ -1295,11 +1279,10 @@ iterativos e inspeção frequente.
 
 A escolha justifica-se pela natureza do trabalho: os requisitos, embora
 levantados no PIM III, sofreram ajustes durante a implementação — como a
-substituição da tecnologia móvel prevista, discutida na seção 6. Um método
-preditivo exigiria replanejamento formal a cada ajuste.
-
-O acompanhamento utilizou quadro **Kanban** na plataforma **Trello**, com
-colunas Pendente, Em Andamento, Teste e Concluído.
+substituição da tecnologia móvel prevista, discutida na seção 6 —, e um método
+preditivo exigiria replanejamento formal a cada ajuste. O acompanhamento
+utilizou quadro **Kanban** na plataforma **Trello**, com as colunas Pendente,
+Em Andamento, Teste e Concluído.
 
 ## 10.2 Papéis
 
