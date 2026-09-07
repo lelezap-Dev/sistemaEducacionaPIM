@@ -981,8 +981,9 @@ sobreposição, observada na tela do aparelho, o tornou evidente.
 A verificação do aplicativo compreendeu duas frentes.
 
 A **compilação do pacote** foi executada a cada alteração relevante, produzindo
-o pacote de 859 módulos sem erros. O procedimento detecta importações
-inexistentes e erros de sintaxe antes que o código chegue ao dispositivo.
+sem erros o pacote de 2,2 MB destinado ao dispositivo. O procedimento detecta
+importações inexistentes e erros de sintaxe antes que o código chegue ao
+aparelho, e por isso precedeu cada envio.
 
 A **execução em dispositivo real** foi realizada em iPhone conectado à mesma
 rede local do servidor. Registram-se as dificuldades enfrentadas, por
@@ -1279,7 +1280,7 @@ afetar a base de trabalho — e submetidos a verificação:
 
 | Verificação | Resultado |
 |---|---|
-| Criação do esquema | 13 tabelas, 95 índices |
+| Criação do esquema | 13 tabelas, 15 índices explícitos |
 | Objetos programáveis | 4 procedimentos, 4 gatilhos, 1 visão |
 | Carga inicial | 5 usuários, 1 disciplina, 1 turma, 1 avaliação |
 | `sp_RankingGeral` | Classificação correta: 100% e 66,67% |
