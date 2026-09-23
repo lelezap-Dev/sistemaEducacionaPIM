@@ -100,6 +100,7 @@ builder.Services.AddScoped<AtividadeService>();
 builder.Services.AddScoped<RelatorioService>();
 builder.Services.AddScoped<SessaoService>();
 builder.Services.AddScoped<ChatbotService>();
+builder.Services.AddScoped<FarolService>();
 
 // ── 4. Controllers e JSON ────────────────────────────────────────
 builder.Services.AddControllers()

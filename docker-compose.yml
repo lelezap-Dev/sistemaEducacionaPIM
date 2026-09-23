@@ -72,6 +72,8 @@ services:
       /opt/mssql-tools18/bin/sqlcmd -S banco -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -b -f 65001 -i /scripts/02_procedures_triggers.sql &&
       echo '--- Aplicando carga inicial ---' &&
       /opt/mssql-tools18/bin/sqlcmd -S banco -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -b -f 65001 -i /scripts/03_carga_inicial.sql &&
+      echo '--- Aplicando cenario do Farol de Evasao ---' &&
+      /opt/mssql-tools18/bin/sqlcmd -S banco -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -b -f 65001 -i /scripts/04_cenario_farol.sql &&
       echo '--- Banco pronto ---'
       "
     networks:

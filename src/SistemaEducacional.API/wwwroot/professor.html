@@ -54,6 +54,9 @@
         <button class="sidebar-item" data-secao="sec-analise" onclick="navegarPara('sec-analise'); carregarAnalise()">
           <span class="icon">🧠</span> Análise
         </button>
+        <button class="sidebar-item" data-secao="sec-farol" onclick="navegarPara('sec-farol'); carregarFarol()">
+          <span class="icon">🚦</span> Farol de Evasão
+        </button>
       </div>
     </aside>
 
@@ -132,6 +135,12 @@
         <div class="card">
           <div id="ranking-list"></div>
         </div>
+      </section>
+
+      <!-- ── Farol de Evasão ── -->
+      <section id="sec-farol" class="section fade-in">
+        <div class="section-header"><h2>🚦 Farol de Evasão</h2><p class="muted">Alunos das suas turmas que precisam de atenção</p></div>
+        <div id="farol-conteudo"></div>
       </section>
 
     </main>
@@ -388,6 +397,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/js/api.js"></script>
   <script src="/js/professor.js"></script>
+  <script src="/js/farol.js"></script>
   <script src="/js/acessibilidade.js"></script>
   <script src="/js/chatbot.js"></script>
 </body>

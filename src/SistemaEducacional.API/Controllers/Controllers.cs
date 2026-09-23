@@ -361,6 +361,25 @@ public class RelatorioController(RelatorioService svc, SessaoService sessaoSvc) 
 }
 
 // ================================================================
+//  FarolController — /api/farol
+//
+//  Farol de Evasão. O aluno não tem acesso; o professor recebe só
+//  os alunos das próprias turmas; a secretaria vê a instituição.
+// ================================================================
+
+[Route("api/farol")]
+[Authorize(Roles = "Secretaria,Professor")]
+public class FarolController(FarolService svc) : BaseController
+{
+    [HttpGet]
+    public async Task<IActionResult> Gerar()
+    {
+        var escopo = PerfilLogado == "Professor" ? CpfLogado : null;
+        return Ok(await svc.GerarAsync(escopo));
+    }
+}
+
+// ================================================================
 //  ChatbotController — /api/chatbot
 //
 //  Assistente de apoio ao usuário. Não exige autenticação: a maior

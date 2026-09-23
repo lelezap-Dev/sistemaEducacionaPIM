@@ -227,6 +227,33 @@ public record RankingItemDto(
     int    TotalAtividades
 );
 
+// ── Farol de Evasão ───────────────────────────────────────────────
+
+// Um motivo concreto de alerta, com a frase que o justifica
+public record SinalRiscoDto(
+    string Codigo,       // DESEMPENHO | INATIVIDADE | LEITURA | PENDENCIAS | QUEDA
+    string Descricao,
+    int    Pontos
+);
+
+public record FarolAlunoDto(
+    string AlunoCpf,
+    string AlunoNome,
+    int    Pontuacao,    // 0 a 100
+    string Nivel,        // Alto | Atencao | Regular
+    List<string>        Turmas,
+    List<SinalRiscoDto> Sinais
+);
+
+public record FarolResumoDto(
+    int      TotalAlunos,
+    int      RiscoAlto,
+    int      Atencao,
+    int      Regular,
+    DateTime GeradoEm,
+    List<FarolAlunoDto> Alunos
+);
+
 // ── Chatbot ───────────────────────────────────────────────────────
 
 public record ChatbotPerguntaRequest(string Pergunta);
