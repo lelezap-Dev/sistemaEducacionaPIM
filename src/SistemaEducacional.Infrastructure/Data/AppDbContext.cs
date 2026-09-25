@@ -101,5 +101,15 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         mb.Entity<Sessao>()
           .Property(s => s.DuracaoMinutos)
           .HasColumnType("decimal(10,2)");
+
+        // ── Tabelas com gatilho (database/02_procedures_triggers.sql) ──
+        // Desde a versão 7, o EF grava com UPDATE ... OUTPUT, que o SQL
+        // Server recusa em tabela com gatilho. Sem esta declaração,
+        // redefinir senha, editar usuário e fazer logout retornavam
+        // erro 500, embora o login (só INSERT) funcionasse.
+        mb.Entity<Usuario>()   .ToTable(t => t.HasTrigger("tr_Usuarios_Auditoria"));
+        mb.Entity<Sessao>()    .ToTable(t => t.HasTrigger("tr_Sessoes_CalcularDuracao"));
+        mb.Entity<Resultado>() .ToTable(t => t.HasTrigger("tr_Resultados_Validar"));
+        mb.Entity<TurmaAluno>().ToTable(t => t.HasTrigger("tr_TurmaAlunos_LimiteVagas"));
     }
 }
