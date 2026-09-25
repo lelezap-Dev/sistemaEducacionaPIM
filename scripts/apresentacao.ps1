@@ -146,10 +146,13 @@ Write-Host "  NO CELULAR (navegador ou Expo Go):" -ForegroundColor White
 Write-Host "     http://${ip}:$Porta" -ForegroundColor Green
 Write-Host "     exp://${ip}:8081" -ForegroundColor Green
 Write-Host ""
-Write-Host "  CREDENCIAIS:" -ForegroundColor White
-Write-Host "     Secretaria .. CPF 00000000000  senha Lumina@2026!Pim"
-Write-Host "     Professor ... CPF 22222222222  senha Lumina@2026"
-Write-Host "     Aluno ....... CPF 33333333333  senha Lumina@2026"
+# As senhas nao aparecem aqui: este arquivo e publico no repositorio.
+# A do administrador esta no .env; a das contas de demonstracao e
+# combinada entre a equipe.
+Write-Host "  CONTAS (senhas com a equipe):" -ForegroundColor White
+Write-Host "     Administrador  CPF 00000000000"
+Write-Host "     Professor ...  CPF 22222222222"
+Write-Host "     Aluno .......  CPF 33333333333"
 Write-Host ""
 
 if ($Verificar) {

@@ -32,7 +32,7 @@ BEGIN
 END
 
 DECLARE @Agora     DATETIME2        = SYSUTCDATETIME();
-DECLARE @Senha     NVARCHAR(100)    = '$2a$11$g9eI7vZ/aGpArjZMy0QO9e/DCXizB/mc0opIMVOioxif0pftdyX.2';  -- Lumina@2026
+DECLARE @Senha     NVARCHAR(100)    = '$2a$11$g9eI7vZ/aGpArjZMy0QO9e/DCXizB/mc0opIMVOioxif0pftdyX.2';  -- mesma senha do script 03
 DECLARE @Turma     NVARCHAR(50)     = 'ADS-2026-N1';
 DECLARE @Professor NVARCHAR(11)     = '22222222222';
 DECLARE @MateriaId UNIQUEIDENTIFIER =

@@ -31,6 +31,7 @@ $MAPA_FIGURAS = [ordered]@{
   'Estrutura física das tabelas'              = 'fig11-estrutura-fisica.png'
   'Contêineres em execução'                   = 'fig12-conteineres.png'
   'Quadro Kanban no Trello'                   = 'fig13-kanban.png'
+  'Farol de Evasão no painel da secretaria'   = 'fig14-farol.png'
 }
 
 # --- Constantes do Word -----------------------------------------------------
@@ -197,9 +198,17 @@ function Inserir-Figura {
   $caminhos = @()
   $rotulos  = @()
   foreach ($t in $Titulos) {
+    # Correspondencia exata primeiro; na falta dela, a chave mais longa
+    # contida no titulo. Sem isso, "Farol de Evasao no painel da secretaria"
+    # casava com a chave "Painel da Secretaria" e recebia a imagem errada.
     $arquivo = $null
-    foreach ($chave in $MAPA_FIGURAS.Keys) {
-      if ($t -like "*$chave*") { $arquivo = $MAPA_FIGURAS[$chave]; break }
+    if ($MAPA_FIGURAS.Contains($t)) { $arquivo = $MAPA_FIGURAS[$t] }
+    else {
+      $melhor = ''
+      foreach ($chave in $MAPA_FIGURAS.Keys) {
+        if ($t -like "*$chave*" -and $chave.Length -gt $melhor.Length) { $melhor = $chave }
+      }
+      if ($melhor) { $arquivo = $MAPA_FIGURAS[$melhor] }
     }
     if (-not $arquivo) { Write-Host "  ! sem imagem para: $t"; continue }
     $c = Join-Path $figuras $arquivo
@@ -290,6 +299,118 @@ function Inserir-Tabela {
 }
 
 # ============================================================================
+#  Capa e folha de rosto
+#  Montadas como paginas proprias, e nao como texto corrido: no markdown,
+#  linhas seguidas formam um unico paragrafo, o que emendava os nomes dos
+#  autores e justificava o titulo. Aqui cada nome ocupa sua linha, tudo e
+#  centralizado e a pagina e distribuida na vertical (alinhamento
+#  "justificado"), deixando local e ano ao pe, como no modelo do manual.
+# ============================================================================
+$wdLineBreak = 6
+$wdAlignVerticalTop = 0; $wdAlignVerticalJustify = 2   # WdVerticalAlignment (3 seria "embaixo")
+
+# Le as linhas de um bloco ate o proximo separador "---"
+function Ler-Bloco {
+  param([int]$De)
+  $bloco = @(); $k = $De
+  while ($k -lt $linhas.Count -and $linhas[$k].Trim() -ne '---') { $bloco += $linhas[$k]; $k++ }
+  return @{ Linhas = $bloco; Fim = $k }
+}
+
+# Escreve varias linhas num unico paragrafo, separadas por quebra manual.
+# Um paragrafo por grupo faz o alinhamento vertical distribuir o espaco
+# entre os grupos, e nao entre cada linha.
+function Escrever-Grupo {
+  param([string[]]$Textos, [bool]$Negrito = $true, [double]$RecuoEsquerdo = 0,
+        [int]$Alinhamento = 1, [int]$Tamanho = 12, [int]$Espacamento = 1)
+  Reset-Paragrafo -Alinhamento $Alinhamento -RecuoPrimeiraLinha 0 -RecuoEsquerdo $RecuoEsquerdo
+  $sel.ParagraphFormat.LineSpacingRule = $Espacamento
+  $sel.Font.Bold = $Negrito
+  $sel.Font.Size = $Tamanho
+  for ($k = 0; $k -lt $Textos.Count; $k++) {
+    if ($k -gt 0) { $sel.InsertBreak($wdLineBreak) }
+    $sel.TypeText($Textos[$k])
+  }
+  $sel.TypeParagraph()
+  Reset-Paragrafo
+}
+
+# --- Leitura dos dados da capa ------------------------------------------------
+$blocoCapa = Ler-Bloco 0
+$instituicao = @(); $autores = @(); $tituloTrabalho = @(); $localAno = @()
+foreach ($l in $blocoCapa.Linhas) {
+  $t = $l.Trim()
+  if ($t -eq '' -or $t -match '^(<br\s*/?>)+$') { continue }
+  if ($t -match '^#\s+(.+)$') { $instituicao += ($Matches[1] -replace ' — ', ' – '); continue }
+  if ($t -match '^\*\*(.+)\*\*$') {
+    $conteudo = $Matches[1]
+    if ($conteudo -match '^(.+?)\s+[—–-]\s+([A-Z0-9]{5,8})$') {
+      $autores += [pscustomobject]@{ Nome = $Matches[1]; RA = $Matches[2] }
+    }
+    elseif ($autores.Count -eq 0) { $instituicao += $conteudo }
+    else { $tituloTrabalho += $conteudo }
+    continue
+  }
+  $localAno += $t
+}
+
+# --- Leitura da natureza do trabalho (folha de rosto) -------------------------
+$k = $blocoCapa.Fim + 1
+while ($k -lt $linhas.Count -and $linhas[$k].Trim() -eq '') { $k++ }
+$blocoRosto = Ler-Bloco $k
+$natureza = @(); $orientador = ''
+foreach ($l in $blocoRosto.Linhas) {
+  $t = $l.Trim()
+  if (-not $t.StartsWith('>')) { continue }
+  $x = ($t -replace '^>\s?', '').Trim()
+  if ($x -match '^Orientador') { $orientador = $x } elseif ($x) { $natureza += $x }
+}
+$inicioCorpo = $blocoRosto.Fim + 1   # primeira linha apos a folha de rosto
+
+function Montar-Capa {
+  # Logo e identificacao institucional, em espacamento simples
+  Reset-Paragrafo -Alinhamento $wdAlignCenter -RecuoPrimeiraLinha 0
+  $sel.ParagraphFormat.LineSpacingRule = $wdLineSpaceSingle
+  $logo = Join-Path $figuras 'logo-unip.png'
+  if (Test-Path $logo) {
+    $f = $sel.InlineShapes.AddPicture($logo, $false, $true)
+    $f.LockAspectRatio = -1
+    $f.Width = [single]$word.CentimetersToPoints(5.5)
+    $sel.InsertBreak($wdLineBreak); $sel.InsertBreak($wdLineBreak)
+  }
+  $sel.Font.Bold = $true
+  for ($k = 0; $k -lt $instituicao.Count; $k++) {
+    if ($k -gt 0) { $sel.InsertBreak($wdLineBreak) }
+    $sel.TypeText($instituicao[$k])
+  }
+  $sel.TypeParagraph()
+
+  Escrever-Grupo -Textos ($autores | ForEach-Object { "$($_.Nome) – $($_.RA)" }) -Espacamento $wdLineSpace1pt5
+  Escrever-Grupo -Textos $tituloTrabalho -Espacamento $wdLineSpace1pt5
+  Escrever-Grupo -Textos $localAno -Negrito $false -Espacamento $wdLineSpace1pt5
+}
+
+function Montar-FolhaDeRosto {
+  Escrever-Grupo -Textos ($autores | ForEach-Object { $_.Nome }) -Espacamento $wdLineSpace1pt5
+  Escrever-Grupo -Textos $tituloTrabalho -Espacamento $wdLineSpace1pt5
+
+  # Natureza do trabalho: bloco recuado a partir do meio da mancha,
+  # espacamento simples e fonte menor, como no modelo do manual
+  Reset-Paragrafo -Alinhamento $wdAlignJustify -RecuoPrimeiraLinha 0 -RecuoEsquerdo 8
+  $sel.ParagraphFormat.LineSpacingRule = $wdLineSpaceSingle
+  $sel.Font.Size = 11
+  $sel.TypeText(($natureza -join ' '))
+  if ($orientador) {
+    $sel.InsertBreak($wdLineBreak); $sel.InsertBreak($wdLineBreak)
+    $sel.TypeText($orientador)
+  }
+  $sel.TypeParagraph()
+  Reset-Paragrafo
+
+  Escrever-Grupo -Textos $localAno -Negrito $false -Espacamento $wdLineSpace1pt5
+}
+
+# ============================================================================
 #  Percurso do documento
 # ============================================================================
 # Titulos que nao entram no sumario: o manual determina que resumos, listas e
@@ -298,9 +419,17 @@ $semNumeracao = @('UNIVERSIDADE PAULISTA', 'FOLHA DE ROSTO', 'RESUMO',
                   'ABSTRACT', 'SUMÁRIO', 'APÊNDICE')
 $posSumario = $null
 $secaoAberta = $false
-$i = 0
+$indiceTextual = 0
 
 Write-Host "Montando o documento..."
+
+# Capa e folha de rosto ocupam cada uma a sua secao, para receberem
+# alinhamento vertical proprio sem afetar o restante do documento
+Montar-Capa
+$sel.InsertBreak($wdSectionBreakNextPage)
+Montar-FolhaDeRosto
+$sel.InsertBreak($wdSectionBreakNextPage)
+$i = $inicioCorpo
 
 while ($i -lt $linhas.Count) {
   $linha = $linhas[$i]
@@ -322,6 +451,7 @@ while ($i -lt $linhas.Count) {
         # Primeira secao textual: quebra de secao para iniciar a numeracao
         $sel.InsertBreak($wdSectionBreakNextPage)
         $secaoAberta = $true
+        $indiceTextual = $doc.Sections.Count
       } else {
         $sel.InsertBreak($wdPageBreak)
       }
@@ -477,26 +607,33 @@ while ($i -lt $linhas.Count) {
 #  Numeracao de paginas a partir da Introducao
 # ============================================================================
 Write-Host "Configurando a numeracao..."
-if ($doc.Sections.Count -ge 2) {
-  $cab1 = $doc.Sections.Item(1).Headers.Item($wdHeaderFooterPrimary)
-  $cab1.LinkToPrevious = $false
-
-  for ($s = 2; $s -le $doc.Sections.Count; $s++) {
+# Capa e folha de rosto distribuidas na vertical; o restante, alinhado ao topo
+for ($s = 1; $s -le $doc.Sections.Count; $s++) {
+  $doc.Sections.Item($s).PageSetup.VerticalAlignment =
+    $(if ($s -le 2) { $wdAlignVerticalJustify } else { $wdAlignVerticalTop })
+}
+if ($indiceTextual -gt 0) {
+  for ($s = 1; $s -le $doc.Sections.Count; $s++) {
     $cab = $doc.Sections.Item($s).Headers.Item($wdHeaderFooterPrimary)
-    $cab.LinkToPrevious = $false
-    if ($s -eq 2) {
+    if ($s -lt $indiceTextual) {
+      # Pre-textuais: contadas, mas sem numero impresso
+      if ($s -gt 1) { $cab.LinkToPrevious = $false }
+      $cab.Range.Text = ""
+    }
+    elseif ($s -eq $indiceTextual) {
+      $cab.LinkToPrevious = $false
       $cab.Range.Text = ""
       $cab.Range.ParagraphFormat.Alignment = $wdAlignRight
       $cab.Range.Font.Name = "Times New Roman"
       $cab.Range.Font.Size = 10
       $doc.Fields.Add($cab.Range, $wdFieldPage) | Out-Null
-    } else {
-      $cab.LinkToPrevious = $true
+      # O alinhamento vem depois: inserir o campo recria o paragrafo do
+      # cabecalho, e o numero acabava no canto esquerdo
+      $cab.Range.Paragraphs.Alignment = $wdAlignRight
+      $cab.Range.ParagraphFormat.FirstLineIndent = 0
     }
+    else { $cab.LinkToPrevious = $true }
   }
-  # A numeracao continua a contagem iniciada na folha de rosto; apenas
-  # passa a ser exibida a partir da Introducao, como exige a ABNT.
-  $doc.Sections.Item(2).Headers.Item($wdHeaderFooterPrimary).PageNumbers.RestartNumberingAtSection = $false
 }
 
 # ============================================================================
@@ -532,6 +669,21 @@ if ($posSumario -ne $null) {
 $doc.Fields.Update() | Out-Null
 foreach ($t in $doc.TablesOfContents) { $t.Update() }
 foreach ($t in $doc.TablesOfFigures) { $t.Update() }
+
+# Numero da primeira pagina textual. O manual (item 1.5) manda contar as
+# paginas a partir da folha de rosto: a capa fica fora da contagem. So da
+# para calcular depois do sumario e da lista de figuras, que ocupam paginas.
+if ($indiceTextual -gt 0) {
+  $doc.Repaginate()
+  $paginaFisica = $doc.Sections.Item($indiceTextual).Range.Characters.First.Information(3)
+  $pn = $doc.Sections.Item($indiceTextual).Headers.Item($wdHeaderFooterPrimary).PageNumbers
+  $pn.RestartNumberingAtSection = $true
+  $pn.StartingNumber = $paginaFisica - 1
+  Write-Host "  Introducao na pagina fisica $paginaFisica, numerada como $($paginaFisica - 1)"
+  $doc.Fields.Update() | Out-Null
+  foreach ($t in $doc.TablesOfContents) { $t.Update() }
+  foreach ($t in $doc.TablesOfFigures) { $t.Update() }
+}
 
 # ============================================================================
 #  Gravacao

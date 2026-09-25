@@ -95,9 +95,13 @@ atendendo aos princípios de orientação a objetos e modularização. O banco d
 dados relacional, implementado em Microsoft SQL Server, foi normalizado até a
 terceira forma normal e teve as regras de negócio transpostas para
 procedimentos armazenados e gatilhos, de modo que as restrições passassem a
-valer independentemente do cliente que acessa os dados. Para a infraestrutura,
-elaborou-se um plano baseado em conteinerização com Docker e integração
-contínua por meio de GitHub Actions. O gerenciamento seguiu a metodologia ágil
+valer independentemente do cliente que acessa os dados. A solução foi
+conteinerizada com Docker e implantada em nuvem, com a aplicação no Render e o
+banco no Azure SQL Database, sob integração contínua por GitHub Actions e
+entrega contínua a cada envio de código. Como diferencial, desenvolveu-se o
+Farol de Evasão, que cruza desempenho, frequência de acesso, leitura de
+conteúdos e atividades pendentes para sinalizar estudantes em risco de
+abandono, com justificativa escrita para cada alerta. O gerenciamento seguiu a metodologia ágil
 Scrum, com quadro Kanban na plataforma Trello e ciclos quinzenais. Em
 atendimento aos princípios de responsabilidade social, o sistema incorpora
 recursos de acessibilidade nas duas plataformas, incluindo alto contraste,
@@ -132,8 +136,13 @@ between projects, meeting object-oriented and modularisation principles. The
 relational database, implemented in Microsoft SQL Server, was normalised to the
 third normal form and had its business rules transposed into stored procedures
 and triggers, so that constraints apply regardless of the client accessing the
-data. For infrastructure, a plan based on Docker containerisation and
-continuous integration through GitHub Actions was designed. Project management
+data. The solution was containerised with Docker and deployed to the cloud,
+with the application on Render and the database on Azure SQL Database, under
+continuous integration through GitHub Actions and continuous delivery on every
+code push. As a distinguishing feature, a Dropout Early-Warning module was
+developed, combining performance, access frequency, content reading and
+pending assignments to flag students at risk of dropping out, with a written
+justification for each alert. Project management
 followed the Scrum agile methodology, using a Kanban board on the Trello
 platform with fortnightly cycles. In accordance with social responsibility
 principles, the system incorporates accessibility resources on both platforms,
@@ -342,9 +351,8 @@ O problema central: **a instituição Lumina não dispõe de ambiente digital
 unificado que integre os processos acadêmicos e administrativos, o que provoca
 dispersão de informações, retrabalho e ausência de indicadores para a decisão
 pedagógica.** Trata-se de problema de integração, e não de falta de
-ferramentas: planilhas, mensageiros e correio eletrônico resolvem bem tarefas
-isoladas, mas o conjunto não constitui um sistema, pois os dados não circulam
-entre eles e exigem transcrição manual a cada etapa.
+ferramentas: planilhas e mensageiros resolvem tarefas isoladas, mas os dados
+não circulam entre eles.
 
 ## 3.2 Objetivos da solução
 
@@ -353,45 +361,30 @@ acessível por navegador e por dispositivo móvel, que centralize o cadastro de
 usuários, a gestão de turmas e conteúdos, a aplicação de avaliações e a
 apuração de indicadores de desempenho.
 
-**Objetivos específicos:** centralizar em base única os dados de estudantes,
-docentes, turmas, disciplinas e avaliações; reduzir, por correção automática, o
-tempo entre a aplicação de uma avaliação e a divulgação do resultado;
-disponibilizar indicadores consolidados que permitam identificar
-antecipadamente estudantes em risco acadêmico; diminuir a demanda de
-atendimentos operacionais sobre a secretaria mediante autoatendimento;
-assegurar o uso autônomo da plataforma por pessoas com deficiência; e reduzir o
-consumo de papel pela digitalização de avaliações e materiais.
+**Objetivos específicos:** centralizar os dados acadêmicos em base única;
+divulgar resultados de avaliações imediatamente, por correção automática;
+identificar antecipadamente estudantes em risco; reduzir atendimentos da
+secretaria por autoatendimento; assegurar o uso autônomo por pessoas com
+deficiência; e reduzir o consumo de papel.
 
 ## 3.3 Público-alvo
 
-A solução destina-se a três públicos internos, cujos perfis foram definidos no
-PIM III pela técnica de personas e aqui retomados por terem orientado as
-decisões de projeto. Os **estudantes** (cerca de 800) são representados pela
-persona Lucas, 16 anos, com alta familiaridade tecnológica e acesso
-predominante por telefone celular; necessita consultar materiais, acompanhar
-prazos e verificar desempenho. Os **docentes** (cerca de 45) são
-representados por Mariana, 34 anos, professora de Matemática, cuja rotina se
-divide entre planejamento, correção e aulas; necessita publicar materiais com
-agilidade e identificar estudantes com dificuldade. A **equipe
-administrativa** (cerca de 12) é representada por Carla, 45 anos, da
-secretaria, que cadastra usuários, efetiva matrículas, emite relatórios e
-resolve problemas de acesso.
-
-A predominância do acesso móvel entre estudantes justificou o aplicativo
-descrito na seção 6 e a revisão da responsividade da aplicação web.
+A solução destina-se a três públicos internos, representados pelas personas
+definidas no PIM III: os **estudantes** (cerca de 800), pela persona Lucas,
+que acessa predominantemente pelo celular — o que justificou o aplicativo da
+seção 6 —; os **docentes** (cerca de 45), por Mariana, que precisa publicar
+materiais com agilidade e identificar estudantes com dificuldade; e a **equipe
+administrativa** (cerca de 12), por Carla, que cadastra usuários, efetiva
+matrículas e emite relatórios.
 
 ## 3.4 Proposta de valor
 
-A proposta articula-se em quatro elementos. A **unificação** faz com que uma
-única base alimente a aplicação web e o aplicativo, tornando imediatamente
-disponível em uma plataforma o que se registra na outra. O **imediatismo** da
-correção automática converte um processo de até duas semanas em resultado
-instantâneo, permitindo intervenção pedagógica enquanto o conteúdo ainda está
-sendo trabalhado. A **visibilidade** dada por indicadores consolidados e pela
-classificação automática por faixa de rendimento desloca a atuação da
-coordenação do caráter corretivo para o preventivo. A **inclusão**, por fim,
-assegura que a modernização alcance também os usuários habitualmente
-preteridos por soluções convencionais.
+A proposta articula-se em quatro elementos: **unificação**, pois uma única
+base alimenta a aplicação web e o aplicativo; **imediatismo**, pois a correção
+automática converte um processo de até duas semanas em resultado instantâneo;
+**visibilidade**, pois indicadores e o Farol de Evasão deslocam a atuação da
+coordenação do corretivo para o preventivo; e **inclusão**, que estende a
+modernização aos usuários habitualmente preteridos.
 
 ## 3.5 Benefícios esperados
 
@@ -399,7 +392,7 @@ preteridos por soluções convencionais.
 |---|---|---|
 | Operacional | Divulgação de resultados mais rápida | De 14 dias para imediata |
 | Operacional | Menos atendimentos de suporte | Chamados de recuperação de senha |
-| Pedagógica | Risco acadêmico detectado cedo | Estudantes na faixa "Em Risco" |
+| Pedagógica | Risco de evasão detectado cedo | Estudantes sinalizados pelo Farol de Evasão |
 | Pedagógica | Mais acesso a materiais | Registros de leitura |
 | Ambiental | Menos papel | Impressões de avaliações |
 | Social | Uso autônomo por pessoa com deficiência | Recursos implementados |
@@ -410,18 +403,39 @@ não resultados mensurados.
 
 ## 3.6 Diferenciais competitivos
 
-Quatro diferenciais distinguem a solução das alternativas de mercado. Não há
-**licenciamento por usuário**: sistemas acadêmicos comerciais cobram
-mensalidade proporcional ao número de matriculados, ao passo que a solução
-emprega apenas tecnologias sem custo de licença, tornando o custo de operação
-independente do porte da instituição. Há **autonomia em relação a serviços
-externos**, pois o assistente virtual opera sobre base de conhecimento própria
-— o que elimina custo por requisição e, diante da Lei Geral de Proteção de
-Dados, evita que dados de estudantes trafeguem para fora da instituição. A
-**acessibilidade é nativa**, incorporada desde a concepção e presente
-igualmente nas duas plataformas. E a **portabilidade** conferida pela
-conteinerização descrita na seção 9 permite implantar a solução em servidor
-próprio ou em provedor de nuvem, sem dependência de fornecedor específico.
+Cinco diferenciais distinguem a solução das alternativas de mercado. O
+principal é o **Farol de Evasão**, descrito na seção 4.6, que sinaliza
+estudantes em risco de abandono a partir de dados que o próprio sistema já
+registra — inclusive o tempo dedicado à leitura de conteúdos —, com
+justificativa escrita para cada alerta. Não há **licenciamento por usuário**:
+a solução usa apenas tecnologias sem custo de licença, e o custo de operação
+independe do porte (seção 3.7). Há **autonomia em relação a serviços
+externos**: o assistente virtual opera sobre base própria, sem custo por
+requisição e sem enviar dados de estudantes para fora da instituição. A
+**acessibilidade é nativa**, presente nas duas plataformas. E a
+**portabilidade** da conteinerização permite implantar em servidor próprio ou
+em qualquer provedor de nuvem.
+
+## 3.7 Modelo de negócio e viabilidade
+
+Para a Lumina, a solução é **ativo próprio**, cujo retorno se mede pela
+redução de trabalho manual e pelos indicadores da seção 3.5. Como
+desdobramento, poderia ser ofertada a outras instituições por **assinatura de
+valor fixo por instituição**, e não por estudante.
+
+A viabilidade foi analisada em três dimensões. A **técnica** está demonstrada
+pela própria entrega: o sistema encontra-se implantado e em operação, conforme
+a seção 9. A **operacional** decorre do modelo de Plataforma como Serviço, que
+transfere ao provedor a manutenção de servidores, dispensando equipe dedicada.
+A **econômica** apoia-se no custo efetivamente contratado na implantação, que
+não cresce com o número de matrículas:
+
+| Componente | Serviço | Custo mensal |
+|---|---|---|
+| Aplicação, sem hibernação | Render, plano Starter | US$ 7,00 |
+| Banco de dados | Azure SQL Database, camada Básica | US$ 4,90 |
+| Código-fonte e integração contínua | GitHub | sem custo |
+| **Total** | | **US$ 11,90** |
 
 ---
 
@@ -432,39 +446,27 @@ próprio ou em provedor de nuvem, sem dependência de fornecedor específico.
 ## 4.1 Combate à discriminação
 
 O combate à discriminação foi tratado como conjunto de decisões técnicas
-verificáveis, e não como declaração de princípios.
-
-A **identificação emprega dado objetivo**: a autenticação usa o Cadastro de
-Pessoa Física, e o sistema não coleta informações de raça, religião,
-orientação sexual ou origem — ao não registrá-las, elimina-se a possibilidade
-de que sejam empregadas, ainda que involuntariamente, como critério de
-diferenciação. Os **critérios de avaliação são uniformes**, pois a correção
-compara a resposta assinalada com o gabarito armazenado, procedimento idêntico
-para todos e independente de julgamento humano, o que afasta vieses
-inconscientes. A **segregação de privilégios** faz o escopo de visualização
-decorrer apenas da função exercida — um docente vê somente suas turmas; um
-estudante, apenas seu desempenho — e a regra é aplicada no servidor, não
-podendo ser contornada pela manipulação da interface. Por fim, a
-**rastreabilidade** garantida pelo gatilho de auditoria da seção 8 registra
-toda alteração de perfil ou situação cadastral com valor anterior, valor novo
-e momento, tornando auditável eventual tratamento diferenciado.
+verificáveis, e não como declaração de princípios. A **identificação emprega
+dado objetivo**: o sistema não coleta raça, religião, orientação sexual ou
+origem, o que impede seu uso, ainda que involuntário, como critério de
+diferenciação. Os **critérios de avaliação são uniformes**: a correção compara
+a resposta ao gabarito, sem julgamento humano sujeito a vieses. A
+**segregação de privilégios** faz o escopo de visualização decorrer apenas da
+função exercida, com a regra aplicada no servidor. E a **rastreabilidade** do
+gatilho de auditoria da seção 8 registra toda alteração de perfil ou situação
+cadastral, tornando auditável eventual tratamento diferenciado.
 
 ## 4.2 Valorização da diversidade
 
 A valorização da diversidade parte do reconhecimento de que os usuários
-acessam o sistema em condições materiais desiguais.
-
-Quanto aos **dispositivos**, a persona Lucas acessa a internet
-predominantemente por telefone celular — realidade de parcela expressiva dos
-estudantes brasileiros —, o que motivou tanto o aplicativo quanto a correção
-da responsividade da aplicação web. Quanto às **condições de conexão**, o
-aplicativo mantém cópia local dos dados consultados, permitindo consultar
-matérias, conteúdos e resultados já carregados mesmo sem conexão, com aviso
-explícito de que podem estar desatualizados; a funcionalidade reconhece que o
-acesso contínuo à internet não é condição universal. Quanto ao **repertório
-tecnológico**, o assistente virtual responde em linguagem corrente e admite
-variações de escrita, desconsiderando acentos e diferenças entre maiúsculas e
-minúsculas, o que beneficia usuários com menor familiaridade tecnológica.
+acessam o sistema em condições materiais desiguais. Quanto aos
+**dispositivos**, o acesso predominante pelo celular — realidade de parcela
+expressiva dos estudantes brasileiros — motivou o aplicativo e a correção da
+responsividade da aplicação web. Quanto à **conexão**, o aplicativo mantém
+cópia local dos dados já carregados, consultáveis sem internet, com aviso de
+que podem estar desatualizados. Quanto ao **repertório tecnológico**, o
+assistente virtual aceita linguagem corrente e variações de escrita, sem
+distinguir acentos nem maiúsculas.
 
 ## 4.3 Recursos tecnológicos inclusivos
 
@@ -495,10 +497,6 @@ princípio correspondente:
 | Compreensível | Linguagem corrente; mensagens de erro explicativas; glossário em Libras |
 | Robusto | Papéis semânticos declarados, compatíveis com leitores de tela |
 
-Registra-se, por honestidade metodológica, que não foram realizados testes com
-usuários com deficiência, procedimento que constituiria etapa necessária em
-implantação real e que se recomenda como desdobramento futuro do trabalho.
-
 ## 4.5 Tecnologia para a promoção da cidadania
 
 A dimensão cidadã expressa-se em três frentes. A **transparência do
@@ -513,6 +511,50 @@ deslocamento. E a **sustentabilidade ambiental** decorre da digitalização de
 avaliações e materiais: para 800 estudantes submetidos a avaliações
 periódicas, a economia projetada é da ordem de milhares de folhas por período
 letivo.
+
+## 4.6 Farol de Evasão
+
+A evasão é um dos problemas mais persistentes da educação brasileira e, em
+regra, só é percebida quando o estudante já deixou de frequentar. O PIM III
+previu, em caráter conceitual, a identificação de riscos de baixo rendimento a
+partir dos dados do sistema; o **Farol de Evasão** materializa essa proposta.
+Ele cruza cinco sinais já registrados pela plataforma e atribui a cada
+estudante uma pontuação de 0 a 100:
+
+| Sinal | Regra | Pontos |
+|---|---|---|
+| Desempenho | Aproveitamento médio inferior a 40% / a 60% | 35 / 25 |
+| Inatividade | Sem acesso há 14 dias ou nunca acessou / há 7 dias | 25 / 12 |
+| Leitura | Nenhum conteúdo lido nos últimos 14 dias | 15 |
+| Pendências | Metade ou mais / ao menos uma atividade sem entrega | 20 / 10 |
+| Queda | Últimas três atividades 20 pontos abaixo das anteriores | 15 |
+
+A soma define o nível — **risco alto** a partir de 60, **atenção** entre 30 e
+59, **regular** abaixo de 30 —, e cada sinal disparado vem acompanhado de
+frase que o justifica, como "Rendimento caiu de 100% para 22,2% nas últimas 3
+atividades". Optou-se deliberadamente por **regra transparente** em lugar de
+modelo estatístico: o docente precisa saber por que o estudante foi sinalizado
+para poder agir, e um classificador treinado exigiria histórico real de
+evasões, inexistente em instituição simulada.
+
+Quatro decisões de projeto tratam a ferramenta com o cuidado que o tema exige.
+O farol **não é rótulo**: o estudante não tem acesso a ele, e a tela o
+apresenta como convite à conversa, não como diagnóstico. Há **minimização de
+dados** (Lei nº 13.709/2018, art. 6º, III): a secretaria vê a instituição, mas
+o docente vê apenas os estudantes das próprias turmas, e somente com dados das
+matérias dessas turmas. O nível **não é comunicado apenas pela cor**, em
+atendimento ao critério 1.4.1 das WCAG 2.1: cada nível tem também símbolo de
+formato distinto e rótulo escrito, distinguíveis por pessoas com daltonismo.
+E o cenário de demonstração usa **datas relativas** ao momento da carga, para
+que não envelheça até a apresentação.
+
+A verificação partiu de seis perfis de estudante com trajetórias distintas,
+cuja pontuação foi calculada antes da execução; os seis resultados coincidiram
+com o previsto. O controle de acesso foi confirmado em produção: secretaria e
+docente recebem o farol, estudante recebe recusa 403 e requisição sem
+autenticação, recusa 401.
+
+`[INSERIR FIGURA — Farol de Evasão no painel da secretaria]`
 
 ---
 
@@ -624,8 +666,9 @@ vulneráveis passou a integrar o pipeline descrito na seção 9.
 O perfil Secretaria dispõe de painel com indicadores consolidados de
 estudantes, docentes, disciplinas e turmas; gestão de identidades, incluindo
 cadastro, aprovação e revogação de contas; matrículas com validação automática
-de vagas; auditoria de sessões com data, hora e duração; e relatórios de
-desempenho individual e ranking geral.
+de vagas; auditoria de sessões com data, hora e duração; relatórios de
+desempenho individual e ranking geral; e o Farol de Evasão (seção 4.6),
+exposto em `GET /api/farol` e restrito aos perfis Secretaria e Professor.
 
 `[INSERIR FIGURA — Painel da Secretaria]`
 
@@ -935,19 +978,13 @@ dados: informações acadêmicas são altamente estruturadas e densamente
 relacionadas — estudantes vinculam-se a turmas, turmas a disciplinas,
 disciplinas a conteúdos e avaliações.
 
-Elmasri e Navathe (2018) observam que a principal vantagem do modelo relacional
-está na garantia de integridade referencial pelo próprio gerenciador: aqui,
-isso significa que não é possível registrar resultado de avaliação para
-estudante inexistente, pois a restrição é imposta pelo banco,
-independentemente do código que tenta a operação. Bancos não relacionais
-ofereceriam maior flexibilidade de esquema — vantagem pouco relevante, dado que
-a estrutura acadêmica é estável — mas exigiriam que a consistência fosse
-assegurada pela aplicação, justamente o que se pretendia evitar.
-
-Registre-se uma correção quanto ao PIM III: aquele documento mencionava banco
-não relacional na introdução e na conclusão, enquanto a seção técnica descrevia
-corretamente o modelo relacional. O sistema sempre utilizou SQL Server; a
-divergência era de redação.
+Elmasri e Navathe (2018) apontam como principal vantagem do modelo relacional
+a integridade referencial garantida pelo gerenciador: não é possível registrar
+resultado para estudante inexistente, qualquer que seja o código que tente.
+Bancos não relacionais trariam flexibilidade de esquema — pouco relevante para
+estrutura estável — ao custo de delegar a consistência à aplicação. Corrige-se,
+ainda, o PIM III, que mencionava banco não relacional na introdução e na
+conclusão: o sistema sempre utilizou SQL Server.
 
 ## 8.2 Modelo conceitual
 
@@ -956,13 +993,10 @@ detalhes de implementação e representa apenas as regras do negócio.
 
 `[INSERIR FIGURA — Diagrama Entidade-Relacionamento]`
 
-Predominam relacionamentos de um para muitos: um usuário inicia várias sessões,
-cada qual pertencente a um único usuário; uma disciplina reúne vários
-conteúdos; uma avaliação compõe-se de várias questões; e cada questão oferece
-várias alternativas. Há dois relacionamentos de muitos para muitos —
-usuário e turma, resolvido pela matrícula, e usuário e atividade, resolvido
-pela entidade associativa Resultado —, além do registro de leitura, que associa
-usuário e conteúdo.
+Predominam relacionamentos de um para muitos — usuário e sessões, disciplina e
+conteúdos, avaliação e questões, questão e alternativas. Os de muitos para
+muitos são usuário e turma, resolvido pela matrícula; usuário e atividade,
+pelo Resultado; e usuário e conteúdo, pelo registro de leitura.
 
 ## 8.3 Modelo lógico
 
@@ -984,11 +1018,9 @@ tabelas de chave composta, os atributos dependem da chave integral. Na **3FN**,
 não há dependências transitivas — o nome do docente não se repete em
 `Materias`, onde se armazena o CPF, obtendo-se o nome por junção.
 
-Registra-se uma **exceção deliberada**: `Resultados` armazena `MateriaId`,
-obtenível pela navegação até `Atividades`. A redundância foi mantida porque
-relatórios por disciplina são a consulta mais frequente, e suprimir uma junção
-em cada uma compensa o custo de armazenamento — desnormalização consciente, e
-não falha de modelagem.
+Há uma **exceção deliberada**: `Resultados` armazena `MateriaId`, obtenível
+por `Atividades`, porque relatórios por disciplina são a consulta mais
+frequente e a junção suprimida compensa o armazenamento.
 
 ## 8.4 Modelo físico
 
@@ -1005,9 +1037,6 @@ As estratégias de exclusão foram diferenciadas conforme o significado do dado:
 | `NO ACTION` | Resultados de avaliações | Histórico acadêmico não deve ser apagado por efeito colateral |
 | `SET NULL` | Turma de uma atividade | Removida a turma, a atividade torna-se geral em vez de ser destruída |
 
-Os índices cobrem as colunas usadas em filtros e junções frequentes; sem eles,
-consultas como "disciplinas deste docente" exigiriam varredura completa.
-
 ## 8.5 Procedimentos armazenados
 
 Foram implementados quatro procedimentos:
@@ -1019,13 +1048,10 @@ Foram implementados quatro procedimentos:
 | `sp_MatricularAluno` | Efetiva matrícula com validação de perfil, situação e vagas |
 | `sp_DesempenhoTurma` | Classifica a turma em faixas de rendimento |
 
-Duas decisões merecem explicação. A **média é ponderada**, calculada pela razão
-entre acertos e questões, e não pela média aritmética dos percentuais — que
-faria uma avaliação de duas questões pesar tanto quanto uma de vinte. E o
-procedimento de matrícula emprega os **indicadores de bloqueio `UPDLOCK` e
-`HOLDLOCK`** ao contar vagas: sem eles, duas matrículas simultâneas leriam a
-mesma contagem e ambas seriam aceitas, condição de corrida que só se manifesta
-sob concorrência e é notoriamente difícil de diagnosticar em produção.
+A **média é ponderada** pela razão entre acertos e questões, para que uma
+avaliação de duas questões não pese tanto quanto uma de vinte. E a matrícula
+usa os **bloqueios `UPDLOCK` e `HOLDLOCK`** ao contar vagas: sem eles, duas
+matrículas simultâneas leriam a mesma contagem e ambas seriam aceitas.
 
 ## 8.6 Gatilhos
 
@@ -1039,18 +1065,13 @@ documentação:
 | `tr_Sessoes_CalcularDuracao` | Calcula a duração da sessão no encerramento |
 | `tr_Usuarios_Auditoria` | Registra alterações de perfil e situação (**RN02**) |
 
-A implementação no banco, e não apenas na aplicação, decorre de uma
-constatação: a regra deve valer para **qualquer caminho de escrita**. Uma
-restrição existente só no código é contornada por importação em massa, script
-de manutenção ou acesso direto ao gerenciador.
+A regra fica no banco para valer em **qualquer caminho de escrita**: restrição
+existente só no código é contornada por importação em massa ou acesso direto.
 
 ## 8.7 Verificação
 
-Os scripts foram aplicados em banco criado do zero — descartado ao final, sem
-afetar a base de trabalho — e submetidos a verificação:
-o esquema criou 13 tabelas e 15 índices explícitos; os objetos programáveis
-somaram 4 procedimentos, 4 gatilhos e 1 visão; a carga inicial inseriu 5
-usuários, 1 disciplina, 1 turma e 1 avaliação. O `sp_RankingGeral` classificou
+Aplicados em banco criado do zero, os scripts geraram 13 tabelas, 15 índices,
+4 procedimentos, 4 gatilhos e 1 visão. O `sp_RankingGeral` classificou
 corretamente em 100% e 66,67%; o `sp_DesempenhoTurma` atribuiu as faixas
 "Destaque" e "Em Progresso"; o `tr_Resultados_Validar` rejeitou acertos iguais a
 999 e a −5; e o `tr_Usuarios_Auditoria` registrou as alterações de situação.
@@ -1061,30 +1082,23 @@ primeira inserção, e a contagem final permaneceu em exatamente 40. A regra
 RN01, que no PIM III era uma linha de tabela, passou a ser restrição
 verificável.
 
-A verificação também expôs defeito de natureza distinta. A carga inicial
-gravava as senhas das contas de demonstração a partir de um hash fixado no
-script. As contas eram criadas sem erro, os relacionamentos permaneciam
-íntegros e as consultas retornavam os dados esperados — mas **nenhuma das cinco
-contas conseguia autenticar**: o hash provinha de um exemplo da documentação da
-biblioteca BCrypt e correspondia a senha diversa da anunciada nos comentários
-do próprio script.
-
-O caso é ilustrativo porque o defeito é invisível à inspeção do banco — o hash
-é, por construção, irreversível, e nenhuma consulta o revelaria; só a tentativa
-efetiva de autenticação o evidencia. A correção gerou o hash com a mesma
-biblioteca empregada pela aplicação e o submeteu a `Verify()` antes de fixá-lo,
-substituindo a suposição pela verificação.
+A verificação expôs ainda um defeito invisível ao banco: as contas de
+demonstração eram criadas sem erro, mas **nenhuma conseguia autenticar**, pois
+o hash de senha fixado no script provinha de um exemplo da documentação do
+BCrypt. Sendo o hash irreversível, nenhuma consulta o revelaria; só a tentativa
+de autenticação o evidenciou. A correção gerou o hash com a biblioteca da
+aplicação e o conferiu com `Verify()` antes de fixá-lo.
 
 ## 8.8 Script completo
 
-O projeto do banco organiza-se em três scripts sequenciais: `01_schema.sql`,
+O projeto do banco organiza-se em quatro scripts sequenciais: `01_schema.sql`,
 que cria o banco, as 13 tabelas e os 15 índices; `02_procedures_triggers.sql`,
-com os procedimentos, gatilhos, visão e tabela de auditoria; e
-`03_carga_inicial.sql`, com os dados de demonstração.
+com os procedimentos, gatilhos, visão e tabela de auditoria;
+`03_carga_inicial.sql`, com os dados de demonstração; e
+`04_cenario_farol.sql`, com o cenário do Farol de Evasão.
 
-Os scripts 2 e 3 são **idempotentes**: executam repetidamente sem erro, pois
-verificam a existência dos objetos antes de criá-los — propriedade necessária
-para a aplicação automática descrita na seção 9.
+Os scripts 2 a 4 são **idempotentes**: verificam a existência dos objetos
+antes de criá-los, podendo ser reaplicados sem erro.
 
 ---
 
@@ -1092,14 +1106,17 @@ para a aplicação automática descrita na seção 9.
 
 *(Disciplina EAD: Cloud Computing e DevOps)*
 
-## 9.1 Arquitetura proposta
+## 9.1 Arquitetura em nuvem
 
-A arquitetura de implantação proposta organiza-se em três camadas encadeadas:
+A solução está implantada e em operação em
+**https://lumina-sd21.onrender.com**, com o código publicado em
+https://github.com/lelezap-Dev/sistemaEducacionaPIM. A arquitetura
+encadeia três elementos:
 
 ```
-Usuários → Balanceador / CDN          — TLS e distribuição de carga
-         → Contêineres da API         — ASP.NET Core, duas ou mais instâncias
-         → Banco de dados gerenciado  — SQL Server, com cópias de segurança
+Usuários → Render (Frankfurt)       — TLS; contêiner Docker da API e da interface web
+         → Azure SQL (Bélgica)      — SQL Server gerenciado, com cópias de segurança
+GitHub   → Render                   — publicação automática a cada envio de código
 ```
 
 A ausência de estado na aplicação, viabilizada pela autenticação por token
@@ -1108,32 +1125,22 @@ compartilhamento de sessão.
 
 ## 9.2 Serviços utilizados
 
-A plataforma escolhida para a implantação é o **Render**, que oferece
-publicação contínua a partir de repositório Git. Alternativas equivalentes
-seriam Azure App Service, AWS Elastic Beanstalk ou Google Cloud Run.
+A aplicação executa no **Render**, em modelo de Plataforma como Serviço
+(PaaS): não dispondo a instituição de equipe dedicada a servidores, o modelo em
+que o provedor mantém sistema operacional e runtime reduz a carga operacional.
+O banco de dados é o **Azure SQL Database**, versão gerenciada do mesmo SQL
+Server usado em desenvolvimento — o que permitiu aplicar os quatro scripts da
+seção 8 **sem nenhuma alteração**, preservando procedimentos e gatilhos. O
+plano gratuito do Render oferece apenas PostgreSQL, o que exigiria converter
+todo o dialeto Transact-SQL.
 
-A escolha por um modelo de Plataforma como Serviço (PaaS), em detrimento de
-Infraestrutura como Serviço (IaaS), considerou o perfil da instituição: não
-dispondo de equipe dedicada à administração de servidores, o modelo em que o
-provedor assume a manutenção do sistema operacional e do runtime reduz a carga
-operacional.
-
-Cabe registrar uma limitação, cuja omissão comprometeria a honestidade do
-relato. Uma versão anterior do sistema, correspondente ao estágio do PIM III,
-está publicada nessa plataforma e responde às requisições, mas as operações
-dependentes de persistência falham: a instância de banco associada foi removida
-pelo provedor por inatividade, condição comum aos planos gratuitos, e a
-autenticação retorna erro de resolução de nome do servidor de dados.
-
-A versão descrita neste documento **não foi publicada nessa instância**: a
-camada de dados emprega SQL Server e o plano gratuito oferece apenas
-PostgreSQL, de modo que migrar exigiria converter o dialeto Transact-SQL, os
-procedimentos e os gatilhos da seção 8. Optou-se por preservar esses objetos,
-que constituem a entrega da disciplina de banco de dados, e verificar o
-ambiente pela conteinerização descrita a seguir. Demonstra-se, assim, não uma
-hospedagem em funcionamento, mas a capacidade de reproduzir o ambiente de
-produção de forma determinística em qualquer máquina — que é o que a prática de
-DevOps efetivamente busca.
+A região foi condicionada pela conta estudantil: a brasileira foi bloqueada
+por política; a central norte-americana, por falta de capacidade; e a oferta
+gratuita do banco não existe na região belga, o que levou à camada Básica
+(seção 3.7). Como a aplicação consulta o banco várias vezes a cada ação,
+priorizou-se a proximidade entre os dois — banco na Bélgica, aplicação em
+Frankfurt, a cerca de 300 km —, e a consulta de verificação executa em
+**13 ms**.
 
 ## 9.3 Contêineres
 
@@ -1149,56 +1156,61 @@ administrativos dentro do contêiner.
 
 O ambiente completo é descrito em `docker-compose.yml`, que orquestra três
 serviços: **banco**, o SQL Server, com verificação de disponibilidade que
-executa consulta real ao gerenciador; **init-banco**, que aplica os três
+executa consulta real ao gerenciador; **init-banco**, que aplica os quatro
 scripts e encerra; e **api**, que só inicia após a conclusão bem-sucedida do
 anterior. A sequência garante que a aplicação nunca encontre banco inexistente.
 
 `[INSERIR FIGURA — Contêineres em execução]`
 
-## 9.4 Pipeline de integração contínua
+## 9.4 Pipeline de integração e entrega contínuas
 
-Foi configurado um pipeline em **GitHub Actions**, acionado a cada envio de
-código ou solicitação de incorporação, com três tarefas. A tarefa **API**
+A **entrega contínua** é feita pelo Render, vinculado ao repositório: cada
+envio de código à ramificação do projeto dispara nova construção da imagem e
+nova implantação, e a versão só passa a receber tráfego depois de responder à
+verificação de saúde da seção 9.5 — uma versão incapaz de alcançar o banco não
+substitui a que está em operação.
+
+A **integração contínua** é feita por pipeline em **GitHub Actions**, acionado
+a cada envio de código ou solicitação de incorporação, com três tarefas. A tarefa **API**
 restaura dependências, compila em modo Release com avisos tratados como erro e
 varre pacotes com vulnerabilidades conhecidas. A tarefa **Mobile** instala as
 dependências e compila o pacote. A tarefa **Docker** constrói a imagem,
 condicionada ao êxito da compilação da API.
 
-O tratamento de avisos como erro impede o acúmulo silencioso de pendências, e a
-varredura de vulnerabilidades automatiza a verificação que, conduzida
-manualmente, identificou o pacote comprometido mencionado na seção 5.
+A varredura automatiza a verificação que, feita à mão, identificou o pacote
+comprometido da seção 5.
 
 ## 9.5 Monitoramento
 
 O monitoramento apoia-se no endpoint `/health`, que verifica não apenas a
 resposta da aplicação, mas também **o acesso ao banco de dados**, retornando
-código 503 quando este está inacessível.
+código 503 quando este está inacessível. Em produção, o Render o consulta
+continuamente.
 
-A distinção é relevante. A implementação inicial verificava apenas a presença
-do runtime, e reportaria o contêiner como saudável ainda que a aplicação
-estivesse inoperante — um indicador que nunca acusa falha é pior que sua
-ausência, por produzir falsa confiança. A implementação corrigida foi
-verificada experimentalmente: com o banco em operação o endpoint retornou 200;
-após a interrupção deliberada do contêiner do banco, 503; restabelecido o
-serviço, voltou a 200.
+A implementação inicial verificava apenas a presença do runtime e reportaria
+saúde com a aplicação inoperante — indicador que nunca acusa falha produz
+falsa confiança. A versão corrigida foi verificada interrompendo o banco
+deliberadamente: o endpoint passou de 200 a 503 e voltou a 200.
 
 ## 9.6 Escalabilidade
 
-A escalabilidade horizontal é viabilizada pela ausência de estado: não havendo
-sessão em memória, qualquer instância atende qualquer requisição e a adição de
-réplicas não exige coordenação. Os índices da seção 8 sustentam o desempenho
-das consultas conforme o volume cresce; em expansão significativa, as medidas
-seguintes seriam cache distribuído para dados de leitura frequente e réplicas
-de leitura no banco.
+Sem sessão em memória, qualquer instância atende qualquer requisição, e
+adicionar réplicas não exige coordenação. Em expansão significativa, as
+medidas seguintes seriam cache distribuído e réplicas de leitura no banco.
 
 ## 9.7 Segurança da infraestrutura
 
 Seis medidas compõem a segurança do ambiente: os segredos permanecem fora do
-código, em variáveis de ambiente, sem nenhum valor sensível versionado; o
-contêiner executa como usuário comum; a imagem final não contém SDK,
-compiladores nem código-fonte; o banco opera em rede dedicada, sem exposição
-pública; as dependências passam por varredura automática no pipeline; e os
-dados residem em volume nomeado, preservado entre reinicializações.
+código, cadastrados como variáveis de ambiente no Render; o contêiner executa
+como usuário comum; a imagem final não contém SDK, compiladores nem
+código-fonte; a conexão com o banco é cifrada, com validação do certificado do
+servidor; as dependências passam por varredura automática no pipeline; e o
+**firewall do banco** recusa qualquer origem não autorizada, admitindo apenas o
+endereço da equipe e as faixas de saída do Render.
+
+Ressalva: essas faixas são compartilhadas com outros clientes do provedor, e
+a proteção efetiva recai sobre a credencial do banco; isolamento completo
+exigiria endereço de saída dedicado, recurso pago.
 
 ## 9.8 Verificação do ambiente
 
@@ -1214,14 +1226,16 @@ O ambiente conteinerizado foi executado e verificado integralmente:
 | Assistente virtual | Respondeu adequadamente |
 | Interface web | Resposta HTTP 200 |
 | Verificação de saúde sob falha | 200 → 503 → 200 |
+| Scripts aplicados no Azure SQL | Sem alteração: 13 tabelas, 4 procedimentos, 4 gatilhos |
+| Produção, verificação de saúde | 200, banco acessível |
+| Produção, autenticação e farol | Bem-sucedidos, com recusas 403 e 401 corretas |
 
-Cabe registrar que a configuração inicial **não funcionou na primeira
-execução**. Três defeitos foram identificados e corrigidos: a instrução de
-criação de usuário empregava utilitário ausente na imagem base; a verificação
-de saúde era inócua, conforme discutido; e a aplicação era iniciada antes da
-criação do banco, provocando reinicializações sucessivas. O relato é pertinente
-porque evidencia que configuração de infraestrutura não verificada oferece
-garantia meramente aparente.
+Nenhuma das configurações **funcionou na primeira execução**. Localmente, a
+imagem usava utilitário ausente, a verificação de saúde era inócua e a
+aplicação iniciava antes do banco. Na nuvem, a cadeia de conexão montada à mão
+estava malformada, e o firewall recusou a aplicação até a liberação de suas
+faixas — em ambos os casos, a aplicação recusou-se a iniciar com mensagem
+clara, em vez de falhar em silêncio.
 
 ---
 
@@ -1271,13 +1285,15 @@ priorizado segundo dois critérios: peso na avaliação e dependência técnica.
 | PB10 | Como equipe, queremos detectar erros antes da entrega | Média | 8 |
 | PB11 | Como estudante, quero consultar dados sem conexão | Baixa | 8 |
 | PB12 | Como instituição, queremos rastrear alterações de privilégio | Média | 5 |
+| PB13 | Como docente, quero ser alertado sobre estudantes em risco de evasão | Alta | 13 |
+| PB14 | Como instituição, queremos o sistema acessível pela internet | Alta | 8 |
 
 As estimativas empregam a sequência de Fibonacci, em pontos de história, que
 representam esforço relativo e não duração absoluta.
 
 ## 10.4 Sprint Backlog
 
-O desenvolvimento organizou-se em **quatro sprints de duas semanas**, com os
+O desenvolvimento organizou-se em **cinco sprints de duas semanas**, com os
 itens do backlog distribuídos conforme a dependência técnica entre eles. Todos
 foram concluídos.
 
@@ -1287,13 +1303,10 @@ foram concluídos.
 | 2 — Banco de dados | Transpor as regras de negócio para o banco | PB05, PB06, PB12 e consolidação dos scripts | 4 procedimentos, 4 gatilhos e 1 visão, verificados em banco criado do zero |
 | 3 — Aplicação móvel | Disponibilizar acesso por dispositivo móvel | PB03, PB04, PB08, PB11 | Aplicativo executado em dispositivo real |
 | 4 — Assistente e infraestrutura | Concluir funcionalidades pendentes e infraestrutura | PB07, PB09, PB10 | Ambiente conteinerizado verificado em execução, com três defeitos corrigidos |
+| 5 — Diferencial e implantação | Entregar o diferencial e colocar o sistema em produção | PB13, PB14 | Farol de Evasão verificado e sistema em operação na nuvem |
 
-Registre-se o impedimento tratado na terceira sprint: a incompatibilidade entre
-a versão do SDK do projeto e a suportada pelo aplicativo intermediário
-instalado no aparelho, discutida na seção 6.8. O impedimento reapareceu semanas
-depois, em sentido inverso, quando esse aplicativo foi atualizado
-automaticamente — evidência de que impedimentos originados em dependências
-externas não se encerram com a sprint em que foram tratados.
+O principal impedimento, na terceira sprint, foi a incompatibilidade de versão
+do SDK móvel (seção 6.8), que reapareceu semanas depois em sentido inverso.
 
 ## 10.5 Cronograma
 
@@ -1303,7 +1316,8 @@ externas não se encerram com a sprint em que foram tratados.
 | 2 | Semanas 3 e 4 | Banco de dados completo |
 | 3 | Semanas 5 e 6 | Aplicativo móvel |
 | 4 | Semanas 7 e 8 | Assistente virtual e infraestrutura |
-| — | Semanas 9 e 10 | Documentação e revisão final |
+| 5 | Semanas 9 e 10 | Farol de Evasão e implantação em nuvem |
+| — | Semanas 11 e 12 | Documentação e revisão final |
 
 `[INSERIR FIGURA — Quadro Kanban no Trello]`
 
@@ -1342,12 +1356,16 @@ entre as plataformas. A arquitetura foi reorganizada em quatro camadas com
 dependências explícitas, de modo que violações estruturais tornaram-se erros de
 compilação. O banco de dados, normalizado até a terceira forma normal, teve as
 regras de negócio transpostas para procedimentos e gatilhos. A infraestrutura
-foi conteinerizada e submetida a pipeline de integração contínua.
+foi conteinerizada, submetida a pipeline de integração contínua e implantada
+em nuvem, onde o sistema se encontra em operação com entrega contínua. Como
+diferencial, o Farol de Evasão converteu em funcionalidade verificável a
+análise de risco que o PIM III havia apenas proposto.
 
 Retomando os objetivos específicos enunciados na introdução, verifica-se que:
 os dados foram centralizados em base única; a correção automática eliminou o
 intervalo entre a aplicação da avaliação e a divulgação do resultado; os
-indicadores de desempenho por faixa foram implementados; o assistente virtual
+indicadores de desempenho por faixa foram implementados, e o Farol de Evasão
+sinaliza precocemente os estudantes em risco; o assistente virtual
 oferece autoatendimento para dúvidas recorrentes; os recursos de acessibilidade
 estão presentes nas duas plataformas; e a digitalização das avaliações reduz o
 consumo de papel.
@@ -1380,8 +1398,8 @@ comportamento sob volume elevado de acessos simultâneos.
 
 Como desdobramentos futuros, sugerem-se: a implementação de testes
 automatizados, ausentes nesta etapa; a submissão dos recursos de acessibilidade
-a validação com usuários reais; a incorporação de análise preditiva sobre o
-histórico acadêmico, ampliando o tratamento iniciado no PIM III; e a realização
+a validação com usuários reais; a calibração dos pesos do Farol de Evasão com
+histórico real de evasões, quando houver; e a realização
 de teste de carga que fundamente as decisões de escalabilidade.
 
 Conclui-se que a integração entre aplicações web e móveis, sustentada por

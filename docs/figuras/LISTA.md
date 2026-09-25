@@ -17,6 +17,8 @@ Todas as treze figuras estao capturadas e versionadas nesta pasta.
 | 11 | fig11-estrutura-fisica.png | database/01_schema.sql no editor | [x] |
 | 12 | fig12-conteineres.png | docker compose ps -a e /health | [x] |
 | 13 | fig13-kanban.png | Quadro Kanban no Trello | [x] |
+| 14 | fig14-farol.png | Site em producao, Farol de Evasao da Secretaria | [x] |
+| — | logo-unip.png | Recortado da capa do Manual do PIM IV, para a capa | [x] |
 
 ## Formatos
 

@@ -8,8 +8,9 @@
 --  usuários dos três perfis, uma matéria com conteúdos, uma turma com
 --  alunos matriculados e uma atividade avaliativa completa.
 --
---  Os hashes de senha foram gerados com BCrypt. Todas as contas de
---  demonstração usam a senha:  Lumina@2026
+--  Os hashes de senha foram gerados com BCrypt. A senha das contas de
+--  demonstração não é publicada aqui: é combinada entre a equipe, e as
+--  contas do ambiente em nuvem têm senha própria (scripts/proteger-contas-demo.ps1).
 --
 --  ATENÇÃO: as contas abaixo são fictícias e destinam-se apenas a
 --  demonstração acadêmica. Em produção, cadastre usuários reais pela
@@ -24,7 +25,7 @@ GO
 SET NOCOUNT ON;
 
 -- ── 1. Usuários ─────────────────────────────────────────────────────────────
--- Hash BCrypt (fator de custo 11) correspondente à senha "Lumina@2026".
+-- Hash BCrypt (fator de custo 11) da senha de demonstração do ambiente local.
 -- Gerado com a mesma biblioteca usada pela aplicação (BCrypt.Net-Next) e
 -- conferido com Verify() antes de ser fixado aqui. O valor anterior era um
 -- vetor de exemplo da documentação da biblioteca, que corresponde a outra
@@ -162,6 +163,6 @@ PRINT '   1 turma com 2 alunos matriculados';
 PRINT '   1 atividade com 3 perguntas e 12 alternativas';
 PRINT '   2 resultados e 3 leituras registradas';
 PRINT '';
-PRINT ' Senha de todas as contas de demonstracao: Lumina@2026';
+PRINT ' Senha das contas de demonstracao: combinada com a equipe';
 PRINT '============================================================';
 GO
