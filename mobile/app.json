@@ -38,6 +38,18 @@
     "plugins": [
       "expo-secure-store",
       "expo-status-bar"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "662b83de-5a93-4de8-8453-1599a1fc91f4"
+      }
+    },
+    "owner": "lelezap",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/662b83de-5a93-4de8-8453-1599a1fc91f4"
+    }
   }
 }
