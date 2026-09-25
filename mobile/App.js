@@ -34,6 +34,10 @@ import ResultadosScreen from './src/screens/ResultadosScreen';
 import ChatbotScreen from './src/screens/ChatbotScreen';
 import AcessibilidadeScreen from './src/screens/AcessibilidadeScreen';
 import { Txt } from './src/components/ui';
+import { acordarServidor } from './src/api/client';
+
+// Acorda o servidor na abertura do app (ver acordarServidor)
+acordarServidor();
 
 const Pilha = createNativeStackNavigator();
 const Abas  = createBottomTabNavigator();

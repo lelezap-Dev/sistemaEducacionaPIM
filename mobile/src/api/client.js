@@ -50,6 +50,15 @@ async function fetchComTimeout(url, opcoes) {
 }
 
 /**
+ * Dispara uma verificação de saúde sem aguardar a resposta. Chamada na
+ * abertura do app: se o servidor estiver hibernando, ele acorda enquanto
+ * o usuário ainda digita as credenciais. Falhas são ignoradas.
+ */
+export function acordarServidor() {
+  fetch(`${API_URL.replace(/\/api$/, '')}/health`).catch(() => {});
+}
+
+/**
  * Executa uma requisição na API.
  * @param {string} caminho  rota a partir de /api (ex: '/materias')
  * @param {object} opcoes   { metodo, corpo, token }

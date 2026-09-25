@@ -812,8 +812,13 @@ plataformas.
 
 A camada de acesso concentra três responsabilidades: montagem das requisições
 com injeção automática do token; normalização do envelope de resposta; e
-aplicação de tempo limite de quinze segundos, evitando que a interface
-permaneça indefinidamente em espera diante de um servidor inacessível.
+aplicação de tempo limite, evitando espera indefinida. Com a implantação da
+seção 9, o aplicativo passou a consumir a instância em nuvem e funciona em
+qualquer rede, inclusive dados móveis. O tempo limite foi ampliado de quinze
+para sessenta segundos, pois o plano gratuito hiberna e leva cerca de 50
+segundos para acordar; para reduzir a espera, o aplicativo dispara a
+verificação de saúde ao ser aberto, e o servidor acorda enquanto o usuário
+digita as credenciais.
 
 ## 6.7 Acessibilidade no aplicativo
 
@@ -852,18 +857,13 @@ enfrentadas, por constituírem aprendizado sobre desenvolvimento móvel:
 O aparelho não alcançava o servidor porque o firewall bloqueava as portas em
 rede classificada como pública, resolvido por regra restrita à sub-rede local.
 O endereço deixou de responder após renovação por DHCP, corrigido pela
-atualização da configuração e pela recomendação de reserva fixa. O projeto foi
-recusado pelo aplicativo intermediário por divergência de SDK, resolvida pelo
-alinhamento à versão vigente, e novamente por falta de autenticação, já que o
-aplicativo estava vinculado a uma conta enquanto a ferramenta de linha de
-comando permanecia anônima.
+atualização da configuração — dificuldades de rede local que a migração para
+a nuvem eliminou. O projeto foi recusado pelo aplicativo intermediário por
+divergência de SDK, resolvida pelo alinhamento à versão vigente, e novamente
+por falta de autenticação, já que o aplicativo estava vinculado a uma conta
+enquanto a ferramenta de linha de comando permanecia anônima.
 
-O segundo obstáculo ilustra a fragilidade de ambientes apoiados em
-endereçamento dinâmico: o endereço da estação foi alterado pelo roteador no
-intervalo entre dois testes, fazendo falhar uma configuração que antes
-funcionava.
-
-O terceiro ocorreu duas vezes, em sentidos opostos. O aplicativo intermediário
+A divergência de SDK ocorreu duas vezes, em sentidos opostos. O aplicativo intermediário
 usado para executar o projeto em dispositivo físico é distribuído pela loja da
 fabricante, que mantém apenas a versão mais recente. Quando o projeto foi
 criado, essa versão era anterior à dele, o que exigiu regredi-lo; semanas
@@ -1071,23 +1071,21 @@ existente só no código é contornada por importação em massa ou acesso diret
 ## 8.7 Verificação
 
 Aplicados em banco criado do zero, os scripts geraram 13 tabelas, 15 índices,
-4 procedimentos, 4 gatilhos e 1 visão. O `sp_RankingGeral` classificou
-corretamente em 100% e 66,67%; o `sp_DesempenhoTurma` atribuiu as faixas
-"Destaque" e "Em Progresso"; o `tr_Resultados_Validar` rejeitou acertos iguais a
-999 e a −5; e o `tr_Usuarios_Auditoria` registrou as alterações de situação.
+4 procedimentos, 4 gatilhos e 1 visão, e o `tr_Resultados_Validar` rejeitou
+acertos iguais a 999 e a −5. No teste do limite de vagas, **tentou-se inserir
+45 estudantes em uma turma**: o gatilho interrompeu a 41ª inserção, e a regra
+RN01, que no PIM III era linha de tabela, tornou-se restrição verificável.
 
-O teste mais significativo foi o do limite de vagas: **tentou-se inserir 45
-estudantes em uma turma**. O gatilho interrompeu a operação na quadragésima
-primeira inserção, e a contagem final permaneceu em exatamente 40. A regra
-RN01, que no PIM III era uma linha de tabela, passou a ser restrição
-verificável.
-
-A verificação expôs ainda um defeito invisível ao banco: as contas de
-demonstração eram criadas sem erro, mas **nenhuma conseguia autenticar**, pois
-o hash de senha fixado no script provinha de um exemplo da documentação do
-BCrypt. Sendo o hash irreversível, nenhuma consulta o revelaria; só a tentativa
-de autenticação o evidenciou. A correção gerou o hash com a biblioteca da
-aplicação e o conferiu com `Verify()` antes de fixá-lo.
+Dois defeitos escaparam a essa verificação por não se manifestarem em
+consulta. O hash de senha das contas de demonstração provinha de exemplo da
+documentação do BCrypt, e **nenhuma conta autenticava** — corrigido gerando o
+hash com a biblioteca da aplicação e conferindo-o com `Verify()`. E os
+gatilhos, corretos isoladamente, **colidiam com o Entity Framework**: desde a
+versão 7, ele grava alterações com `UPDATE ... OUTPUT`, comando que o SQL
+Server recusa em tabela com gatilho. Redefinir senha, editar usuário e
+encerrar sessão falhavam, enquanto o login, que só insere, funcionava — o que
+ocultou o defeito até a produção. Declarar os gatilhos no mapeamento
+(`HasTrigger`) o corrigiu.
 
 ## 8.8 Script completo
 
@@ -1125,9 +1123,8 @@ compartilhamento de sessão.
 
 ## 9.2 Serviços utilizados
 
-A aplicação executa no **Render**, em modelo de Plataforma como Serviço
-(PaaS): não dispondo a instituição de equipe dedicada a servidores, o modelo em
-que o provedor mantém sistema operacional e runtime reduz a carga operacional.
+A aplicação executa no **Render**, em Plataforma como Serviço (PaaS), que
+dispensa equipe dedicada a servidores.
 O banco de dados é o **Azure SQL Database**, versão gerenciada do mesmo SQL
 Server usado em desenvolvimento — o que permitiu aplicar os quatro scripts da
 seção 8 **sem nenhuma alteração**, preservando procedimentos e gatilhos. O
@@ -1145,14 +1142,11 @@ Frankfurt, a cerca de 300 km —, e a consulta de verificação executa em
 ## 9.3 Contêineres
 
 A aplicação foi conteinerizada com **Docker**, em construção de múltiplos
-estágios: o **estágio de compilação** usa a imagem do SDK do .NET (cerca de
-800 MB) para restaurar dependências e publicar a aplicação, e o **estágio de
-execução** parte da imagem do runtime (cerca de 220 MB) e recebe apenas os
-binários publicados. A separação resultou em imagem final de **376 MB** e
-reduziu a superfície de ataque, pois SDK, compiladores e código-fonte não
-integram a imagem publicada. A aplicação executa sob **usuário sem
-privilégios**, de modo que um comprometimento não confere privilégios
-administrativos dentro do contêiner.
+estágios: a compilação usa a imagem do SDK do .NET (cerca de 800 MB), e a
+execução parte da imagem do runtime (cerca de 220 MB), recebendo apenas os
+binários publicados. A imagem final tem **376 MB** e não contém SDK,
+compiladores nem código-fonte, e a aplicação executa sob **usuário sem
+privilégios**.
 
 O ambiente completo é descrito em `docker-compose.yml`, que orquestra três
 serviços: **banco**, o SQL Server, com verificação de disponibilidade que
@@ -1212,6 +1206,12 @@ Ressalva: essas faixas são compartilhadas com outros clientes do provedor, e
 a proteção efetiva recai sobre a credencial do banco; isolamento completo
 exigiria endereço de saída dedicado, recurso pago.
 
+A política de segredos foi posta à prova: uma senha de administrador escrita
+em script de apresentação chegou ao repositório público. Tratada como
+comprometida, foi substituída, e a antiga passou a ser recusada. Para as
+contas de demonstração, criou-se script que troca senha e palavra-chave de
+recuperação, pois esta bastaria para redefinir aquela.
+
 ## 9.8 Verificação do ambiente
 
 O ambiente conteinerizado foi executado e verificado integralmente:
@@ -1222,8 +1222,6 @@ O ambiente conteinerizado foi executado e verificado integralmente:
 | Ordem de inicialização | banco → saudável → scripts → API |
 | Aplicação dos scripts | 13 tabelas, 4 procedimentos, 5 usuários |
 | Autenticação | Bem-sucedida |
-| Consultas autenticadas | Dados retornados corretamente |
-| Assistente virtual | Respondeu adequadamente |
 | Interface web | Resposta HTTP 200 |
 | Verificação de saúde sob falha | 200 → 503 → 200 |
 | Scripts aplicados no Azure SQL | Sem alteração: 13 tabelas, 4 procedimentos, 4 gatilhos |

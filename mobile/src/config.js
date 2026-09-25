@@ -21,11 +21,20 @@ const PORTA    = 5199;
 /** URL usada em desenvolvimento (API rodando na máquina local). */
 export const API_URL_DEV = `http://${IP_LOCAL}:${PORTA}/api`;
 
-/** URL da instância publicada em nuvem. */
-export const API_URL_PROD = 'https://lumina-2-rp3n.onrender.com/api';
+/** URL da instância publicada em nuvem (Render + Azure SQL). */
+export const API_URL_PROD = 'https://lumina-sd21.onrender.com/api';
 
-/** Alterne aqui para testar contra a nuvem em vez da máquina local. */
-export const API_URL = API_URL_DEV;
+/**
+ * Endereço em uso. A nuvem dispensa a API rodando no computador e
+ * funciona em qualquer rede, inclusive dados móveis. Troque para
+ * API_URL_DEV para testar alterações da API antes de publicá-las.
+ */
+export const API_URL = API_URL_PROD;
 
-/** Tempo máximo de espera por resposta da API, em milissegundos. */
-export const TIMEOUT_MS = 15000;
+/**
+ * Tempo máximo de espera por resposta, em milissegundos. O plano
+ * gratuito do Render hiberna após inatividade e leva cerca de 50 s para
+ * acordar; com 15 s, o primeiro acesso do dia falhava. Sem rede, a
+ * falha continua imediata, pois não há conexão a aguardar.
+ */
+export const TIMEOUT_MS = 60000;
