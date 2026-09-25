@@ -1208,9 +1208,8 @@ exigiria endereço de saída dedicado, recurso pago.
 
 A política de segredos foi posta à prova: uma senha de administrador escrita
 em script de apresentação chegou ao repositório público. Tratada como
-comprometida, foi substituída, e a antiga passou a ser recusada. Para as
-contas de demonstração, criou-se script que troca senha e palavra-chave de
-recuperação, pois esta bastaria para redefinir aquela.
+comprometida, foi substituída. Nas contas de demonstração, trocaram-se senha
+e palavra-chave de recuperação; as antigas passaram a ser recusadas.
 
 ## 9.8 Verificação do ambiente
 
