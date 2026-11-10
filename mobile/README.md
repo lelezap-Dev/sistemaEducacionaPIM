@@ -1,6 +1,6 @@
 # Lumina — aplicativo móvel
 
-Aplicativo em React Native (Expo SDK 57) que consome a mesma API da aplicação
+Aplicativo em React Native (Expo SDK 58) que consome a mesma API da aplicação
 web, publicada em https://lumina-sd21.onrender.com.
 
 ## Abrir no celular (sem computador)
@@ -17,7 +17,7 @@ em qualquer rede, inclusive dados móveis.
 Endereço contido no QR code:
 
 ```
-exp://u.expo.dev/662b83de-5a93-4de8-8453-1599a1fc91f4?channel-name=pim-iv&runtime-version=exposdk:57.0.0
+exp://u.expo.dev/662b83de-5a93-4de8-8453-1599a1fc91f4?channel-name=pim-iv&runtime-version=exposdk:58.0.0
 ```
 
 O QR code aponta para o canal `pim-iv`, e não para uma publicação

@@ -9,11 +9,6 @@
     "userInterfaceStyle": "dark",
     "backgroundColor": "#050507",
     "primaryColor": "#6b3fcf",
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#050507"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "br.unip.pim.lumina",
@@ -37,7 +32,16 @@
     },
     "plugins": [
       "expo-secure-store",
-      "expo-status-bar"
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#050507"
+        }
+      ]
     ],
     "extra": {
       "eas": {

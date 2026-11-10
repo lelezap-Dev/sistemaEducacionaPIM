@@ -745,7 +745,7 @@ dos dois apareceria em navegador de computador.
 ## 6.1 Tecnologia adotada e justificativa
 
 O aplicativo foi desenvolvido em **React Native**, com o ecossistema **Expo
-(SDK 57)**. A decisão exigiu análise, uma vez que a alternativa natural seria
+(SDK 58)**. A decisão exigiu análise, uma vez que a alternativa natural seria
 .NET MAUI, mantendo a uniformidade linguística com o restante do projeto.
 
 O fator determinante foi prático: **compilar para iOS exige macOS e Xcode**.
