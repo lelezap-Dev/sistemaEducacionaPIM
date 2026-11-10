@@ -95,9 +95,10 @@ export default function LoginScreen({ navigation }) {
               rotulo="CPF"
               dica="Somente números, ex: 12345678900"
               valor={cpf}
-              onChangeText={setCpf}
+              // Só dígitos e no máximo 11: um CPF colado com pontos e traço
+              // também cabe, porque a formatação é descartada.
+              onChangeText={(texto) => setCpf(texto.replace(/\D/g, '').slice(0, 11))}
               keyboardType="number-pad"
-              maxLength={14}
               autoCapitalize="none"
               autoComplete="username"
               textContentType="username"
