@@ -197,6 +197,6 @@ PRINT '============================================================';
 PRINT ' Script 04 aplicado com sucesso.';
 PRINT '   6 alunos novos na turma ADS-2026-N1';
 PRINT '   4 exercicios com 3 perguntas cada';
-PRINT '   Farol esperado: 2 risco alto, 4 atencao, 2 regular';
+PRINT '   Farol esperado (8 alunos da turma): 2 risco alto, 3 atencao, 3 regular';
 PRINT '============================================================';
 GO

@@ -124,4 +124,4 @@ if ([int]$r.DiasAdiantados -eq 0) {
     Write-Host ("Cenário adiantado em {0} dias (carga original: {1:dd/MM/yyyy})." -f $r.DiasAdiantados, $r.CargaOriginal) -ForegroundColor Green
     Write-Host ("Linhas atualizadas: {0} atividades, {1} resultados, {2} sessões, {3} leituras." -f $r.Atividades, $r.Resultados, $r.Sessoes, $r.Leituras)
 }
-Write-Host "Esperado no Farol: 2 em risco alto, 4 em atenção e 2 regulares."
+Write-Host "Esperado no Farol: 2 em risco alto, 3 em atenção e 3 regulares."
