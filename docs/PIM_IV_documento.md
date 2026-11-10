@@ -427,8 +427,8 @@ A viabilidade foi analisada em três dimensões. A **técnica** está demonstrad
 pela própria entrega: o sistema encontra-se implantado e em operação, conforme
 a seção 9. A **operacional** decorre do modelo de Plataforma como Serviço, que
 transfere ao provedor a manutenção de servidores, dispensando equipe dedicada.
-A **econômica** apoia-se no custo efetivamente contratado na implantação, que
-não cresce com o número de matrículas:
+A **econômica** apoia-se no custo previsto para a operação real, que não
+cresce com o número de matrículas:
 
 | Componente | Serviço | Custo mensal |
 |---|---|---|
@@ -448,8 +448,10 @@ não cresce com o número de matrículas:
 O combate à discriminação foi tratado como conjunto de decisões técnicas
 verificáveis, e não como declaração de princípios. A **identificação emprega
 dado objetivo**: o sistema não coleta raça, religião, orientação sexual ou
-origem, o que impede seu uso, ainda que involuntário, como critério de
-diferenciação. Os **critérios de avaliação são uniformes**: a correção compara
+origem, o que reduz o risco de esses atributos servirem, ainda que
+involuntariamente, como critério de diferenciação — sem eliminá-lo, pois a
+discriminação também ocorre por fatores indiretos e por decisões humanas, que
+as medidas seguintes ajudam a conter e a rastrear. Os **critérios de avaliação são uniformes**: a correção compara
 a resposta ao gabarito, sem julgamento humano sujeito a vieses. A
 **segregação de privilégios** faz o escopo de visualização decorrer apenas da
 função exercida, com a regra aplicada no servidor. E a **rastreabilidade** do
@@ -523,13 +525,14 @@ estudante uma pontuação de 0 a 100:
 
 | Sinal | Regra | Pontos |
 |---|---|---|
-| Desempenho | Aproveitamento médio inferior a 40% / a 60% | 35 / 25 |
+| Desempenho | Aproveitamento médio inferior a 40% / a 60% | 30 / 25 |
 | Inatividade | Sem acesso há 14 dias ou nunca acessou / há 7 dias | 25 / 12 |
 | Leitura | Nenhum conteúdo lido nos últimos 14 dias | 15 |
-| Pendências | Metade ou mais / ao menos uma atividade sem entrega | 20 / 10 |
-| Queda | Últimas três atividades 20 pontos abaixo das anteriores | 15 |
+| Pendências | Metade ou mais / ao menos uma atividade aberta há 7 dias sem entrega | 20 / 10 |
+| Queda | Últimas três atividades 20 pontos abaixo das anteriores | 10 |
 
-A soma define o nível — **risco alto** a partir de 60, **atenção** entre 30 e
+A soma, que chega a no máximo 100 quando os cinco sinais disparam, define
+o nível — **risco alto** a partir de 60, **atenção** entre 30 e
 59, **regular** abaixo de 30 —, e cada sinal disparado vem acompanhado de
 frase que o justifica, como "Rendimento caiu de 100% para 22,2% nas últimas 3
 atividades". Optou-se deliberadamente por **regra transparente** em lugar de
@@ -590,8 +593,9 @@ sem alteração em qualquer endereço.
 
 ## 5.2 Interface de programação REST
 
-A interface expõe **48 endpoints** distribuídos em oito controladores, cada um
-responsável por um agregado do domínio:
+A interface expõe **41 endpoints** distribuídos em oito controladores, cada um
+responsável por um agregado do domínio, além da rota `/health`, mapeada
+diretamente na inicialização da aplicação:
 
 | Controlador | Rota base | Responsabilidade | Perfil exigido |
 |---|---|---|---|
@@ -601,8 +605,9 @@ responsável por um agregado do domínio:
 | `TurmaController` | `/api/turmas` | Turmas e matrículas | Professor / Secretaria |
 | `AtividadeController` | `/api/atividades` | Avaliações e submissão de respostas | Professor / Aluno |
 | `RelatorioController` | `/api/relatorios` | Relatórios, ranking e sessões | Conforme o dado |
+| `FarolController` | `/api/farol` | Farol de Evasão (seção 4.6) | Secretaria / Professor |
 | `ChatbotController` | `/api/chatbot` | Assistente virtual | Público |
-| — | `/health` | Verificação de disponibilidade | Público |
+| — (`Program.cs`) | `/health` | Verificação de disponibilidade | Público |
 
 Todas as respostas seguem envelope uniforme — `{ "sucesso": true, "dados": {…} }`
 em caso de êxito e `{ "sucesso": false, "mensagem": "…" }` em caso de falha —,
@@ -815,10 +820,10 @@ com injeção automática do token; normalização do envelope de resposta; e
 aplicação de tempo limite, evitando espera indefinida. Com a implantação da
 seção 9, o aplicativo passou a consumir a instância em nuvem e funciona em
 qualquer rede, inclusive dados móveis. O tempo limite foi ampliado de quinze
-para sessenta segundos, pois o plano gratuito hiberna e leva cerca de 50
-segundos para acordar; para reduzir a espera, o aplicativo dispara a
-verificação de saúde ao ser aberto, e o servidor acorda enquanto o usuário
-digita as credenciais.
+para sessenta segundos, pois a demonstração usa o plano gratuito, que hiberna
+(o Starter da seção 3.7 não) e leva cerca de 50 segundos para acordar; o
+aplicativo dispara a verificação de saúde ao ser aberto, e o servidor acorda
+enquanto o usuário digita as credenciais.
 
 ## 6.7 Acessibilidade no aplicativo
 
@@ -1095,8 +1100,9 @@ com os procedimentos, gatilhos, visão e tabela de auditoria;
 `03_carga_inicial.sql`, com os dados de demonstração; e
 `04_cenario_farol.sql`, com o cenário do Farol de Evasão.
 
-Os scripts 2 a 4 são **idempotentes**: verificam a existência dos objetos
-antes de criá-los, podendo ser reaplicados sem erro.
+Os scripts 2 a 4 são **idempotentes**: podem ser reaplicados sem erro. A
+íntegra dos scripts 1 e 2, que definem toda a estrutura do banco, está no
+**Apêndice B**; os scripts 3 e 4 trazem só dados de demonstração.
 
 ---
 
@@ -1462,3 +1468,19 @@ O diagrama reúne as treze tabelas do banco com seus atributos, tipos, chaves
 primárias e estrangeiras, conforme descrito na seção 8.3.
 
 `[INSERIR FIGURA — Modelo lógico de dados]`
+
+---
+
+# APÊNDICE B — SCRIPT DO BANCO DE DADOS
+
+Íntegra dos scripts que criam a estrutura do banco, conforme a seção 8.8,
+reproduzidos a partir dos arquivos da pasta `database` do repositório.
+
+**Script 1 — 01_schema.sql:** banco, 13 tabelas e 15 índices.
+
+`[INCLUIR SCRIPT — database/01_schema.sql]`
+
+**Script 2 — 02_procedures_triggers.sql:** procedimentos, gatilhos, visão e
+tabela de auditoria.
+
+`[INCLUIR SCRIPT — database/02_procedures_triggers.sql]`

@@ -475,6 +475,24 @@ while ($i -lt $linhas.Count) {
     $i = $j; continue
   }
 
+  # --- script incluido na integra, lido do proprio arquivo do repositorio ---
+  # Range.Text em vez de TypeText: TypeText aplica a autoformatacao do Word,
+  # que trocaria o "--" dos comentarios SQL por travessao.
+  if ($t -match '^`?\[INCLUIR SCRIPT\s*[—-]\s*(.+?)\]`?$') {
+    $arquivo = Join-Path $raiz $Matches[1].Trim()
+    $codigo = [System.IO.File]::ReadAllText($arquivo, [System.Text.Encoding]::UTF8)
+    $codigo = ($codigo -replace "`r`n", "`r" -replace "`n", "`r").TrimEnd("`r")
+    Reset-Paragrafo -Alinhamento $wdAlignLeft -RecuoPrimeiraLinha 0
+    $sel.ParagraphFormat.LineSpacingRule = $wdLineSpaceSingle
+    $faixa = $sel.Range
+    $faixa.Text = $codigo
+    $faixa.Font.Name = "Courier New"; $faixa.Font.Size = 9
+    $sel.SetRange($faixa.End, $faixa.End)
+    $sel.TypeParagraph()
+    Reset-Paragrafo
+    $i++; continue
+  }
+
   # --- tabela ---
   if ($t.StartsWith('|')) {
     $bloco = @()
@@ -698,6 +716,23 @@ try {
 
 $paginas = $doc.ComputeStatistics(2)   # wdStatisticPages
 $palavras = $doc.ComputeStatistics(0)  # wdStatisticWords
+
+# Pagina fisica de cada titulo de primeiro nivel, para conferir o limite de
+# 20 a 30 paginas do desenvolvimento (secoes 2 a 10) imposto pelo manual.
+Write-Host ""
+Write-Host " Pagina fisica de cada secao:"
+$inicioDesenv = $null; $inicioConclusao = $null
+foreach ($p in $doc.Paragraphs) {
+  if ($p.OutlineLevel -ne 1) { continue }
+  $texto = $p.Range.Text.Trim()
+  $pag = $p.Range.Information(3)
+  Write-Host ("   {0,3}  {1}" -f $pag, $texto)
+  if (-not $inicioDesenv -and $texto -like '2 *') { $inicioDesenv = $pag }
+  if ($texto -like '11 *') { $inicioConclusao = $pag }
+}
+if ($inicioDesenv -and $inicioConclusao) {
+  Write-Host " Desenvolvimento (secoes 2 a 10): $($inicioConclusao - $inicioDesenv) paginas"
+}
 
 Write-Host ""
 Write-Host "==================================================="
