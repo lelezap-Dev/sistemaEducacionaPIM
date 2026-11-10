@@ -27,9 +27,10 @@ namespace SistemaEducacional.Application.Services;
 public class FarolService(AppDbContext db)
 {
     // ── Parâmetros da regra (todos num só lugar) ──────────────────
+    // Pior caso de cada sinal: 30 + 25 + 15 + 20 + 10 = 100 pontos.
     const double AproveitamentoCritico   = 40;   // % abaixo do qual o risco é grave
     const double AproveitamentoMinimo    = 60;   // % abaixo do qual há alerta
-    const int    PontosDesempenhoCritico = 35;
+    const int    PontosDesempenhoCritico = 30;
     const int    PontosDesempenhoBaixo   = 25;
 
     const int    DiasInatividadeGrave   = 14;
@@ -46,7 +47,7 @@ public class FarolService(AppDbContext db)
 
     const int    RecentesParaQueda  = 3;         // compara as 3 últimas com as anteriores
     const double QuedaSignificativa = 20;        // pontos percentuais
-    const int    PontosQueda        = 15;
+    const int    PontosQueda        = 10;
 
     const int    LimiarRiscoAlto = 60;
     const int    LimiarAtencao   = 30;
@@ -184,7 +185,7 @@ public class FarolService(AppDbContext db)
                         PontosQueda));
             }
 
-            var pontuacao = Math.Min(100, sinais.Sum(s => s.Pontos));
+            var pontuacao = sinais.Sum(s => s.Pontos);
             var nivel = pontuacao >= LimiarRiscoAlto ? "Alto"
                       : pontuacao >= LimiarAtencao   ? "Atencao"
                       : "Regular";
